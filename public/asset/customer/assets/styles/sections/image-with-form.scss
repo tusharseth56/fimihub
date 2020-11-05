@@ -1,0 +1,174 @@
+.image-with-form {
+    height: 100vh;
+    @include tablet-down {
+        height: auto;
+    }
+    .row-wrap {
+        @include row;
+        align-items: center;
+        height: 100%;
+        .img-col {
+            @include column(38%);
+            height: 100%;
+            @include desktop-down {
+                @include column(46%);
+            }
+            @include tablet-down {
+                @include column(100%);
+            }
+            .img-wrap {
+                height: 100%;
+                @include tablet-down {
+                    height: 400px;
+                }
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+        .form-col {
+            @include column(62%);
+            @include desktop-down {
+                @include column(54%);
+            }
+            @include tablet-down {
+                @include column(100%);
+            }
+            .form-container {
+                max-width: 800px;
+                padding: 0 60px;
+                @include desktop-down {
+                    padding: 0 40px;
+                }
+                @include tablet-down {
+                    padding: 30px 20px 0;
+                }
+                .content-wrap {
+                    max-width: 565px;
+                    margin-bottom: 55px;
+                    @include desktop-down {
+                        margin-bottom: 40px;
+                    }
+                    @include phone-down {
+                        margin-bottom: 30px;
+                    }
+                    h2 {
+                        margin-bottom: 18px;
+                        @include phone-down {
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+                .form-intro {
+                    margin-bottom: 25px;
+                    h6 {
+                        color: $pink;
+                        margin-bottom: 4px;
+                    }
+                    p {
+                        font-weight: 400;
+                    }
+                }
+                .field-wrap {
+                    margin-bottom: 15px;
+                    label {
+                        display: block;
+                        font-size: 14px;
+                        margin-bottom: 5px;
+                    }
+                    input, select,.file-upload-wrap {
+                        width: 100%;
+                        position: relative;
+                        font-size: 16px;
+                        font-weight: 400;
+                        border: none;
+                        outline: none;
+                        background: $concrete;
+                        border-radius: 5px;
+                        padding: 10px 13px;
+                        @include tablet-down {
+                            font-size: 14px;
+                        }
+                        &::placeholder {
+                            color: $gray;
+                        }
+                        &::-webkit-input-placeholder { 
+                            color: $gray;
+                        }  
+                        &:-ms-input-placeholder { 
+                            color: $gray;
+                        }
+                    }
+                    select {
+                        color: $gray;
+                    }
+                    .file-upload-wrap {
+                        @include nowrap;
+                        justify-content: space-between;
+                        input {
+                            display: none;
+                        }
+                        span {
+                            color: $gray;
+                            font-weight: 400;
+                        }
+                        .browse-btn {
+                            border: none;
+                            outline: none;
+                            font-size: 16px;
+                            font-weight: 400;
+                            color: $pink;
+                            cursor: pointer;
+                        }
+                    }
+                    .verify-otp-wrap {
+                        @include nowrap;
+                        align-items: center;
+                        margin-bottom: 10px;
+                        .input-wrap {
+                            width: 100%;
+                            position: relative;
+                            margin-right: 30px;
+                            .timer {
+                                position: absolute;
+                                top: 11px;
+                                right: 15px;
+                                font-weight: 400;
+                            }
+                            input {
+                                -moz-appearance: textfield;
+                                &::-webkit-outer-spin-button {
+                                    -webkit-appearance: none;
+                                    margin: 0;
+                                }
+                                &::-webkit-inner-spin-button {
+                                    -webkit-appearance: none;
+                                    margin: 0;
+                                }
+                            }
+                        }
+                        .resend-link {
+                            color: $pink;
+                            opacity: .5;
+                            cursor: not-allowed;
+                            &.enabled {
+                                opacity: 1;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    .error {
+                        font-size: 14px;
+                        font-weight: 400;
+                        color: $red;
+                    }
+                }
+                .btn-wrap {
+                    margin: 23px 0;
+                }
+            }
+        }
+    }
+}

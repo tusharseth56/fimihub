@@ -1,0 +1,242 @@
+.banner {
+    .slider-wrap {
+        height: 100%;
+        .slick-list, .slick-track, .slide-item {
+            height: 100%;
+        }
+        .slide-item {
+            position: relative;
+            .bg-img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            .content-wrap {
+                padding: 100px 0 80px;
+                .inner-wrap {
+                    .text-wrap {
+                        max-width: 750px;
+                        padding-right: 60px;
+                        @include phablet-down {
+                            padding-right: 0;
+                        }
+                        h1 {
+                            color: $white;
+                            margin-bottom: 25px;
+                        }
+                        p {
+                            color: $white;
+                            max-width: 500px;
+                            font-weight: 300;
+                        }
+                        .btn {
+                            margin-top: 20px;
+                        }
+                    }
+                    .search-bar {
+                        max-width: 700px;
+                        background: $white;
+                        border-radius: 37px;
+                        margin: 70px auto 0;
+                        padding: 13px 0;
+                        @include nowrap;
+                        box-shadow: 0px 3px 6px #00000014;
+                        border: 1px solid $purple;
+                        @include desktop-down {
+                            max-width: 590px;
+                            padding: 10px 0;
+                        }
+                        @include phablet-down {
+                            display: block;
+                            overflow: hidden;
+                            margin-top: 50px;
+                        }
+                        .location-selector {
+                            width: 250px;
+                            padding-left: 52px;
+                            position: relative;
+                            border-right: 1px solid $purple;
+                            @include phablet-down {
+                                padding-bottom: 11px;
+                                border-right: 0;
+                                border-bottom: 1px solid $gray;
+                                margin-bottom: 10px;
+                                width: 100%;
+                            }
+                            &::before {
+                                position: absolute;
+                                content: "";
+                                top: 9px;
+                                right: 20px;
+                                width: 19px;
+                                height: 12px;
+                                background: url('../assets/images/down_arrow_gray.svg') no-repeat;
+                                background-size: 100%;
+                            }
+                            span {
+                                font-size: 12px;
+                                color: rgba(66, 80, 114, .46);
+                                position: relative;
+                                &::before {
+                                    position: absolute;
+                                    content: "";
+                                    top: -5px;
+                                    left: -26px;
+                                    width: 13px;
+                                    height: 24px;
+                                    background: url('../assets/images/location.svg') no-repeat;
+                                    background-size: 100%;
+                                }
+                            }
+                        }
+                        .search-input {
+                            width: 100%;
+                            position: relative;
+                            @include phablet-down {
+                                padding-bottom: 4px;
+                            }
+                            input {
+                                width: calc(100% - 120px);
+                                border: none;
+                                outline: none;
+                                padding-left: 40px;
+                                font-size: 12px;
+                                @include phablet-down {
+                                    width: calc(100% - 100px);
+                                    padding-left: 20px;
+                                }
+                            }
+                            .search-btn {
+                                position: absolute;
+                                top: 50%;
+                                right: -4px;
+                                width: 90px;
+                                height: calc(100% + 26px);
+                                background: $purple;
+                                transform: translateY(-50%);
+                                border-radius: 37px;
+                                cursor: pointer;
+                                @include desktop-down {
+                                    height: calc(100% + 21px);
+                                }
+                                @include phablet-down {
+                                    border-top-right-radius: 0;
+                                }
+                                &::before {
+                                    position: absolute;
+                                    content: "";
+                                    top: 30%;
+                                    left: 40%;
+                                    width: 21px;
+                                    height: 21px;
+                                    background: url('../assets/images/search.svg') no-repeat;
+                                    background-size: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .slick-dots {
+            position: absolute;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%);
+            @include desktop-down {
+                right: 20px;
+            }
+            @include tablet-down {
+                top: 92%;
+                right: 0;
+                width: 100%;
+                text-align: center;
+            }
+            li {
+                width: 22px;
+                height: 22px;
+                margin: 30px 0;
+                border-radius: 50%;
+                border: 5px solid transparent;
+                transition: all .3s ease-in-out;
+                position: relative;
+                @include tablet-down {
+                    display: inline-block;
+                    margin: 0px 7px;
+                }
+                @include phablet-down {
+                    width: 20px;
+                    height: 20px;
+                }
+                button {
+                    font-size: 0;
+                    position: absolute;
+                    top: auto;
+                    left: 0;
+                    width: 12px;
+                    height: 12px;
+                    background: $white;
+                    outline: none;
+                    border: none;
+                    border-radius: 50%;
+                    @include phablet-down {
+                        width: 10px;
+                        height: 10px;
+                    }
+                }
+                &:hover {
+                    border-color: rgba(255, 255, 255, .2);
+                }
+                &.slick-active {
+                    border-color: rgba(255, 255, 255, .2);
+                }
+            }
+        }
+    }
+    &.food-banner {
+        .content-wrap {
+            .inner-wrap {
+                h1 {
+                    color: $black !important;
+                }
+                p {
+                    color: $black !important;
+                }
+            }
+        }
+        .slider-wrap {
+            .slick-dots {
+                li {
+                    button {
+                        background: $silver;
+                    }
+                    &.slick-active {
+                        background: $white;
+                        button {
+                            background: $purple;
+                        }
+                    }
+                    &:hover {
+                        background: $white;
+                        button {
+                            background: $purple;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.restaurant-detail {
+        height: 500px;
+        @include tablet-down {
+            height: 350px;
+        }
+    }
+}

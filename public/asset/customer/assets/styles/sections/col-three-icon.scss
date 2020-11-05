@@ -1,0 +1,43 @@
+.col-three-icon {
+    .intro {
+        text-align: center;
+        margin-bottom: 60px;
+        @include phablet-down {
+            margin-bottom: 40px;
+        }
+        h4 {
+            color: $purple;
+        }
+    }
+    .row-wrap {
+        @include row;
+        justify-content: center;
+        margin: 0 -15px;
+        .col-wrap {
+            @include column(33.33%);
+            padding: 0 15px;
+            text-align: center;
+            @include tablet-down {
+                @include column(50%);
+                margin-bottom: 20px;
+            }
+            @include phablet-down {
+                @include column(100%);
+            }
+            .inner-wrap {
+                display: inline-block;
+                .icon {
+                    max-width: 190px;
+                    margin: 0 auto 20px;
+                    img {
+                        width: 100%;
+                    }
+                }
+                h5 {
+                    color: $purple;
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}
