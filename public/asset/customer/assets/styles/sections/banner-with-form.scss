@@ -1,0 +1,176 @@
+/* banner */
+.banner-with-form {
+   height: 100vh;
+   background: url('../assets/images/banner.jpg') no-repeat;
+   background-size: cover;
+   @include tablet-down {
+       height: auto;
+       padding: 100px 0 120px;
+   }
+   &::before {
+       position: absolute;
+       content: "";
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background: #9e3749;
+       opacity: .7;
+   }
+   .inner-wrapper {
+        height: 100%;
+        @include nowrap;
+        align-items: center;
+        .row-wrap {
+            @include row;
+            align-items: center;
+            .content-col {
+                @include column(65%);
+                padding-right: 30px;
+                @include desktop-down {
+                    @include column(60%);
+                }
+                @include tablet-down {
+                    @include column(50%);
+                }
+                @include phablet-down {
+                    @include column(100%);
+                }
+                .content-wrap {
+                    @include phablet-down {
+                        margin-bottom: 30px;
+                    }
+                    h1 {
+                        color: $white;
+                    }
+                    p {
+                        color: $white;
+                        max-width: 550px;
+                        margin-top: 25px;
+                        @include phablet-down {
+                            margin-top: 15px;
+                        }
+                    }
+                }
+            }
+            .form-col {
+                @include column(35%);
+                @include desktop-down {
+                    @include column(40%);
+                }
+                @include tablet-down {
+                    @include column(50%);
+                }
+                @include phablet-down {
+                    @include column(100%);
+                }
+                .form-container {
+                    background: $white;
+                    border-radius: 10px;
+                    padding: 20px 20px 30px;
+                    .form-title {
+                        margin-bottom: 27px;
+                        h2 {
+                            line-height: 1.25;
+                            color: $black;
+                        }
+                    }
+                    .field-wrap {
+                        margin-bottom: 15px;
+                        label {
+                            display: block;
+                            font-size: 14px;
+                            margin-bottom: 5px;
+                        }
+                        .input-wrap {
+                            position: relative;
+                            input {
+                                width: 100%;
+                                position: relative;
+                                font-size: 16px;
+                                font-weight: 400;
+                                border: none;
+                                outline: none;
+                                background: $concrete;
+                                border-radius: 5px;
+                                padding: 10px 10px 10px 50px;
+                                @include tablet-down {
+                                    font-size: 14px;
+                                }
+                                &::placeholder {
+                                    color: $gray;
+                                }
+                                &::-webkit-input-placeholder { 
+                                    color: $gray;
+                                }  
+                                &:-ms-input-placeholder { 
+                                    color: $gray;
+                                }
+                            }
+                            .icon {
+                                position: absolute;
+                                top: 12px;
+                                left: 13px;
+                                width: 20px;
+                                height: 20px;
+                                z-index: 1;
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: contain;
+                                }
+                            }
+                        }
+                        .checkbox-wrap {
+                            margin-top: 5px;
+                            label {
+                                display: inline-block;
+                                font-size: 16px;
+                                font-weight: 500;
+                                color: $gray;
+                                padding-left: 8px;
+                                a {
+                                    color: $pink;
+                                    font-weight: 500;
+                                }
+                            }
+                            input {
+                                width: 13px;
+                                height: 13px;
+                                position: relative;
+                                top: 1px;
+                            }
+                        }
+                    }
+                    .link-wrap {
+                        text-align: center;
+                        a {
+                            font-weight: 500;
+                            color: $gray;
+                        }
+                    }
+                    .btn-wrap {
+                        margin: 23px 0;
+                        a {
+                            width: 100%;
+                        }
+                    }
+                    p {
+                        text-align: center;
+                        color: $gray;
+                        font-weight: 500;
+                        @include tablet-up {
+                            font-size: 16px;
+                        }
+                        a {
+                            color: $pink;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+

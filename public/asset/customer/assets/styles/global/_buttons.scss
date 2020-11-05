@@ -1,0 +1,88 @@
+@import 'variables';
+
+/*
+ * Buttons.
+ */
+%btn-common {
+  padding: 9px 30px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  outline: 0;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  border: 1px solid transparent;
+  box-shadow: none;
+  border-radius: 100px;
+  overflow: hidden;
+  @include tablet-down {
+    font-size: 12px;
+    padding: 8px 20px;
+    min-width: auto;
+  }
+}
+
+.btn.btn-lg {
+  padding: 13px 55px;
+}
+
+.btn.btn-white {
+  @extend %btn-common;
+  background: $white;
+  color: $purple;
+  border-color: $purple;
+  &:hover {
+    background: $purple;
+    color: $white;
+  }
+}
+
+.btn.btn-transparent {
+  @extend %btn-common;
+  color: $purple;
+  border-color: $purple;
+  &:hover {
+    background: $purple;
+    color: $white;
+  }
+}
+
+.btn.btn-purple {
+  @extend %btn-common;
+  background: $purple;
+  color: $white;
+  &::before, &::after {
+    background-color: rgba(255, 255, 255, 0.6);
+    content: "";
+    height: 100%;
+    left: 0;
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    transition: all 0.9s ease 0s;
+    width: 100%;
+    z-index: 1;
+  }
+  &::before {
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    -moz-transform: translate(105%, 0%);
+    -webkit-transform: translate(105%, 0%);
+    transform: translate(105%, 0%);
+  }
+  &::after {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    -moz-transform: translate(-105%, 0%);
+    -webkit-transform: translate(-105%, 0%);
+    transform: translate(-105%, 0%);
+  }
+  &:hover {
+    &::before, &::after {
+      opacity: 0;
+      -moz-transform: translate(0px, 0px);
+      -webkit-transform: translate(0px, 0px);
+      transform: translate(0px, 0px);
+    }
+  }
+}

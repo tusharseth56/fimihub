@@ -1,0 +1,83 @@
+.img-with-content {
+    .outer-wrap {
+        padding: 70px;
+        background: rgba(125, 59, 138, .07);
+        @include desktop-down {
+            padding: 40px;
+        }
+        @include phablet-down {
+            padding: 40px 20px;
+        }
+        .row-wrap {
+            @include row;
+            align-items: center;
+            margin-bottom: 60px;
+            @include phablet-down {
+                margin-bottom: 40px;
+            }
+            .col-img {
+                @include column(60%);
+                @include desktop-down {
+                    @include column(50%);
+                }
+                @include phablet-down {
+                    @include column(100%);
+                }
+                .img-wrap {
+                    width: 100%;
+                    height: 320px;
+                    border: 1px solid $purple;
+                    border-radius: 15px;
+                    overflow: hidden;
+                    @include phablet-down {
+                        height: 250px;
+                    }
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+            }
+            .col-content {
+                @include column(40%);
+                padding-left: 30px;
+                @include desktop-down {
+                    @include column(50%);
+                }
+                @include phablet-down {
+                    @include column(100%);
+                    padding-left: 0;
+                    margin-top: 30px;
+                }
+                .content-wrap {
+                    max-width: 300px;
+                    text-align: center;
+                    margin: 0 auto;
+                    h4 {
+                        color: $purple;
+                    }
+                    p {
+                        color: $purple;
+                        margin: 15px 0 30px;
+                    }
+                }
+            }
+            &.img-right {
+                .col-img {
+                    order: 2;
+                }
+                .col-content {
+                    padding: 0 30px 0 0;
+                    @include phablet-down {
+                        order: 2;
+                        padding-right: 0;
+                    }
+                }
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

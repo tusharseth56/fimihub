@@ -1,0 +1,56 @@
+.cta {
+    background: $desert; 
+    .row-wrap {
+        @include row;
+        align-items: center;
+        .col-content {
+            @include column(50%);
+            @include tablet-down {
+                @include column(100%);
+                margin-bottom: 30px;
+                padding-top: 30px;
+            }
+            .content-wrap {
+                max-width: 460px;
+                h2 {
+                    margin-bottom: 130px;
+                    @include tablet-down {
+                        margin-bottom: 30px;
+                    }
+                    @include phablet-down {
+                        margin-bottom: 20px;
+                    }
+                }
+                .links {
+                    li {
+                        display: inline-block;
+                        margin-right: 40px;
+                        @include phablet-down {
+                            margin: 0 30px 10px 0;
+                        }
+                        img {
+                            width: 180px;
+                            @include phablet-down {
+                                width: 140px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .col-img {
+            @include column(50%);
+            @include tablet-down {
+                @include column(100%);
+                margin-bottom: 30px;
+                .img-wrap {
+                    max-width: 300px;
+                    margin: 0 auto;
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
