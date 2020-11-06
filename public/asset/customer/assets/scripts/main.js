@@ -109,5 +109,54 @@
     toggleBtn.click(function(){
         $(this).toggleClass("open");
         menu.slideToggle();
-    })
+    });
+
+
+    // OTP Timer
+    var timerEl = $(".timer"), 
+    resendBtn = $(".resend_link"), 
+    minutes = 0, 
+    seconds = 30;
+
+    // generate url
+    var getUrl = window.location.href;
+    var f_url = getUrl.replace('register','').replace('login','') + 'resendOTP';
+    
+    var timer = setInterval(function(){
+      // clear Interval after two minutes
+      if(minutes == 0 && seconds == 0) {
+        clearInterval(timer);
+        resendBtn.addClass("enabled");
+        $('.resend_link').attr('href',f_url)
+      }
+
+      // countdown
+      let duration; 
+      if(seconds.toString().length == 1) {
+        duration = minutes + ":" + "0" + seconds;
+      }else {
+        duration = minutes + ":" + seconds;
+      }
+      if(seconds == 0) {
+        seconds = 60
+        minutes -= 1
+      }
+      seconds--
+      timerEl.text(duration);
+    }, 1000);
+    
 })(jQuery);
+
+
+// jump cursor to next input
+$('.otp_verification form input').keyup(function() {
+    if(this.value.length == this.maxLength) {
+        $(this).next('input').focus();
+    }
+
+    if(this.value.length == '') {
+        $(this).prev('input').focus();
+    } 
+})
+
+

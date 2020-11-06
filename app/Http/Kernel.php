@@ -41,7 +41,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-           
+        
             
         ],
 
@@ -72,7 +72,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
         'cors' => \App\Http\Middleware\Cors::class,
-        'merchantauth' => \App\Http\Middleware\MerchantAuth::class,
+        'customerauth' => \App\Http\Middleware\CustomerAuth::class,
         'adminauth' => \App\Http\Middleware\AdminAuth::class
     ];
 }

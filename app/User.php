@@ -69,7 +69,7 @@ class User extends Authenticatable
 
     public function generateOTP($userid)
     {
-        $otp = mt_rand(100000,999999);
+        $otp = mt_rand(1000,9999);
         $data=array('verification_code'=>$otp);
         DB::table('users')
             ->where('mobile', $userid)

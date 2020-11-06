@@ -17,30 +17,81 @@ use Illuminate\Support\Facades\Log;
 */
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
 
-//========================================== Merchant Routes ===================================================
+//========================================== Customer Routes ===================================================
 
-      // Merchant Root Page
+      // Customer Root Page
       Route::get('/', function () {
-         return view('merchant.auth.login');
+         return view('customer.index');
       });
-      // Merchant Login
-      Route::get('/merchant/login', function () {
-         return view('merchant.auth.login');
+      // Customer Login
+      Route::get('/login', function () {
+         return view('customer.auth.login');
       });
-      // Merchant Register
-      Route::get('merchant/register', function () {
-         return view('merchant.auth.register');
+      // Customer Register
+      Route::get('/register', function () {
+         return view('customer.auth.register');
       });
+      // Customer Login Process
+      Route::post('/loginProcess', 'Web\Customer\LoginRegisterController@login');
+      // Customer Register Process
+      Route::post('/registerProcess', 'Web\Customer\LoginRegisterController@register');
+      // Resend OTP
+      Route::get('/resendOTP', 'Web\Customer\LoginRegisterController@resendOtp');
+      // Signup Otp Verification
+      Route::post('/verifyOtp', 'Web\Customer\LoginRegisterController@verifyOtp');
+      // Send OTP
+      Route::post('/getOTP', 'Web\Customer\LoginRegisterController@sendOtp');
+      // Signup Otp Verification
+      Route::post('/verifyAccount', 'Web\Customer\LoginRegisterController@verifyForgetPasswordOtp');
+      // Customer Forget Password Process
+      Route::post('/forgetPasswordProcess', 'Web\Customer\LoginRegisterController@forgetPassword');
+      // Signin Otp Verification
+      Route::post('/verifyOtpLogin', 'Web\Customer\LoginRegisterController@verifyOtpLogin');
+      // Customer Logout
+      Route::get('logout', 'Web\Customer\LoginRegisterController@logout');
+      // Customer Subscribed
+      Route::post('subscribeProcess', 'Web\Customer\DashboardController@subscribe');
+      
+
+      //========================================== Session Customer Auth Routes ===================================================
+
+      Route::group(['middleware' => 'customerauth'], function () {
+
+         //Customer dashboard
+         Route::get('/home', 'Web\Customer\DashboardController@index');
+         //Cart Page
+         Route::get('/cart', 'Web\Customer\CartController@index');
+         // Save Addresss
+         Route::post('saveAddress', 'Web\Customer\AddressController@insertAddress');
+         // Save Addresss
+         Route::get('myAccount', 'Web\Customer\UserController@index');
+         //Update Profile
+         Route::post('updateProfile', 'Web\Customer\UserController@updateProfile');
+
+
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
       // Merchant Forget Password
       Route::get('merchant/forgetPassword', function () {
          return view('merchant.auth.forgetPassword');
       });
-      // Merchant Forget Password Process
-      Route::post('merchant/forgetPasswordProcess', 'Web\Merchant\LoginRegisterController@forgetPasswordProcess');
+      
       // Merchant Forget Password
       Route::get('merchant/passwordChangeVerification', function () {
          return view('merchant.auth.otpVerification');
@@ -48,12 +99,9 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
       
       // Merchant Forget Password Verification Process
       Route::post('merchant/passwordVerification', 'Web\Merchant\LoginRegisterController@forgetPassword');
-      // Merchant Register Process
-      Route::post('merchant/register', 'Web\Merchant\LoginRegisterController@register');
-      // Merchant Login Process
-      Route::post('merchant/login', 'Web\Merchant\LoginRegisterController@login');
-      // Resend OTP
-      Route::get('merchant/resendOTP', 'Web\Merchant\LoginRegisterController@resendOtp');
+      
+      
+      
       // Verify OTP
       Route::post('merchant/verifyOtp', 'Web\Merchant\LoginRegisterController@verifyOtp');
       // Merchant Logout
