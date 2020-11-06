@@ -1,0 +1,100 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateRestaurentManagementTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('restaurent_details', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf16';
+            $table->collation = 'utf16_general_ci';
+            $table->increments('id');
+            // foreign key of users table
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            //rest attributes
+            $table->string('name');
+            $table->text('about')->nullable();
+            $table->text('other_details')->nullable();
+            $table->string('official_number')->nullable();
+            $table->string('picture')->nullable();
+            $table->decimal('avg_cost', 8, 2)->nullable();
+            $table->string('avg_time')->nullable();
+            $table->string('open_time')->nullable();
+            $table->string('close_time')->nullable();
+            $table->string('address')->nullable();
+            $table->decimal('delivery_charge', 8, 2)->nullable();
+            $table->decimal('discount', 8, 2)->nullable();
+            $table->decimal('tax', 8, 2)->nullable();
+            $table->string('pincode')->unique()->nullable();
+            $table->tinyInteger('payment_method_type')->comment('1-stripe,2-paypal,3-payment_gateway,4-COD')->nullable();
+            $table->tinyInteger('resto_type')->comment('1-Non-Veg,2-Veg,3-Both')->nullable();
+            $table->tinyInteger('visibility')->default('0');
+            $table->timestamp('deleted_at', 0)->nullable();
+            $table->timestamps();
+        });
+
+
+        Schema::create('menu_categories', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf16';
+            $table->collation = 'utf16_general_ci';
+            $table->increments('id');
+            // foreign key of users table
+            $table->integer('restaurent_id')->unsigned();
+            $table->foreign('restaurent_id')->references('id')->on('restaurent_details')->onDelete('cascade')->onUpdate('cascade');
+            //rest attributes
+            $table->string('name');
+            $table->text('about')->nullable();
+            $table->decimal('discount', 8, 2)->nullable();
+            $table->tinyInteger('listing_order')->nullable();
+            $table->tinyInteger('visibility')->default('0');
+            $table->timestamp('deleted_at', 0)->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('menu_list', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf16';
+            $table->collation = 'utf16_general_ci';
+            $table->increments('id');
+            // foreign key of users table
+            $table->integer('restaurent_id')->unsigned();
+            $table->foreign('restaurent_id')->references('id')->on('restaurent_details')->onDelete('cascade')->onUpdate('cascade');
+            // foreign key of users table
+            $table->integer('menu_category_id')->unsigned();
+            $table->foreign('menu_category_id')->references('id')->on('menu_categories')->onDelete('cascade')->onUpdate('cascade');
+            //rest attributes
+            $table->string('name');
+            $table->string('picture')->nullable();
+            $table->text('about')->nullable();
+            $table->decimal('price', 8, 2)->nullable();
+            $table->decimal('discount', 8, 2)->nullable();
+            $table->tinyInteger('listing_order')->nullable();
+            $table->tinyInteger('visibility')->default('0');
+            $table->timestamp('deleted_at', 0)->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('menu_list');
+        Schema::dropIfExists('menu_categories');
+        Schema::dropIfExists('restaurent_details');
+    }
+}

@@ -31,7 +31,9 @@ body {
 
 html {
   overflow-X: hidden; }
-
+.error{
+  color:red;
+}
 section {
   width: 100%;
   position: relative;
@@ -5725,3 +5727,59 @@ form .form-group label {
     margin-bottom: 40px; } }
 
 /*# sourceMappingURL=main.css.map */
+
+.resend_link {
+  cursor: not-allowed;
+}
+
+.resend_link.enabled {
+    color: #7d3b8a;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.otp_verification form input.signup_btn {
+  width: 251px;
+    height: 60px;
+    color: #fff;
+    border-radius: 31px;
+    border: none;
+    box-shadow: 0px 9px 18px #2E030329;
+    margin: 0 auto;
+    font-size: 15px;
+    text-transform: uppercase;
+    
+}
+
+.disabled_btn {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+}
+
+input {
+  outline:none!important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.getOtp_btn {
+  margin-top:20px;
+}
+
+.successfull_mdl .modal-dialog {
+  max-width: 545px;
+}
+
+.successfull_mdl_bdy.modal_body_content {
+  padding-bottom: 0;
+}

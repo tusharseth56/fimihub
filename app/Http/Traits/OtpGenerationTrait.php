@@ -96,11 +96,11 @@ trait OtpGenerationTrait {
                 $user_data = $user->userData($userid);
                 $sent_status=$this->mobileSendOtp($user_data);
                 if($sent_status==1){
-                    return response()->json(['otp' => $user_otp], $this->successStatusCreated);
+                    return 1;
                 }
                 else{
-                    Session::flash('message', 'OTP not sent !');
-                    return redirect('merchant/logout'); 
+                    Session::flash('error_message', 'OTP not sent !');
+                    return 3; 
                 }
                 //return response()->json(['otp' => $user_otp], $this->successStatusCreated);
                 
@@ -113,8 +113,8 @@ trait OtpGenerationTrait {
                 
             }
         }
-        Session::flash('message', 'Invalid User Id');
-        return redirect('merchant/logout');
+        Session::flash('error_message', 'Invalid Phone Number');
+        return 2;
             
     }
 
@@ -137,7 +137,7 @@ trait OtpGenerationTrait {
                         $user_data->updated_at = now();
                         $user_data->verification_code = NULL;
                         $user_data->save();
-                        Session::flash('message', 'Account verified successfully');
+                        // Session::flash('message', 'Account verified successfully');
                         return 1;
                     }
                     else
@@ -175,7 +175,7 @@ trait OtpGenerationTrait {
                     }
                 }
             }else{ 
-                Session::flash('message', 'Invalid OTP');
+                Session::flash('modal_check', 'Invalid OTP');
                 return 2;
             }
         }
