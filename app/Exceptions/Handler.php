@@ -111,7 +111,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof TokenMismatchException){
             // Redirect to a form. Here is an example of how I handle mine
             Session::flash('message', "Oops! Seems you couldn't submit form for a long time. Please try again.");
-            return redirect('merchant/login')->with('csrf_error',"Oops! Seems you couldn't submit form for a long time. Please try again.");
+            return redirect('Restaurent/login')->with('csrf_error',"Oops! Seems you couldn't submit form for a long time. Please try again.");
         }
         return parent::render($request, $exception);
         

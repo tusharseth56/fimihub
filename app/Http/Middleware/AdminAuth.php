@@ -19,11 +19,11 @@ class AdminAuth
         if(!$request->session()->exists('admin_data')){
             // user value cannot be found in session
             Session::flash('message', 'Please Login!'); 
-            return redirect('/adminQbeez/login');
+            return redirect('/adminfimihub/login');
         }
         elseif(session('admin_data')->user_type !=1){
             Session::flash('message', 'User Type Invalid !'); 
-            return redirect('/adminQbeez/login');
+            return redirect('/adminfimihub/login');
         }
 
         return $next($request);

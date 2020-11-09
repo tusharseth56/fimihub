@@ -27,31 +27,31 @@
                 <div class="menu">
                     <ul>
                         <li>
-                            <a href="./my-account.html" class="active">Account Information</a>
+                            <a href="{{url('myAccount')}}" class="{{ request()->is('myAccount') ? 'active' : ''}}">Account Information</a>
                         </li>
                         <li>
-                            <a href="./my-orders.html">My Orders</a>
+                            <a href="{{url('myOrder')}}" class="{{ request()->is('myOrder') ? 'active' : ''}}">My Orders</a>
                         </li>
                         <li>
-                            <a href="./change-password.html">Change Password</a>
+                            <a href="{{url('changePassword')}}" class="{{ request()->is('changePassword') ? 'active' : ''}}">Change Password</a>
                         </li>
                         <li>
-                            <a href="./terms-and-condition.html">Terms and Conditions</a>
+                            <a href="{{url('termsCondition')}}" class="{{ request()->is('termsCondition') ? 'active' : ''}}">Terms and Conditions</a>
                         </li>
                         <li>
-                            <a href="./faq.html">FAQ's</a>
+                            <a href="{{url('FAQ')}}" class="{{ request()->is('FAQ') ? 'active' : ''}}">FAQ's</a>
                         </li>
                         <li>
-                            <a href="./manage-address.html">Manage Saved Addresses</a>
+                            <a href="{{url('saveaddress')}}" class="{{ request()->is('saveaddress') ? 'active' : ''}}">Manage Saved Addresses</a>
                         </li>
                         <li>
-                            <a href="./contact-us.html">Contact Us</a>
+                            <a href="{{url('contactUs')}}" class="{{ request()->is('contactUs') ? 'active' : ''}}">Contact Us</a>
                         </li>
                         <li>
-                            <a href="./legal-information.html">Legal Information</a>
+                            <a href="{{url('legalInformation')}}" class="{{ request()->is('legalInformation') ? 'active' : ''}}">Legal Information</a>
                         </li>
                         <li>
-                            <a href="./about-us.html">About Us</a>
+                            <a href="{{url('aboutUs')}}" class="{{ request()->is('aboutUs') ? 'active' : ''}}">About Us</a>
                         </li>
                         <li>
                             <a href="{{url('logout')}}"><img

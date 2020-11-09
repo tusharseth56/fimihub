@@ -9,9 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Qbeez - Admin</title>
+    <title>Fimihub - Admin</title>
     <!--favicon-->
-    <link rel="icon" href="{{url('asset/merchant/assets/images/logo-pink.png')}}">
+    <link rel="icon" href="{{url('asset/customer/assets/images/logo.png')}}">
+    
     <!-- Vector CSS -->
     <link href="{{url('asset/admin/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet" />
     <!-- simplebar CSS-->
@@ -37,50 +38,48 @@
         <!--Start sidebar-wrapper-->
         <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
             <div class="brand-logo">
-                <a href="index.html">
-                    <img src="{{url('asset/merchant/assets/images/logo.png')}}" class="logo-icon" alt="logo icon" height="35px"
+                <a href="adminfimihub/dashboard">
+                    <img src="{{url('asset/customer/assets/images/logo.png')}}" class="logo-icon" alt="logo icon" height="35px"
                         width="25px">
-                    <h5 class="logo-text">Qbeez Admin</h5>
+                    <h5 class="logo-text">Fimihub Admin</h5>
                 </a>
             </div>
             <ul class="sidebar-menu do-nicescrol">
                 <li class="sidebar-header">MAIN NAVIGATION</li>
                 <li>
-                    <a href="{{url('adminQbeez/dashboard')}}" class="waves-effect">
+                    <a href="{{url('adminfimihub/dashboard')}}" class="waves-effect">
                         <i class="icon-home"></i> <span>Dashboard</span>
 
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="#" class="waves-effect">
                         <i class="icon-people"></i> <span>User </span> <i class="fa fa-angle-right pull-right"></i>
                     </a>
                     <ul class="sidebar-submenu">
-                        <li><a href="{{url('adminQbeez/userList')}}"><i class="fa fa-circle-o"></i> User List</a></li>
-                        <li><a href="{{url('adminQbeez/userWalletList')}}"><i class="fa fa-circle-o"></i> User Wallet</a></li>
+                        <li><a href="{{url('adminfimihub/userList')}}"><i class="fa fa-circle-o"></i> User List</a></li>
+                        <li><a href="{{url('adminfimihub/userWalletList')}}"><i class="fa fa-circle-o"></i> User Wallet</a></li>
 
                     </ul>
-                </li>
+                </li> -->
                 <li>
                     <a href="#" class="waves-effect">
-                        <i class="icon-user-following"></i> <span>Merchant </span> <i
+                        <i class="icon-user-following"></i> <span>Restaurent </span> <i
                             class="fa fa-angle-right pull-right"></i>
                     </a>
                     <ul class="sidebar-submenu">
-                        <li><a href="{{url('adminQbeez/merchantList')}}"><i class="fa fa-circle-o"></i> Merchant List</a></li>
-                        <li><a href="{{url('adminQbeez/merchantWalletList')}}"><i class="fa fa-circle-o"></i> Merchant Wallet</a></li>
-                        <!-- <li><a href="#"><i class="fa fa-circle-o"></i> Merchant Wallet</a></li> -->
+                        <li><a href="{{url('adminfimihub/addRestaurent')}}"><i class="fa fa-circle-o"></i> Add Restaurent</a></li>
+                        <li><a href="{{url('adminfimihub/restaurentList')}}"><i class="fa fa-circle-o"></i> Restaurent List</a></li>                        
 
                     </ul>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="#" class="waves-effect">
                         <i class="icon-notebook"></i> <span>Voucher </span> <i class="fa fa-angle-right pull-right"></i>
                     </a>
                     <ul class="sidebar-submenu">
                         <li><a href="{{url('adminQbeez/voucherList')}}"><i class="fa fa-circle-o"></i> Voucher List</a></li>
-                        <!-- <li><a href="{{url('adminQbeez/userList')}}"><i class="fa fa-circle-o"></i> Voucher List</a></li> -->
-
+                        
                     </ul>
                 </li>
                 <li>
@@ -101,9 +100,9 @@
                         <li><a href="#"><i class="fa fa-circle-o"></i> Change Password</a></li>
 
                     </ul>
-                </li>
+                </li> -->
                 <li>
-                    <a href="{{url('adminQbeez/logout')}}" class="waves-effect">
+                    <a href="{{url('adminfimihub/logout')}}" class="waves-effect">
                         <i class="icon-logout"></i> <span>Logout</span>
 
                     </a>

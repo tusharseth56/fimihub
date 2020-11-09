@@ -1,0 +1,190 @@
+@include('restaurent.include.sideNav')
+@include('restaurent.include.header')
+<div class="clearfix"></div>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+
+        <!-- End Breadcrumb-->
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-body">
+                        <form role="form" method="POST" action="{{ url('Restaurent/addRestaurentDetails')}}"
+                            id="personal-info">
+                            @csrf
+                            <h4 class="form-header text-uppercase">
+                                <i class="fa fa-user-circle-o"></i>
+                                Restaurent Details
+                            </h4>
+                            @if(Session::has('message'))
+                            <div class="error" style="text-align:center;">
+                                <h4 class="error">{{ Session::get('message') }}</h4>
+                            </div>
+
+                            @endif
+                            <div class="form-group row">
+                                <label for="input-1" class="col-sm-2 col-form-label">Restaurent Picture</label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="form-control" id="input-1" name="picture" ">
+                                    @if($errors->has('picture'))
+                                    <div class="error">{{ $errors->first('picture') }}</div>
+                                    @endif
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <label for="input-1" class="col-sm-2 col-form-label">Restaurent Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="input-1" name="name"
+                                        value="{{$resto_data->name ?? ''}}">
+                                    @if($errors->has('name'))
+                                    <div class="error">{{ $errors->first('name') }}</div>
+                                    @endif
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="input-3" class="col-sm-2 col-form-label">About Us</label>
+                                <div class="col-sm-10">
+                                    <textarea name="about" class="form-control" cols="100"
+                                        rows="3">{{$resto_data->about ?? ''}}</textarea>
+
+                                    @if($errors->has('about'))
+                                    <div class="error">{{ $errors->first('about') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input-3" class="col-sm-2 col-form-label">Other Details</label>
+                                <div class="col-sm-10">
+                                    <textarea name="other_details" class="form-control" cols="100"
+                                        rows="3">{{$resto_data->other_details ?? ''}}</textarea>
+
+                                    @if($errors->has('other_details'))
+                                    <div class="error">{{ $errors->first('other_details') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input-4" class="col-sm-2 col-form-label">Official Number</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="input-4" name="official_number"
+                                        value="{{$resto_data->official_number ?? ''}}">
+                                    @if($errors->has('official_number'))
+                                    <div class="error">{{ $errors->first('official_number') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input-4" class="col-sm-2 col-form-label">Restaurent Type</label>
+                                <div class="demo-checkbox ml-4">
+                                    <input type="radio" id="user-checkbox" class="filled-in chk-col-primary" value="1" 
+                                        name="resto_type">
+                                    <label for="user-checkbox">Veg</label>
+                                </div>
+                                <div class="demo-checkbox">
+                                    <input type="radio" id="user-checkbox1" class="filled-in chk-col-primary" value="2"
+                                        name="resto_type">
+                                    <label for="user-checkbox1">Non-Veg</label>
+                                </div>
+                                <div class="demo-checkbox">
+                                    <input type="radio" id="user-checkbox2" class="filled-in chk-col-primary" value="3"
+                                        name="resto_type">
+                                    <label for="user-checkbox2">Both</label>
+                                </div>
+                                @if($errors->has('resto_type'))
+                                <div class="error">{{ $errors->first('resto_type') }}</div>
+                                @endif
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="input-4" class="col-sm-2 col-form-label">Average Cost</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="input-4" name="avg_cost"
+                                        value="{{$resto_data->avg_cost ?? ''}}">
+                                    @if($errors->has('avg_cost'))
+                                    <div class="error">{{ $errors->first('avg_cost') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input-4" class="col-sm-2 col-form-label">Average Time</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="input-4" name="avg_time"
+                                        value="{{$resto_data->avg_time ?? ''}}">
+                                    @if($errors->has('avg_time'))
+                                    <div class="error">{{ $errors->first('avg_time') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input-4" class="col-sm-2 col-form-label">Open Time</label>
+                                <div class="col-sm-10">
+                                    <input type="time" class="form-control" id="input-4" name="open_time"
+                                        value="{{$resto_data->open_time ?? ''}}">
+                                    @if($errors->has('open_time'))
+                                    <div class="error">{{ $errors->first('open_time') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input-4" class="col-sm-2 col-form-label">Close Time</label>
+                                <div class="col-sm-10">
+                                    <input type="time" class="form-control" id="input-4" name="close_time"
+                                        value="{{$resto_data->close_time ?? ''}}">
+                                    @if($errors->has('close_time'))
+                                    <div class="error">{{ $errors->first('close_time') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input-3" class="col-sm-2 col-form-label">Address</label>
+                                <div class="col-sm-10">
+                                    <textarea name="address" class="form-control" cols="100"
+                                        rows="3">{{ old('about') }}</textarea>
+
+                                    @if($errors->has('address'))
+                                    <div class="error">{{ $errors->first('address') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input-4" class="col-sm-2 col-form-label">Pincode</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="input-4" name="pincode"
+                                        value="{{ old('password') }}">
+                                    @if($errors->has('pincode'))
+                                    <div class="error">{{ $errors->first('pincode') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input-4" class="col-sm-2 col-form-label">Delivery Charge/KM</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="input-4" name="delivery_charge"
+                                        value="{{ old('password') }}">
+                                    @if($errors->has('delivery_charge'))
+                                    <div class="error">{{ $errors->first('delivery_charge') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-footer">
+                                <input type="submit" class="btn btn-primary" value="Save Data"></input>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Row-->
+
+    </div>
+    <!-- End container-fluid-->
+
+</div>
+<!--End content-wrapper-->
+@include('restaurent.include.footer')

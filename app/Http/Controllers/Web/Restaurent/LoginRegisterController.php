@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin;
+namespace App\Http\Controllers\Web\Restaurent;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,12 +10,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Model\qbeez_wallet;
+use App\Http\Traits\OtpGenerationTrait;
 use Response;
 use Session;
 
-
 class LoginRegisterController extends Controller
 {
+    use OtpGenerationTrait;
 
     public function login(Request $request)
     {
@@ -48,7 +50,7 @@ class LoginRegisterController extends Controller
             }
             else{
                 $user = Auth::user();
-                Session::put('admin_data', $user);
+                Session::put('restaurent', $user);
             }
 
             if($mobile_set != NULL)
@@ -58,28 +60,17 @@ class LoginRegisterController extends Controller
                 $user_data = auth()->user()->userData($userid);
                 if($user_data->mobile_verified_at == NULL)
                 {
-                    
-                    return redirect('adminfimihub/dashboard');
+                    Session::flash('message', 'Please verify your Mobile Number !');
+                    $this->OtpGeneration($userid);
+                    return redirect('/resendOtp');
+
                 }
                 else
                 {
-                    return redirect('adminfimihub/dashboard');
+                    return redirect('Restaurent/dashboard');
                 }
             }
-            else
-            {
-                $userid = $email_set;
-                Session::put('userid', $userid);
-                $user_data = auth()->user()->userData($userid);
-                if($user_data->email_verified_at == NULL)
-                {
-                    return redirect('adminfimihub/dashboard');
-                }
-                else
-                {
-                    return redirect('adminfimihub/dashboard');
-                }
-            }
+            
         }
         else{
         	return redirect()->back()->withInput()->withErrors($validator);  
@@ -89,9 +80,53 @@ class LoginRegisterController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        Session::flush(['admin_data','userid']);
-        return redirect('/adminfimihub/login');
+        Session::flush();
+        return redirect('Restaurent/login');
+    }
+    
+    public function resendOtp(Request $request)
+    {
+        $userid = session('userid');
+        Session::flash('message', 'Please verify your Account !');
+        $this->OtpGeneration($userid);
+        return view('restaurent.auth.verifyOtp');
     }
 
+    public function verifyOtp(Request $request)
+    {
+        
+        $validator = Validator::make($request->all(), [
+            'otp' => 'required|digits:4',
+            
+            
+        ]);
+        if(!$validator->fails()){
+            $otp=$request->input('otp');
+            $data['otp']=$otp;
+            $data['userid']=session('userid');
+            //dd($data);
+            $otp_verified_status=$this->OtpVerification($data);
+            
+            if($otp_verified_status==2){
+                Session::flash('message', 'Invalid OTP');
 
+                return view('restaurent.auth.verifyOtp');
+
+            }
+            elseif($otp_verified_status==1){
+                
+                Session::flash('message', 'Account verified successfully');
+                return redirect('Restaurent/dashboard');
+            }else{
+                return redirect('Restaurent/login');
+            }
+        
+        }
+        else{
+            //dd($validator);
+
+        	return redirect()->back()->withErrors($validator);  
+        }
+        
+    }
 }

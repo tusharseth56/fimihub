@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin;
+namespace App\Http\Controllers\Web\Restaurent;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -26,7 +26,7 @@ class DashboardController extends Controller
         $user['user_count']=$user_count;
         $user['merchant_count']=$merchant_count;
         //dd($user);
-        return view('admin.indexDashboard')->with(['data'=>$user]);
+        return view('restaurent.indexDashboard')->with(['data'=>$user]);
         
     }
 }

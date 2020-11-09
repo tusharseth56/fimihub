@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 //custom import
 use App\User;
 use App\Model\user_address;
+use App\Model\contactUs;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -107,5 +108,117 @@ class UserController extends Controller
         }
 
         
+    }
+
+
+    public function getChangePasswordPage(Request $request){
+        $user=Auth::user();
+        $user_data = auth()->user()->userByIdData($user->id);
+        return view('customer.changePassword')->with(['user_data'=>$user_data]);
+    }
+
+    public function changePassword(Request $request){
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string|confirmed|min:6',
+            'current_password' => 'required|string|min:6',
+            'password_confirmation' => 'required|string',
+            
+            
+        ]);
+        if(!$validator->fails()){
+            $user=Auth::user();
+            $data = $request->toarray();
+            $data['userid']=$user->mobile;
+            if(Hash::check($data['current_password'], $user->password)){
+                $user = new User();
+                $user->changePassword($data);
+                Session::flash('modal_message', 'Password Changed ');
+                Session::flash('modal_check_subscribe', 'open');
+
+                return redirect()->back(); 
+            }else{
+                Session::flash('message', 'Invalid Current Password'); 
+                return redirect()->back(); 
+            }
+        }
+        else{
+            return redirect()->back()->withInput()->withErrors($validator);  
+        }
+        
+    }
+
+    public function getContactUsPage(Request $request){
+        $user=Auth::user();
+        $user_data = auth()->user()->userByIdData($user->id);
+        return view('customer.contactUs')->with(['user_data'=>$user_data]);
+    }
+
+    public function contactUs(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'email|nullable',
+            'mobile' => 'required|numeric|digits:10',
+            'message' => 'required|string',
+            
+            
+        ]);
+        if(!$validator->fails()){
+            $user=Auth::user();
+            $data = $request->toarray();
+            $contactUs = new contactUs();
+            $contactUs->makeContactUs($data);
+            Session::flash('modal_message', 'Message Sent ');
+            Session::flash('modal_check_subscribe', 'open');
+
+            return redirect()->back(); 
+        }
+        else{
+            return redirect()->back()->withInput()->withErrors($validator);  
+        }
+        
+    }
+
+    public function getSaveAddressPage(Request $request){
+        $user=Auth::user();
+        $user_data = auth()->user()->userByIdData($user->id);
+        $user_address = new user_address();
+        $user_add = $user_address->getUserAddress($user->id);
+        
+        return view('customer.savedAddress')->with(['user_data'=>$user_data,'user_address'=>$user_add]);
+    }
+
+    public function getMyOrderPage(Request $request){
+        $user=Auth::user();
+        $user_data = auth()->user()->userByIdData($user->id);
+        
+        return view('customer.myOrder')->with(['user_data'=>$user_data]);
+    }
+
+    public function getTermsConditionPage(Request $request){
+        $user=Auth::user();
+        $user_data = auth()->user()->userByIdData($user->id);
+        
+        return view('customer.termsCondition')->with(['user_data'=>$user_data]);
+    }
+
+    public function getFaqPage(Request $request){
+        $user=Auth::user();
+        $user_data = auth()->user()->userByIdData($user->id);
+        
+        return view('customer.faq')->with(['user_data'=>$user_data]);
+    }
+
+    public function getLegalInformationPage(Request $request){
+        $user=Auth::user();
+        $user_data = auth()->user()->userByIdData($user->id);
+        
+        return view('customer.legalInformation')->with(['user_data'=>$user_data]);
+    }
+
+    public function getAboutUsPage(Request $request){
+        $user=Auth::user();
+        $user_data = auth()->user()->userByIdData($user->id);
+        
+        return view('customer.aboutUs')->with(['user_data'=>$user_data]);
     }
 }

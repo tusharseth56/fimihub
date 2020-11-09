@@ -14,13 +14,13 @@
                         {{ Session::get('message') }}</div>
                     @endif
                 </div>
-                <form role="form" method="POST" action="{{ url('/adminfimihub/login') }}">
+                <form role="form" method="POST" action="{{ url('/Restaurent/login') }}">
                     @csrf
                     <div class="form-group">
                         <div class="position-relative has-icon-right">
                             <label for="exampleInputUsername" class="sr-only">User-Id</label>
                             <input type="text" id="exampleInputUsername" name="user_id"
-                                class="form-control form-control-rounded" placeholder="Username">
+                                class="form-control form-control-rounded" placeholder="Mobile">
                             <div class="form-control-position">
                                 <i class="icon-user"></i>
                             </div>

@@ -73,6 +73,7 @@ class Kernel extends HttpKernel
         'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
         'cors' => \App\Http\Middleware\Cors::class,
         'customerauth' => \App\Http\Middleware\CustomerAuth::class,
-        'adminauth' => \App\Http\Middleware\AdminAuth::class
+        'adminauth' => \App\Http\Middleware\AdminAuth::class,
+        'restaurentauth' => \App\Http\Middleware\RestaurentAuth::class
     ];
 }
