@@ -18,8 +18,9 @@ use Session;
 class DashboardController extends Controller
 {
     public function index(Request $request){
-
-        return view('customer.home');
+        $user=Auth::user();
+        $user_data = auth()->user()->userByIdData($user->id);
+        return view('customer.home')->with(['user_data'=>$user_data]);
     }
 
     public function subscribe(Request $request){

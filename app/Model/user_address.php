@@ -16,4 +16,19 @@ class user_address extends Model
         $query_data = DB::table('user_address')->insertGetId($data);
         return $query_data;
     }
+
+    public function getUserAddress($userid)
+    {
+        try {
+            $user_address=DB::table('user_address')
+                ->where('visibility', 0)
+                ->where('user_id', $userid)
+                ->get();
+            
+            return $user_address;
+        }
+        catch (Exception $e) {
+            dd($e);
+        }
+    }
 }

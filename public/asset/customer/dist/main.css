@@ -31,7 +31,10 @@ body {
 
 html {
   overflow-X: hidden; }
-.error{
+.error {
+  color:red !important;;
+}
+h4 .error{
   color:red;
 }
 section {
@@ -5737,6 +5740,7 @@ form .form-group label {
     font-weight: 700;
     cursor: pointer;
 }
+
 
 .otp_verification form input.signup_btn {
   width: 251px;

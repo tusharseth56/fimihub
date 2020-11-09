@@ -22,7 +22,8 @@ class CreateRestaurentManagementTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             //rest attributes
-            $table->string('name');
+            $table->string('resto_id');
+            $table->string('name')->nullable();
             $table->text('about')->nullable();
             $table->text('other_details')->nullable();
             $table->string('official_number')->nullable();
@@ -35,7 +36,7 @@ class CreateRestaurentManagementTable extends Migration
             $table->decimal('delivery_charge', 8, 2)->nullable();
             $table->decimal('discount', 8, 2)->nullable();
             $table->decimal('tax', 8, 2)->nullable();
-            $table->string('pincode')->unique()->nullable();
+            $table->string('pincode')->nullable();
             $table->tinyInteger('payment_method_type')->comment('1-stripe,2-paypal,3-payment_gateway,4-COD')->nullable();
             $table->tinyInteger('resto_type')->comment('1-Non-Veg,2-Veg,3-Both')->nullable();
             $table->tinyInteger('visibility')->default('0');
@@ -79,6 +80,7 @@ class CreateRestaurentManagementTable extends Migration
             $table->text('about')->nullable();
             $table->decimal('price', 8, 2)->nullable();
             $table->decimal('discount', 8, 2)->nullable();
+            $table->tinyInteger('dish_type')->comment('1-Non-Veg,2-Veg')->nullable();
             $table->tinyInteger('listing_order')->nullable();
             $table->tinyInteger('visibility')->default('0');
             $table->timestamp('deleted_at', 0)->nullable();

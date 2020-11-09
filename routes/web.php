@@ -70,75 +70,67 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('myAccount', 'Web\Customer\UserController@index');
          //Update Profile
          Route::post('updateProfile', 'Web\Customer\UserController@updateProfile');
+         //Change password Page
+         Route::get('changePassword', 'Web\Customer\UserController@getChangePasswordPage');
+         //Change password Process
+         Route::post('changePassword', 'Web\Customer\UserController@changePassword');
+         //Contact Us Page
+         Route::get('contactUs', 'Web\Customer\UserController@getContactUsPage');
+         //Contact Us Process
+         Route::post('contactUs', 'Web\Customer\UserController@contactUs');
+         //Saved Address Page
+         Route::get('saveaddress', 'Web\Customer\UserController@getSaveAddressPage');
+         //My Order Page
+         Route::get('myOrder', 'Web\Customer\UserController@getMyOrderPage');
+         //Terms and condition Page
+         Route::get('termsCondition', 'Web\Customer\UserController@getTermsConditionPage');
+         //Terms and condition Page
+         Route::get('FAQ', 'Web\Customer\UserController@getFaqPage');
+         //Legal Information Page
+         Route::get('legalInformation', 'Web\Customer\UserController@getLegalInformationPage');
+         //AboutUs Page
+         Route::get('aboutUs', 'Web\Customer\UserController@getAboutUsPage');
 
 
       });
 
 
+//========================================== Restaurent Routes ===================================================
 
-
-
-
-
-
-
-
-
-
-
-      
-      // Merchant Forget Password
-      Route::get('merchant/forgetPassword', function () {
-         return view('merchant.auth.forgetPassword');
+      //Restaurent Login
+      Route::get('/Restaurent/login', function () {
+         return view('restaurent.auth.login');
       });
+      // Restaurent Login Process
+      Route::post('Restaurent/login', 'Web\Restaurent\LoginRegisterController@login');
+      // Restaurent Logout
+      Route::get('Restaurent/logout', 'Web\Restaurent\LoginRegisterController@logout');
+      // Signin Otp Verification
+      Route::post('Restaurent/verifyOtp', 'Web\Restaurent\LoginRegisterController@verifyOtp');
+      // Resend Otp
+      Route::get('/resendOtp', 'Web\Restaurent\LoginRegisterController@resendOtp');
       
-      // Merchant Forget Password
-      Route::get('merchant/passwordChangeVerification', function () {
-         return view('merchant.auth.otpVerification');
-      });
-      
-      // Merchant Forget Password Verification Process
-      Route::post('merchant/passwordVerification', 'Web\Merchant\LoginRegisterController@forgetPassword');
-      
-      
-      
-      // Verify OTP
-      Route::post('merchant/verifyOtp', 'Web\Merchant\LoginRegisterController@verifyOtp');
-      // Merchant Logout
-      Route::get('merchant/logout', 'Web\Merchant\LoginRegisterController@logout');
+      //========================================== Session RestaurentAuth Routes ===================================================
 
-      //========================================== Session MerchantAuth Routes ===================================================
-
-      Route::group(['middleware' => 'merchantauth'], function () {
-         //Merchant dashboard
-         Route::get('merchant/dashboard', 'Web\Merchant\DashboardController@dashboardDetails');
-         //Merchant Qr Page
-         Route::get('merchant/qr', 'Web\Merchant\QrController@qrDetails');
-         //Merchant Bussiness details
-         Route::get('merchant/businessDetails', 'Web\Merchant\BusinessController@businessDetails');
-         //Merchant Otp Verfiy
-         Route::get('merchant/verify', function () {
-            return view('merchant.verfifyOtp');
-         });
-         // Merchant Business Details Form
-         Route::get('merchant/businessForm', 'Web\Merchant\BusinessController@businessFormDetails');
-         // Merchant Address Form
-         Route::get('merchant/addressForm', function () {
-            return view('merchant.addressDetails');
-         });
-         // Merchant Sub Category
-         Route::get('merchant/subcategory/{id}','Web\Merchant\CategoryManageController@getSubCategories');
-         // Merchant Category
-         Route::get('merchant/category/','Web\Merchant\CategoryManageController@getCategories');
+      Route::group(['middleware' => 'restaurentauth', 'prefix'=>'Restaurent'],function () {
          
-         //Merchant Bussiness details create and update
-         Route::post('merchant/businessDetailProcess', 'Web\Merchant\BusinessController@createUpdateMerchantDetails');
-         //Merchant Address details create and update
-         Route::post('merchant/addressDetailProcess', 'Web\Merchant\BusinessController@createUpdateMerchantAddressDetails');
-         //Merchant GET Qr download
-         Route::get('merchant/qrDownload', 'Web\Merchant\BusinessController@imageQrCode');
-      
-   });
+         // Restaurent Dasboard
+         Route::get('dashboard', 'Web\Restaurent\DashboardController@dashboardDetails');
+         // Restaurent Details
+         Route::get('myDetails', 'Web\Restaurent\RestaurentController@accountDetails');
+         // Restaurent Details update or insert
+         Route::post('addRestaurentDetails', 'Web\Restaurent\RestaurentController@addRestaurentDetails');
+
+         
+      });
+
+
+
+
+
+
+
+
 
 
 
@@ -146,38 +138,28 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
    //========================================== Admin Routes ===================================================
 
       //Admin Login
-      Route::get('/adminQbeez/login', function () {
+      Route::get('/adminfimihub/login', function () {
          return view('admin.auth.login');
       });
       // Admin Login Process
-      Route::post('adminQbeez/login', 'Web\Admin\LoginRegisterController@login');
+      Route::post('adminfimihub/login', 'Web\Admin\LoginRegisterController@login');
       // Admin Logout
-      Route::get('adminQbeez/logout', 'Web\Admin\LoginRegisterController@logout');
+      Route::get('adminfimihub/logout', 'Web\Admin\LoginRegisterController@logout');
 
       //========================================== Session AdminAuth Routes ===================================================
 
-      Route::group(['middleware' => 'adminauth'], function () {
+      Route::group(['middleware' => 'adminauth', 'prefix'=>'adminfimihub'], function () {
          
          // Admin Dasboard
-         Route::get('adminQbeez/dashboard', 'Web\Admin\DashboardController@dashboardDetails');
+         Route::get('dashboard', 'Web\Admin\DashboardController@dashboardDetails');
+
          // Admin User List
-         Route::get('adminQbeez/userList', 'Web\Admin\UserManageController@UserListDetails');
-         // Admin User List in details
-         Route::get('adminQbeez/userDetails', 'Web\Admin\UserManageController@UserDetails');
-         // Admin User Update details
-         Route::post('adminQbeez/userUpdate', 'Web\Admin\UserManageController@UserUpdateDetails');
-         // Admin Merchant List
-         Route::get('adminQbeez/merchantList', 'Web\Admin\MerchantManageController@MerchantListDetails');
-         // Admin Merchant List in details
-         Route::get('adminQbeez/merchantDetails', 'Web\Admin\MerchantManageController@MerchantDetails');
-         // Admin Merchant Update details
-         Route::post('adminQbeez/merchantUpdate', 'Web\Admin\MerchantManageController@MerchantUpdateDetails');
-         // Admin User Wallet List
-         Route::get('adminQbeez/userWalletList', 'Web\Admin\UserManageController@UserWalletListDetails');
-         // Admin Merchant Wallet List
-         Route::get('adminQbeez/merchantWalletList', 'Web\Admin\MerchantManageController@MerchantWalletListDetails');
-         // Admin Voucher List
-         Route::get('adminQbeez/voucherList', 'Web\Admin\VoucherManagerContoller@VocherListDetails');
+         Route::get('restaurentList', 'Web\Admin\RestaurentController@RestaurentListDetails');
+         // Add Restaurent page
+         Route::get('addRestaurent', 'Web\Admin\RestaurentController@RestaurentListDetails');
+         // Add Restaurent page Process
+         Route::post('addRestaurent', 'Web\Admin\RestaurentController@addRestaurentProcess');
+         
          
       });
 
