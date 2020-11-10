@@ -120,6 +120,14 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('myDetails', 'Web\Restaurent\RestaurentController@accountDetails');
          // Restaurent Details update or insert
          Route::post('addRestaurentDetails', 'Web\Restaurent\RestaurentController@addRestaurentDetails');
+         // Menu Category
+         Route::get('menuCategory', 'Web\Restaurent\RestaurentController@categoryDetails');
+         // Menu Category update or insert
+         Route::post('addCategory', 'Web\Restaurent\RestaurentController@addCategoryProcess');
+         // Menu Category
+         Route::get('menuList', 'Web\Restaurent\RestaurentController@getMenuList');
+         // Menu Category update or insert
+         Route::post('addMenu', 'Web\Restaurent\RestaurentController@menuListProcess');
 
          
       });

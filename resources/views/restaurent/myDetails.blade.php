@@ -11,10 +11,10 @@
                 <div class="card">
                     <div class="card-body">
                         <form role="form" method="POST" action="{{ url('Restaurent/addRestaurentDetails')}}"
-                            id="personal-info">
+                            id="personal-info" enctype="multipart/form-data"> 
                             @csrf
                             <h4 class="form-header text-uppercase">
-                                <i class="fa fa-user-circle-o"></i>
+                                <i class="fa fa-info-circle"></i>
                                 Restaurent Details
                             </h4>
                             @if(Session::has('message'))
@@ -26,7 +26,7 @@
                             <div class="form-group row">
                                 <label for="input-1" class="col-sm-2 col-form-label">Restaurent Picture</label>
                                 <div class="col-sm-10">
-                                    <input type="file" class="form-control" id="input-1" name="picture" ">
+                                    <input type="file" class="form-control" id="input-1" name="picture">
                                     @if($errors->has('picture'))
                                     <div class="error">{{ $errors->first('picture') }}</div>
                                     @endif
@@ -80,18 +80,18 @@
                             <div class="form-group row">
                                 <label for="input-4" class="col-sm-2 col-form-label">Restaurent Type</label>
                                 <div class="demo-checkbox ml-4">
-                                    <input type="radio" id="user-checkbox" class="filled-in chk-col-primary" value="1" 
-                                        name="resto_type">
+                                    <input type="radio" id="user-checkbox" class="filled-in chk-col-primary" value="2"
+                                        name="resto_type" {{$resto_data->resto_type == 2 ? 'checked' : ''}}>
                                     <label for="user-checkbox">Veg</label>
                                 </div>
                                 <div class="demo-checkbox">
-                                    <input type="radio" id="user-checkbox1" class="filled-in chk-col-primary" value="2"
-                                        name="resto_type">
+                                    <input type="radio" id="user-checkbox1" class="filled-in chk-col-primary" value="1"
+                                        name="resto_type" {{$resto_data->resto_type == 1 ? 'checked' : ''}}>
                                     <label for="user-checkbox1">Non-Veg</label>
                                 </div>
                                 <div class="demo-checkbox">
                                     <input type="radio" id="user-checkbox2" class="filled-in chk-col-primary" value="3"
-                                        name="resto_type">
+                                        name="resto_type" {{$resto_data->resto_type == 3 ? 'checked' : ''}}>
                                     <label for="user-checkbox2">Both</label>
                                 </div>
                                 @if($errors->has('resto_type'))
@@ -143,7 +143,7 @@
                                 <label for="input-3" class="col-sm-2 col-form-label">Address</label>
                                 <div class="col-sm-10">
                                     <textarea name="address" class="form-control" cols="100"
-                                        rows="3">{{ old('about') }}</textarea>
+                                        rows="3">{{$resto_data->address ?? ''}}</textarea>
 
                                     @if($errors->has('address'))
                                     <div class="error">{{ $errors->first('address') }}</div>
@@ -154,7 +154,7 @@
                                 <label for="input-4" class="col-sm-2 col-form-label">Pincode</label>
                                 <div class="col-sm-10">
                                     <input type="number" class="form-control" id="input-4" name="pincode"
-                                        value="{{ old('password') }}">
+                                        value="{{$resto_data->pincode ?? ''}}">
                                     @if($errors->has('pincode'))
                                     <div class="error">{{ $errors->first('pincode') }}</div>
                                     @endif
@@ -164,7 +164,7 @@
                                 <label for="input-4" class="col-sm-2 col-form-label">Delivery Charge/KM</label>
                                 <div class="col-sm-10">
                                     <input type="number" class="form-control" id="input-4" name="delivery_charge"
-                                        value="{{ old('password') }}">
+                                        value="{{$resto_data->delivery_charge ?? ''}}">
                                     @if($errors->has('delivery_charge'))
                                     <div class="error">{{ $errors->first('delivery_charge') }}</div>
                                     @endif
