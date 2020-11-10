@@ -114,7 +114,8 @@ class LoginRegisterController extends Controller
 
             }
             elseif($otp_verified_status==1){
-                
+                $user = Auth::user();
+                Session::put('user', $user);
                 Session::flash('message', 'Account verified successfully');
                 return redirect('Restaurent/dashboard');
             }else{

@@ -137,7 +137,6 @@ trait OtpGenerationTrait {
                         $user_data->updated_at = now();
                         $user_data->verification_code = NULL;
                         $user_data->save();
-                        // Session::flash('message', 'Account verified successfully');
                         return 1;
                     }
                     else
@@ -146,7 +145,6 @@ trait OtpGenerationTrait {
                         $user_data->updated_at = now();
                         $user_data->verification_code = NULL;
                         $user_data->save();
-                        Session::flash('message', 'Account verified successfully');
                         return 1;
                     }
                 }
@@ -160,7 +158,6 @@ trait OtpGenerationTrait {
                         $user_data->updated_at = now();
                         $user_data->verification_code = NULL;
                         $user_data->save();
-                        Session::flash('message', 'Account verified successfully');
                         return 1;
                     }
                     else
@@ -169,7 +166,6 @@ trait OtpGenerationTrait {
                         $user_data->updated_at = now();
                         $user_data->verification_code = NULL;
                         $user_data->save();
-                        Session::flash('message', 'Account verified successfully');
                         return 1;
                         
                     }
@@ -180,7 +176,7 @@ trait OtpGenerationTrait {
             }
         }
         Session::flash('message', 'Verification Failed');
-        return redirect('merchant/logout');
+        return 2;
     }
 
     public function OtpGenerationForgetPassword($request)

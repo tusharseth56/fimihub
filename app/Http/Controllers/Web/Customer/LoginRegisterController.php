@@ -165,6 +165,8 @@ class LoginRegisterController extends Controller
                 return redirect()->back();
             }
             elseif($otp_verified_status==1){
+                Session::flash('message', 'Account Verified, Plaese Login');
+
                 return redirect('/login');
             }else{
                 return redirect('/logout');
@@ -299,8 +301,9 @@ class LoginRegisterController extends Controller
             $otp=$request->input('num1').$request->input('num2').$request->input('num3').$request->input('num4');
             $data['otp']=$otp;
             $data['userid']=session('userid');
-            //dd($data);
             $otp_verified_status=$this->OtpVerification($data);
+            
+
             if($otp_verified_status==2){
                 Session::flash('modal_check2', 'open'); 
                 Session::flash('error_message', 'Invalid OTP');
@@ -308,7 +311,9 @@ class LoginRegisterController extends Controller
                 return redirect()->back();
             }
             elseif($otp_verified_status==1){
-                Session::flash('message', 'Account Verified');
+                $user = Auth::user();
+                Session::put('user', $user);
+                Session::flash('message', 'Account Verified, Plaese Login');
 
                 return redirect('/home');
             }else{
@@ -319,8 +324,7 @@ class LoginRegisterController extends Controller
         else{
             //dd($validator);
             Session::flash('modal_check2', 'open'); 
-
-        	return redirect()->back()->withErrors($validator);  
+            return redirect()->back()->withErrors($validator);  
         }
         
     }

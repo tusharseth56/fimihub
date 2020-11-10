@@ -27,7 +27,7 @@ class RestaurentAuth
             return redirect('Restaurent/login');
         }
         elseif(session('restaurent')->mobile_verified_at ==NULL){
-            Session::flash('message', 'Please verify your account Or Login Again!'); 
+            Session::flash('message', 'Please verify your account!'); 
             return redirect('Restaurent/login');
 
         }
