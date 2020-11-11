@@ -176,6 +176,14 @@ class RestaurentController extends Controller
                     
                     return date('d F Y', strtotime($row->created_at));
                 })
+                ->addColumn('dish_type', function($row){
+                    if($row->dish_type==1){
+                        return "Non-Veg";
+                    }
+                    else{
+                        return "Veg";
+                    }
+                })
                 ->rawColumns(['action'])
                 ->make(true);
                 //dd($user_data);
@@ -191,14 +199,14 @@ class RestaurentController extends Controller
             'name' => 'required|string|nullable',
             'about' => 'string|nullable',
             'discount' => 'numeric|nullable',       
-            'price' => 'required|numeric|not_in:0|nullable',       
+            'price' => 'required|numeric|not_in:0',       
             'dish_type' => 'required|in:1,2|nullable',       
-            'menu_category_id ' => 'required|exists:menu_categories,id|nullable',       
+            'menu_category_id' => 'required|exists:menu_categories,id|nullable',       
             
         ]);
         if(!$validator->fails()){
             $user = Auth::user();
-            dd($user);
+            
             $restaurent_detail = new restaurent_detail;
             $resto_data = $restaurent_detail->getRestoData($user->id);
             $data = $request->toarray();

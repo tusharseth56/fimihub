@@ -24,7 +24,7 @@ class LoginRegisterController extends Controller
 
         $validator = Validator::make($request->all(), [
             'password' => 'required|string|min:6',
-            'user_id' => 'required',
+            'user_id' => 'required|numeric',
             
         ]);
         if(!$validator->fails()){
@@ -115,7 +115,7 @@ class LoginRegisterController extends Controller
             }
             elseif($otp_verified_status==1){
                 $user = Auth::user();
-                Session::put('user', $user);
+                Session::put('restaurent', $user);
                 Session::flash('message', 'Account verified successfully');
                 return redirect('Restaurent/dashboard');
             }else{
