@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-body">
                         <form role="form" method="POST" action="{{ url('Restaurent/addRestaurentDetails')}}"
-                            id="personal-info" enctype="multipart/form-data"> 
+                            id="personal-info" enctype="multipart/form-data">
                             @csrf
                             <h4 class="form-header text-uppercase">
                                 <i class="fa fa-info-circle"></i>
@@ -81,17 +81,26 @@
                                 <label for="input-4" class="col-sm-2 col-form-label">Restaurent Type</label>
                                 <div class="demo-checkbox ml-4">
                                     <input type="radio" id="user-checkbox" class="filled-in chk-col-primary" value="2"
-                                        name="resto_type" {{$resto_data->resto_type == 2 ? 'checked' : ''}}>
+                                        name="resto_type" @if(isset($resto_data->resto_type))
+                                    {{$resto_data->resto_type == 2 ? 'checked' : ''}}
+                                    @endif
+                                    >
                                     <label for="user-checkbox">Veg</label>
                                 </div>
                                 <div class="demo-checkbox">
                                     <input type="radio" id="user-checkbox1" class="filled-in chk-col-primary" value="1"
-                                        name="resto_type" {{$resto_data->resto_type == 1 ? 'checked' : ''}}>
+                                        name="resto_type" @if(isset($resto_data->resto_type))
+                                    {{$resto_data->resto_type == 1 ? 'checked' : ''}}
+                                    @endif
+                                    >
                                     <label for="user-checkbox1">Non-Veg</label>
                                 </div>
                                 <div class="demo-checkbox">
                                     <input type="radio" id="user-checkbox2" class="filled-in chk-col-primary" value="3"
-                                        name="resto_type" {{$resto_data->resto_type == 3 ? 'checked' : ''}}>
+                                        name="resto_type" @if(isset($resto_data->resto_type))
+                                    {{$resto_data->resto_type == 3 ? 'checked' : ''}}
+                                    @endif>
+
                                     <label for="user-checkbox2">Both</label>
                                 </div>
                                 @if($errors->has('resto_type'))

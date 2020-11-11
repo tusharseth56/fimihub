@@ -194,8 +194,16 @@ $(document).ready(function() {
                 name: 'name'
             },
             {
+                data: 'cat_name',
+                name: 'cat_name'
+            },
+            {
                 data: 'about',
                 name: 'about'
+            },
+            {
+                data: 'dish_type',
+                name: 'dish_type'
             },
             {
                 data: 'discount',
