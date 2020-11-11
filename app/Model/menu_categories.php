@@ -20,11 +20,10 @@ class menu_categories extends Model
         return $query_data;
     }
 
-    public function restaurentCategoryPaginationData($data)
+    public function restaurentCategoryPaginationData()
     {
         $menu_categories=DB::table('menu_categories')
-        ->where('visibility', 0)
-        ->where('restaurent_id', $data);
+        ->where('visibility', 0);
         
     
         return $menu_categories;

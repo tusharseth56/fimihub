@@ -70,6 +70,7 @@
                     <ul class="sidebar-submenu">
                         <li><a href="{{url('adminfimihub/addRestaurent')}}"><i class="fa fa-circle-o"></i> Add Restaurent</a></li>
                         <li><a href="{{url('adminfimihub/restaurentList')}}"><i class="fa fa-circle-o"></i> Restaurent List</a></li>                        
+                        <li><a href="{{url('adminfimihub/menuCategory')}}"><i class="fa fa-circle-o"></i> Category</a></li>
 
                     </ul>
                 </li>

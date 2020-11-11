@@ -138,7 +138,60 @@
         </div>
     </div>
 </div>
-
+<div class="side-panel right" data-panel-id="filterPanel">
+    <div class="inner-sidebar">
+        <div class="title">
+            <div class="icon close-sidepanel">
+                <img src="{{url('asset/customer/assets/images/cross.svg')}}" alt="cross">
+            </div>
+            <h4>Filters</h4>
+        </div>
+        <form action="#" class="form">
+            <div class="radio-btn-block">
+                <h5>Sort by</h5>
+                <div class="radio-btn-wrap">
+                    <input type="radio" id="fromAtoZ" name="sort" value="fromAtoZ">
+                    <label for="fromAtoZ">A-Z</label>
+                </div>
+                <div class="radio-btn-wrap">
+                    <input type="radio" id="fromZtoA" name="sort" value="fromZtoA">
+                    <label for="fromZtoA">Z-A</label>
+                </div>
+                <div class="radio-btn-wrap">
+                    <input type="radio" id="minOrderAmt" name="sort" value="minOrderAmt">
+                    <label for="minOrderAmt">Minimum Order Amount</label>
+                </div>
+                <div class="radio-btn-wrap">
+                    <input type="radio" id="fastDelivery" name="sort" value="fastDelivery">
+                    <label for="fastDelivery">Fastest Delivery</label>
+                </div>
+                <div class="radio-btn-wrap">
+                    <input type="radio" id="highToLow" name="sort" value="highToLow">
+                    <label for="highToLow">Ratings: High to Low</label>
+                </div>
+                <div class="radio-btn-wrap">
+                    <input type="radio" id="lowToHigh" name="sort" value="lowToHigh">
+                    <label for="lowToHigh">Ratings: Low to High</label>
+                </div>
+            </div>
+            <div class="radio-btn-block">
+                <h5>Filter By</h5>
+                <div class="radio-btn-wrap">
+                    <input type="radio" id="freeDelivery" name="filter" value="freeDelivery">
+                    <label for="freeDelivery">Free Delivery</label>
+                </div>
+                <div class="radio-btn-wrap">
+                    <input type="radio" id="newlyAdded" name="filter" value="newlyAdded">
+                    <label for="newlyAdded">Newly Added</label>
+                </div>
+            </div>
+            <div class="btn-grp">
+                <button type="button" class="btn btn-purple close-sidepanel">Cancel</button>
+                <button type="submit" class="btn btn-purple">Save Address</button>
+            </div>
+        </form>
+    </div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

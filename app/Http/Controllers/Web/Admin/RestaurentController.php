@@ -6,14 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 //custom import
 use App\User;
+use App\Model\restaurent_detail;
+use App\Model\menu_categories;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use App\Http\Traits\WalletBallanceTrait;
-use App\Model\qbeez_wallet_transaction;
-use App\Model\user_profile;
-use App\Model\qbeez_wallet;
 use Response;
 use Session;
 use DataTables;
@@ -55,5 +53,60 @@ class RestaurentController extends Controller
         else{
         	return redirect()->back()->withInput()->withErrors($validator);  
         }
+    }
+
+    public function categoryDetails(Request $request)
+    {
+        $user = Auth::user();
+        
+        $menu_categories = new menu_categories;
+        $cat_data = $menu_categories->restaurentCategoryPaginationData();
+        if ($request->ajax()) {
+            return Datatables::of($cat_data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<a href="userDetails?id='.base64_encode($row->id).'" class="btn btn-outline-dark btn-sm btn-round waves-effect waves-light m-0">Details</a> 
+                        <a href="?id='.base64_encode($row->id).'" class="btn btn-outline-danger btn-sm btn-round waves-effect waves-light m-0">Block</a>';
+                    return $btn;
+                })
+                ->addColumn('created_at', function($row){
+                    
+                    return date('d F Y', strtotime($row->created_at));
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+                
+        }
+        $user['currency']=$this->currency;
+        $cat_data = $cat_data->get();
+        return view('admin.menuCategory')->with(['data'=>$user,'cat_data'=>$cat_data]);
+        
+    }
+
+    public function addCategoryProcess(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|nullable|unique:menu_categories,name',
+            'about' => 'string|nullable',
+            'discount' => 'numeric|nullable',       
+            
+        ]);
+        if(!$validator->fails()){
+            $user = Auth::user();
+            
+            $data = $request->toarray();
+            $data['restaurent_id'] =$user->id;
+            $menu_categories = new menu_categories;
+        
+            $cate_id = $menu_categories->makeMenuCategory($data);
+            Session::flash('message', 'Category Added Successfully!');
+
+            return redirect()->back();
+
+        }
+        else{
+        	return redirect()->back()->withInput()->withErrors($validator);  
+        }
+        
     }
 }
