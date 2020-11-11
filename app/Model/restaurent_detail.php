@@ -49,4 +49,34 @@ class restaurent_detail extends Model
             dd($e);
         }
     }
+
+    public function getRestoDataOnId($userid)
+    {
+        try {
+            $restaurent_details=DB::table('restaurent_details')
+                ->where('visibility', 0)
+                ->where('id', $userid)
+                ->first();
+            
+            return $restaurent_details;
+        }
+        catch (Exception $e) {
+            dd($e);
+        }
+    }
+    public function getallRestoData()
+    {
+        try {
+            $restaurent_details=DB::table('restaurent_details')
+                ->where('visibility', 0)
+                ->orderBy('name')
+                ->limit(6)
+                ->get();
+            
+            return $restaurent_details;
+        }
+        catch (Exception $e) {
+            dd($e);
+        }
+    }
 }

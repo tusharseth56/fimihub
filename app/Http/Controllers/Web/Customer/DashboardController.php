@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 //custom import
 use App\User;
 use App\Model\subscribe;
+use App\Model\restaurent_detail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -20,7 +21,9 @@ class DashboardController extends Controller
     public function index(Request $request){
         $user=Auth::user();
         $user_data = auth()->user()->userByIdData($user->id);
-        return view('customer.home')->with(['user_data'=>$user_data]);
+        $restaurent_detail = new restaurent_detail;
+        $resto_data = $restaurent_detail->getallRestoData();
+        return view('customer.home')->with(['user_data'=>$user_data,'resto_data'=>$resto_data]);
     }
 
     public function subscribe(Request $request){

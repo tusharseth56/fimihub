@@ -33,4 +33,33 @@ class menu_list extends Model
         return $menu_list;
     
     }
+
+    public function menuCategory($data)
+    {
+        $menu_list=DB::table('menu_list')
+        ->join('menu_categories as mc', 'mc.id', '=', 'menu_list.menu_category_id')
+        ->distinct('menu_list.menu_category_id')
+        ->where('menu_list.visibility', 0)
+        ->where('menu_list.restaurent_id', $data)
+        ->select('mc.id as cat_id','mc.name as cat_name','mc.discount as cat_discount')
+        ->orderBy('cat_name')
+        ->get();
+        
+        return $menu_list;
+    
+    }
+
+    public function menuList($data)
+    {
+        $menu_list=DB::table('menu_list')
+        ->join('menu_categories as mc', 'mc.id', '=', 'menu_list.menu_category_id')
+        ->where('menu_list.visibility', 0)
+        ->where('menu_list.restaurent_id', $data)
+        ->select('menu_list.*','mc.name as cat_name','mc.discount as cat_discount')
+        ->orderBy('cat_name')
+        ->get();
+        
+        return $menu_list;
+    
+    }
 }

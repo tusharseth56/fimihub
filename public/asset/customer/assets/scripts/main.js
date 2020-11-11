@@ -67,7 +67,7 @@
         if(inititalQty < 0) {
             inititalQty = 0;
         }
-        totalQty += 1;
+        totalQty -= 1;
         $(this).parent().find("#qty").text(inititalQty);
         totalItemsEl.text(totalQty);
         if(totalQty > 0) {
@@ -77,11 +77,26 @@
         }
     })
 
-    //order category dropdown
-    var dropdown = $(".order-block .order-menu-row .col-menu .menu-block");
-    dropdown.click(function(){
-        $(this).find("ul").slideToggle();
+    //order category menuBlock
+    var menuBlock = $(".order-block .order-menu-row .col-menu .menu-block");
+    var categoryTabs = menuBlock.find("ul li a");
+
+    menuBlock.click(function(){
+        if(window.matchMedia("(max-width: 767px)").matches) {
+            $(this).find("ul").slideToggle();
+        }
     });
+
+    categoryTabs.click(function(e){
+        e.preventDefault();
+        let tabId = $(this).attr("href");
+        let categoryBlock =  $(tabId);
+        categoryTabs.removeClass("active");
+        $(this).addClass("active");
+        $("html, body").animate({
+            scrollTop: categoryBlock.offset().top
+        }, 1000);
+    })
 
     // img upload
     var imgUploadInput = $(".dashboard .row-wrap .content-col .user-form .form .img-upload .user-img input");

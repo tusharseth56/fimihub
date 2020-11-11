@@ -161,7 +161,7 @@ class RestaurentController extends Controller
         $restaurent_detail = new restaurent_detail;
         $resto_data = $restaurent_detail->getRestoData($user->id);
         $menu_categories = new menu_categories;
-        $cat_data = $menu_categories->restaurentCategoryPaginationData($resto_data->id);
+        $cat_data = $menu_categories->restaurentCategoryPaginationData();
         $menu_list = new menu_list;
         $menu_data = $menu_list->menuPaginationData($resto_data->id);
         if ($request->ajax()) {
@@ -197,6 +197,7 @@ class RestaurentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|nullable',
+            'picture' => 'mimes:png,jpg,jpeg|nullable',
             'about' => 'string|nullable',
             'discount' => 'numeric|nullable',       
             'price' => 'required|numeric|not_in:0',       
@@ -206,10 +207,35 @@ class RestaurentController extends Controller
         ]);
         if(!$validator->fails()){
             $user = Auth::user();
-            
+            $id = $user->id;
+            $data = $request->toarray();
+
+
+            if($request->hasfile('picture'))
+            {
+                $profile_pic = $request->file('picture');
+                $input['imagename'] = $data['name'].time().'.'.$profile_pic->getClientOriginalExtension();
+
+                $path = public_path('uploads/'.$id.'/images');
+                File::makeDirectory($path, $mode = 0777, true, true);
+                                
+                $destinationPath = 'uploads/'.$id.'/images'.'/';
+                if($profile_pic->move($destinationPath, $input['imagename']))
+                {
+                    $file_url=url($destinationPath.$input['imagename']);
+                    $data['picture']=$file_url;
+                
+                }else{
+                    $error_file_not_required[]="Food Picture Have Some Issue";
+                    unset($data['picture']);
+                }
+                
+            }
+            else{
+                unset($data['picture']);
+            }
             $restaurent_detail = new restaurent_detail;
             $resto_data = $restaurent_detail->getRestoData($user->id);
-            $data = $request->toarray();
             $data['restaurent_id'] =$resto_data->id;
             $menu_list = new menu_list;
 

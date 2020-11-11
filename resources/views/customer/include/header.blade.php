@@ -55,6 +55,14 @@
                                     alt="user">
                                 {{$user_data->name ?? ''}}
                             </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="#">My Account</a>
+                                </li>
+                                <li>
+                                    <a href="#">Log Out</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <a href="{{url('logout')}}"><img src="{{url('asset/customer/assets/images/user.svg')}}"

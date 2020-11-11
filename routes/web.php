@@ -90,7 +90,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('legalInformation', 'Web\Customer\UserController@getLegalInformationPage');
          //AboutUs Page
          Route::get('aboutUs', 'Web\Customer\UserController@getAboutUsPage');
-
+         //AboutUs Page
+         Route::get('restaurentDetails', 'Web\Customer\RestaurentController@getRestaurentDetails');
 
       });
 
@@ -124,7 +125,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('menuCategory', 'Web\Restaurent\RestaurentController@categoryDetails');
          // Menu Category update or insert
          Route::post('addCategory', 'Web\Restaurent\RestaurentController@addCategoryProcess');
-         // Menu Category
+         // Menu List
          Route::get('menuList', 'Web\Restaurent\RestaurentController@getMenuList');
          // Menu Category update or insert
          Route::post('addMenu', 'Web\Restaurent\RestaurentController@menuListProcess');
@@ -167,7 +168,10 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('addRestaurent', 'Web\Admin\RestaurentController@RestaurentListDetails');
          // Add Restaurent page Process
          Route::post('addRestaurent', 'Web\Admin\RestaurentController@addRestaurentProcess');
-         
+         // Menu Category
+         Route::get('menuCategory', 'Web\Admin\RestaurentController@categoryDetails');
+         // Menu Category update or insert
+         Route::post('addCategory', 'Web\Admin\RestaurentController@addCategoryProcess');
          
       });
 
