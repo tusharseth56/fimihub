@@ -62,4 +62,18 @@ class menu_list extends Model
         return $menu_list;
     
     }
+
+    public function menuListById($data)
+    {
+        $menu_list=DB::table('menu_list')
+        ->join('menu_categories as mc', 'mc.id', '=', 'menu_list.menu_category_id')
+        ->where('menu_list.visibility', 0)
+        ->where('menu_list.id', $data)
+        ->select('menu_list.*','mc.name as cat_name','mc.discount as cat_discount')
+        ->orderBy('cat_name')
+        ->first();
+        
+        return $menu_list;
+    
+    }
 }

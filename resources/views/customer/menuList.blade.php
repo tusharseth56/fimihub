@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-wrap">
                     <h5>Minimum Order Value</h5>
-                    <h4>$ {{$resto_data->avg_cost ?? ''}}</h4>
+                    <h4>₹ {{$resto_data->avg_cost ?? ''}}</h4>
                 </div>
                 <div class="col-wrap">
                     <h5>Delivery Time</h5>
@@ -64,8 +64,8 @@
                     <h3>Our Menus</h3>
                     <ul>
                         @foreach($menu_cat as $m_cat)
-                        <li >
-                            <a href="#{{$m_cat->cat_name}}" >{{$m_cat->cat_name}}</a>
+                        <li>
+                            <a href="#{{$m_cat->cat_name}}">{{$m_cat->cat_name}}</a>
                         </li>
                         @endforeach
                     </ul>
@@ -89,17 +89,24 @@
                     @if($m_data->cat_name == $m_cat->cat_name)
                     <div class="card-wrap">
                         <div class="img-wrap">
-                            <img src="{{$m_data->picture ?? url('asset/customer/assets/images/food_thumb2.png')}}" alt="food1">
+                            <img src="{{$m_data->picture ?? url('asset/customer/assets/images/food_thumb2.png')}}"
+                                alt="food1">
                         </div>
                         <div class="text-wrap">
-                            <h6> ₹  {{$m_data->price ?? ''}}</h6>
+                            <h6> ₹ {{$m_data->price ?? ''}}</h6>
                             <h5>{{$m_data->name ?? ''}}</h5>
                             <p>{{$m_data->about ?? ''}}</p>
                         </div>
                         <ul class="add-to-cart">
-                            <li id="dec">-</li>
-                            <li id="qty">0</li>
-                            <li id="inc">+</li>
+                        <a
+                                href="{{url('subtractMenuItem')}}{{'?resto_id='}}{{base64_encode($m_data->restaurent_id)}}{{'&menu_id='}}{{base64_encode($m_data->id)}}">
+                                <li>-</li>
+                            </a>
+                            <li>0</li>
+                            <a
+                                href="{{url('addMenuItem')}}{{'?resto_id='}}{{base64_encode($m_data->restaurent_id)}}{{'&menu_id='}}{{base64_encode($m_data->id)}}">
+                                <li>+</li>
+                            </a>
                         </ul>
                     </div>
                     @endif
@@ -107,21 +114,21 @@
                 </div>
                 @endforeach
 
-                
-        <div class="cart-block">
-            <div class="col-left">
-                <h4>
-                    <span class="totalItems">0</span> Items
-                    <span class="sep">|</span>
-                    $<span class="totalPrice">0</span>
-                </h4>
-                <p>Woody's Low Bridge Place</p>
+
+                <div class="cart-block">
+                    <div class="col-left">
+                        <h4>
+                            <span class="totalItems">0</span> Items
+                            <span class="sep">|</span>
+                            ₹<span class="totalPrice">0</span>
+                        </h4>
+                        <p>Woody's Low Bridge Place</p>
+                    </div>
+                    <div class="col-right">
+                        <h4><a href="#">View Cart <img src="{{url('asset/customer/assets/images/cart_white.svg')}}"
+                                    alt="cart white"></a></h4>
+                    </div>
+                </div>
             </div>
-            <div class="col-right">
-                <h4><a href="#">View Cart <img src="{{url('asset/customer/assets/images/cart_white.svg')}}"
-                            alt="cart white"></a></h4>
-            </div>
-        </div>
-    </div>
 </section>
 @include('customer.include.footer')

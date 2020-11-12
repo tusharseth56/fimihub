@@ -92,6 +92,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('aboutUs', 'Web\Customer\UserController@getAboutUsPage');
          //AboutUs Page
          Route::get('restaurentDetails', 'Web\Customer\RestaurentController@getRestaurentDetails');
+         //Add Menu Item To Cart
+         Route::get('addMenuItem', 'Web\Customer\CartController@addToCart');
 
       });
 
