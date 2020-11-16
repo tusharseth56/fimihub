@@ -25,7 +25,7 @@ class Controller extends BaseController
     //invalid request
     public $invalidRequest = 403;
     //currency
-    public $currency = "₹";
+    public $currency = "﷼‎";
     //Wallet Key
     public $key = "MERCHANT";
     

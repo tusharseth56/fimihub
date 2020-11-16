@@ -83,9 +83,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('total_amount', 8, 2)->nullable();
             $table->decimal('delivery_fee', 8, 2)->nullable();
             $table->decimal('tax', 8, 2)->nullable();
-            $table->string('order_status')->comment('1-pending,2-placed,3-packed,4-picked,5-recieved')->nullable();
-            $table->string('payment_status')->comment('1-pending,2-success,3-failed')->nullable();
-            $table->tinyInteger('payment_type')->comment('1-stripe,2-paypal,3-COD');
+            $table->string('payment_status')->nullable();
             $table->tinyInteger('visibility')->default('0');
             $table->timestamp('deleted_at', 0)->nullable();
             $table->timestamps();
