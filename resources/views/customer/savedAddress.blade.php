@@ -34,7 +34,7 @@
                         <!-- <span><img src="{{url('asset/customer/assets/images/watch.svg')}}" alt="watch">20 Min</span> -->
                         <div class="addrs_action_btns">
                             <button type="button" class="btn_purple edit_btn mr-2 hover_effect1">delete</button>
-                            <button type="button" class="btn_purple deliver_btn hover_effect1">Edit</button>
+                            <button type="button" class="btn_purple deliver_btn hover_effect1">Set Default</button>
                         </div>
                     </div>
                 </div>
