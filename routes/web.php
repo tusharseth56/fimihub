@@ -94,14 +94,6 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('restaurentDetails', 'Web\Customer\RestaurentController@getRestaurentDetails');
          //Add Menu Item To Cart
          Route::get('addMenuItem', 'Web\Customer\CartController@addToCart');
-         //Subtract Menu Item To Cart
-         Route::get('subtractMenuItem', 'Web\Customer\CartController@removeFromCart');
-         //Add default address
-         Route::get('addDefaultAddress', 'Web\Customer\AddressController@addToDefault');
-         //Checkout Page -- Payment Page 
-         Route::get('checkoutPage', 'Web\Customer\OrderController@getPaymentPage');
-         //Add Payment Method
-         Route::post('addPaymentMethod', 'Web\Customer\OrderController@addPaymentType');
 
       });
 
