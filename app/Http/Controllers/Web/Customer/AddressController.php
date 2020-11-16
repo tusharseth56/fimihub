@@ -40,4 +40,20 @@ class AddressController extends Controller
         	return redirect()->back()->withInput()->withErrors($validator);  
         }
     }
+
+    public function addToDefault(Request $request){  
+            $user = Auth::user();
+            $add_id = base64_decode(request('add_id'));
+            
+            $user_address = new user_address;
+            $default_add = array();
+            $default_add['user_id'] = $user->id;
+            $default_add['id'] = $add_id;
+
+            $change_default_setting = $user_address->changeDefault($default_add);
+            Session::flash('modal_message', 'Default Setting Changed !');
+
+            Session::flash('modal_check_subscribe', 'open');
+            return redirect()->back();
+    }
 }
