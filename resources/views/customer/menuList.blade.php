@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-wrap">
                     <h5>Minimum Order Value</h5>
-                    <h4>₹ {{$resto_data->avg_cost ?? ''}}</h4>
+                    <h4>{{$user_data->currency ?? ''}} {{$resto_data->avg_cost ?? ''}}</h4>
                 </div>
                 <div class="col-wrap">
                     <h5>Delivery Time</h5>
@@ -93,36 +93,36 @@
                                 alt="food1">
                         </div>
                         <div class="text-wrap">
-                            <h6> ₹ {{$m_data->price ?? ''}}</h6>
+                            <h6> {{$user_data->currency ?? ''}} {{$m_data->price ?? ''}}</h6>
                             <h5>{{$m_data->name ?? ''}}</h5>
                             <p>{{$m_data->about ?? ''}}</p>
                         </div>
                         <ul class="add-to-cart">
-                        <a
-                                href="{{url('subtractMenuItem')}}{{'?resto_id='}}{{base64_encode($m_data->restaurent_id)}}{{'&menu_id='}}{{base64_encode($m_data->id)}}">
+                            <div onClick="decrement_quantity('{{base64_encode($m_data->id)}}')">
                                 <li>-</li>
-                            </a>
-                            <li>0</li>
-                            <a
-                                href="{{url('addMenuItem')}}{{'?resto_id='}}{{base64_encode($m_data->restaurent_id)}}{{'&menu_id='}}{{base64_encode($m_data->id)}}">
+                            </div>
+                            <li id="input-quantity-{{$m_data->id}}">{{$m_data->quantity ?? '0'}}</li>
+                            <div onClick="increment_quantity('{{base64_encode($m_data->id)}}')">
                                 <li>+</li>
-                            </a>
+                            </div>
                         </ul>
                     </div>
                     @endif
                     @endforeach
                 </div>
                 @endforeach
+                <input type="hidden" class="input-quantity" id="input-quantity"
+                    value="{{base64_encode($resto_data->id)}}">
 
 
-                <div class="cart-block">
+                <div class="cart-block" @if($total_amount !=0) style="display:flex;" @endif>
                     <div class="col-left">
                         <h4>
-                            <span class="totalItems">0</span> Items
+                            <span class="totalItems" id="item_count">{{$item ?? '0'}}</span> Items
                             <span class="sep">|</span>
-                            ₹<span class="totalPrice">0</span>
+                            {{$user_data->currency ?? ''}} <span class="totalPrice" id="total_amount">{{$total_amount ?? '0'}}</span>
                         </h4>
-                        <p>Woody's Low Bridge Place</p>
+                        <p>{{$resto_data->name ?? ''}}</p>
                     </div>
                     <div class="col-right">
                         <h4><a href="#">View Cart <img src="{{url('asset/customer/assets/images/cart_white.svg')}}"
@@ -132,3 +132,59 @@
             </div>
 </section>
 @include('customer.include.footer')
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+function increment_quantity(menu_id) {
+    var resto_id = $("#input-quantity").val();
+    var menu_decode_id = atob(menu_id);
+    var inputQuantityElement = $("#input-quantity-" + menu_decode_id);
+    var item_count = $("#item_count");
+    var total_amount = $("#total_amount");
+
+    $.ajax({
+        url: "addMenuItem",
+        data: "menu_id=" + menu_id + "&resto_id=" + resto_id,
+        type: 'get',
+        beforeSend: function() {
+            $("#loading-overlay").show();
+        },
+        success: function(response) {
+            $(inputQuantityElement).html(response.quantity);
+            $(item_count).html(response.items);
+            $(total_amount).html(response.total_amount);
+            $("#loading-overlay").hide();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            $("#loading-overlay").hide();
+            alert("something went wrong");
+        }
+    });
+}
+
+function decrement_quantity(menu_id) {
+    var resto_id = $("#input-quantity").val();
+    var menu_decode_id = atob(menu_id);
+    var inputQuantityElement = $("#input-quantity-" + menu_decode_id);
+    var item_count = $("#item_count");
+    var total_amount = $("#total_amount");
+
+    $.ajax({
+        url: "subtractMenuItem",
+        data: "menu_id=" + menu_id + "&resto_id=" + resto_id,
+        type: 'get',
+        beforeSend: function() {
+            $("#loading-overlay").show();
+        },
+        success: function(response) {
+            $(inputQuantityElement).html(response.quantity);
+            $(item_count).html(response.items);
+            $(total_amount).html(response.total_amount);
+            $("#loading-overlay").hide();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            $("#loading-overlay").hide();
+            alert("something went wrong");
+        }
+    });
+}
+</script>
