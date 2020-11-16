@@ -95,7 +95,6 @@ class RestaurentController extends Controller
             $user = Auth::user();
             
             $data = $request->toarray();
-            $data['restaurent_id'] =$user->id;
             $menu_categories = new menu_categories;
         
             $cate_id = $menu_categories->makeMenuCategory($data);
