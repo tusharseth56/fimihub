@@ -15,6 +15,7 @@ use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UpdateLoginRequest;
 use App\Http\Requests\UserForgetPasswordRequest;
 use App\Http\Requests\UpdateDeviceTokenRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Traits\OtpGenerationTrait;
 use Response;
 use App\Model\rider_bank_detail;
@@ -322,8 +323,10 @@ class LoginRegisterController extends Controller
                     return response()->json(['message' => 'Invalid OTP','status'=>false], $this->failureStatus);
                 }
 
+            }else{
+                return response()->json(['message' => 'Invalid User-Id','status'=>false], $this->failureStatus);
+
             }
-            return response()->json(['message' => 'Invalid User-Id','status'=>false], $this->failureStatus);
         }
         catch (\Throwable $th) 
         {
@@ -410,6 +413,7 @@ class LoginRegisterController extends Controller
 
         
     }
+
     public function updateDeviceToken(UpdateDeviceTokenRequest $request)
     {
         try {
@@ -437,6 +441,36 @@ class LoginRegisterController extends Controller
             report($th);
             
             return response()->json(['message'=> $th->getMessage(),'status'=>false], $this->invalidStatus);
+
+        }
+        
+    }
+
+    public function changePassword(UpdatePasswordRequest $request)
+    {
+       
+        try {
+            $user = Auth::user();
+
+            $user_id = $user->mobile;
+            $password = $request->input('password');
+            $new_password = $request->input('new_password');
+            $id = $user->id;
+            if(!Hash::check($password, $user->password))
+            {
+                return response()->json(['custom_error'=>'Invalid Old Password','status'=>false],$this->failureStatus);
+            }
+            else{
+                $data=['userid'=>$user->mobile,'password'=>$new_password];
+                $user = auth()->user()->changePassword($data);
+                return response()->json(['message'=>'Password Changed !','status'=>true], $this->successStatusCreated);
+            }
+
+           
+        } catch (\Throwable $th) {
+             report($th);
+            
+             return response()->json(['custom_error'=> $th->getMessage(),'status'=>false], $this->invalidStatus);
 
         }
 
