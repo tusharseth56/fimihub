@@ -37,14 +37,16 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     //========================================== Bearer Api's===================================================
     
     Route::group(['middleware' => 'auth:api'], function(){
-        //Merchant Details
+        //Rider Details
         Route::get('/details', 'Api\LoginRegisterController@details');
-        //Merchant logout
+        //Rider logout
         Route::get('/logout', 'Api\LoginRegisterController@logout');
-        //User Login details updation
-        Route::post('/profileUpdate', 'Api\LoginRegisterController@updateLogin');
-        //User Device token updation
+        //Rider Device token updation
         Route::post('/updateDeviceToken', 'Api\LoginRegisterController@updateDeviceToken');
+        //Rider change password
+        Route::post('/changePassword', 'Api\LoginRegisterController@changePassword');
+        //Rider Login details updation
+        Route::post('/profileUpdate', 'Api\LoginRegisterController@updateLogin');
         
     });
     // ...
