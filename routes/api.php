@@ -50,6 +50,23 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         //Rider Login details updation
         Route::post('/profileUpdate', 'Api\LoginRegisterController@updateLogin');
 
+        // Notifications
+        //Get all Read and Unread notification
+        Route::get('/getallnotification', 'Api\NotificationController@getAllNotifications');
+        //Get all Unread notification
+        Route::get('/getallunreadnotification', 'Api\NotificationController@getAllUnReadNotification');
+        //Get all Readed notification
+        Route::get('/getallreadnotification', 'Api\NotificationController@getAllReadNotification');
+        //Get singale notification
+        Route::get('/getnotificationbyid/{id}', 'Api\NotificationController@getNotificationById');
+
+    });
+
+    Route::group(['middleware' => 'auth:api', 'prefix'=>'rider'], function() {
+        //Rider Details
+        Route::get('/testingnotification', 'Api\Rider\OrderController@TestingNotification');
+        // Route::get('/getnotification', 'Api\Rider\OrderController@TestingNotification');
+
     });
     // ...
 });
