@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Log;
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
 
-  
+
     //Rider Registration
     Route::post('/register' , 'Api\LoginRegisterController@register');
     //Rider Login
@@ -33,9 +33,11 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/VerifyOtp', 'Api\OtpManagerController@OtpVerification');
     //Forget password
     Route::post('/forgetPassword', 'Api\LoginRegisterController@forgetPassword');
-    
+    //CMS About us, Term And Condition, FAQ
+    Route::get('/getcms/{type?}', 'Api\CmsController@getCms');
+
     //========================================== Bearer Api's===================================================
-    
+
     Route::group(['middleware' => 'auth:api'], function(){
         //Rider Details
         Route::get('/details', 'Api\LoginRegisterController@details');
@@ -47,7 +49,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::post('/changePassword', 'Api\LoginRegisterController@changePassword');
         //Rider Login details updation
         Route::post('/profileUpdate', 'Api\LoginRegisterController@updateLogin');
-        
+
     });
     // ...
 });
