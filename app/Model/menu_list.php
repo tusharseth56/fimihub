@@ -76,4 +76,45 @@ class menu_list extends Model
         return $menu_list;
     
     }
+
+    public function menuListByQuantity($data)
+    {
+        $cart_exist = DB::table('carts')
+        ->where('carts.restaurent_id', $data['restaurent_id'])
+        ->where('carts.user_id', $data['user_id'])
+        ->where('carts.visibility', 0);
+
+        if($cart_exist->count() == 0)
+        {
+            $menu_list=DB::table('menu_list')
+                    ->join('menu_categories as mc', 'mc.id', '=', 'menu_list.menu_category_id')
+                    ->where('menu_list.visibility', 0)
+                    ->where('menu_list.restaurent_id', $data['restaurent_id'])
+                    ->select('menu_list.*','mc.name as cat_name','mc.discount as cat_discount')
+                    ->orderBy('cat_name')
+                    ->get();
+        }
+        else
+        {
+            $cart_exist = $cart_exist->first();
+            $data['cart_exist_id'] = $cart_exist->id;
+            $menu_list = DB::table('menu_list')
+                    ->leftJoin('cart_submenus', function($join) use ($data)
+                         {
+                             $join->on('cart_submenus.menu_id', '=', 'menu_list.id');
+                             $join->where('cart_submenus.user_id', $data['user_id']);
+                             $join->where('cart_submenus.cart_id',  $data['cart_exist_id']);
+                             $join->where('cart_submenus.visibility', 0);
+                            
+                         })
+                    ->where('menu_list.restaurent_id', $data['restaurent_id'])
+                    ->join('menu_categories as mc', 'mc.id', '=', 'menu_list.menu_category_id')
+                    ->where('menu_list.visibility', 0)
+                    ->select('menu_list.*','cart_submenus.quantity as quantity','mc.name as cat_name','mc.discount as cat_discount')
+                    ->get();
+        }
+       
+        return $menu_list;
+    
+    }
 }

@@ -12,11 +12,29 @@
 </head>
 
 <body>
+    <div id="loading-overlay">
+        <div class="loading-icon"></div>
+    </div>
     <header class="header">
         <div class="md_container">
             <div class="inner-wrap">
                 <div class="left-block">
                     <ul>
+                        @if(Session::has('user'))
+
+                        <li>
+                            <div class="logo-wrap">
+                                <a href="{{url('/home')}}">
+                                    <img src="{{url('asset/customer/assets/images/logo.png')}}" alt="logo">
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#" class="location-link show-sidepanel" id="addressPanel"><img
+                                    src="{{url('asset/customer/assets/images/location.svg')}}" alt="location">
+                                <span>Location</span></a>
+                        </li>
+                        @else
                         <li>
                             <div class="logo-wrap">
                                 <a href="{{url('/')}}">
@@ -29,6 +47,9 @@
                                     src="{{url('asset/customer/assets/images/location.svg')}}" alt="location">
                                 <span>Location</span></a>
                         </li>
+                        @endif
+
+
                     </ul>
                 </div>
                 <nav class="nav-menu">
@@ -57,21 +78,18 @@
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="#">My Account</a>
+                                    <a href="{{url('myAccount')}}"> <img
+                                            src="{{url('asset/customer/assets/images/user.svg')}}" alt="user"> My
+                                        Account</a>
                                 </li>
                                 <li>
-                                    <a href="#">Log Out</a>
+                                    <a href="{{url('logout')}}"> <img
+                                            src="{{url('asset/customer/assets/images/logout_icon.svg')}}" alt="user">
+                                        Log Out</a>
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="{{url('logout')}}"><img src="{{url('asset/customer/assets/images/user.svg')}}"
-                                    alt="user"> Logout</a>
-                        </li>
-                        <li>
-                            <a href="{{url('myAccount')}}"><img src="{{url('asset/customer/assets/images/user.svg')}}"
-                                    alt="user"> My Account</a>
-                        </li>
+                        <li></li>
                         @else
                         <li>
                             <a href="#">Partner with us</a>

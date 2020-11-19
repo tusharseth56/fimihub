@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Validation\Validator;
 
-class UserForgetPasswordRequest extends FormRequest
+class UpdateDeviceTokenRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,12 +27,7 @@ class UserForgetPasswordRequest extends FormRequest
     public function rules()
     {
         $validator = [
-            'userid' => 'required',
-            'email'=>'email',
-            'mobile'=>'numeric|digits:10',
-            'verification_code'=>'required|digits:4',
-            'password'=>'required|min:6'
-            
+            'device_token' => 'required',
         ];
         return $validator;
     }

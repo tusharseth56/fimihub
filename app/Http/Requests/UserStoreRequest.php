@@ -31,12 +31,26 @@ class UserStoreRequest extends FormRequest
             'name' => 'required|string|max:150',
             'password' => 'required|string|min:6',
             'mobile' => 'required|numeric|unique:users|digits:10',
-            'user_type' => 'required|in:1,2,3', //1-Admin,2-Merchant,3-User	
-            'country_code' => 'string|nullable', //1-Admin,2-Merchant,3-User	
-            'email' => 'email|unique:users',
+            'country_code' => 'string|nullable',	
+            'email' => 'email|unique:users|nullable',
             'device_token' => 'required|string',
-            
-            
+            'vehicle_number' => 'required|string',
+            'model_name' => 'required|string',
+            'vehicle_image' => 'mimes:png,jpg,jpeg|max:3072|nullable',
+            'color' => 'required|string',
+            'id_proof' => 'required|mimes:pdf|max:3072|nullable',
+            'address' => 'required|string',
+            'pincode' => 'required|digits:6',
+            'driving_license' => 'required|mimes:png,jpg,jpeg|max:3072|nullable',
+            'dl_start_date' => 'required|string',
+            'dl_end_date' => 'required|string',
+            'registraion_start_date' => 'required|string',
+            'registraion_end_date' => 'required|string',
+            'account_number' => 'required|string',
+            'holder_name' => 'required|string|max:150',
+            'branch_name' => 'required|string|max:150',
+            'ifsc_code' => 'required|string',
+                    
         ];
         return $validator;
 

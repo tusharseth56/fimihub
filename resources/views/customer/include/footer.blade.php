@@ -138,6 +138,27 @@
         </div>
     </div>
 </div>
+
+<!-- order successfull modal -->
+<div class="modal fade thankyou_mdl" id="thankyou">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h3>Order Confirmed!</h3>
+                <img src="{{url('asset/customer/assets/images/cup_icon.svg')}}" alt="cup">
+                <h3 class="mt-3 mb-3">THANK YOU!</h3>
+                <p>Your order was successfully placed <br>and being prepared for delivery.</p>
+                <div class="d-flex align-items-center justify-content-center">
+                    <button type="button" class="btn_purple auth_btn hover_effect1 track_order_btn">TRACK YOUR
+                        ORDER</button>
+                    <a href="#" class="btn_purple auth_btn hover_effect1 backhome_btn">BACK TO HOME</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="side-panel right" data-panel-id="filterPanel">
     <div class="inner-sidebar">
         <div class="title">
@@ -199,6 +220,13 @@
 <script>
 $(window).on('load', function() {
     $('#forgot_psw').modal('show');
+})
+</script>
+@endif
+@if(Session::has('modal_check_order'))
+<script>
+$(window).on('load', function() {
+    $('#thankyou').modal('show');
 })
 </script>
 @endif

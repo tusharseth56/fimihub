@@ -50,9 +50,6 @@ class CreateRestaurentManagementTable extends Migration
             $table->charset = 'utf16';
             $table->collation = 'utf16_general_ci';
             $table->increments('id');
-            // foreign key of users table
-            $table->integer('restaurent_id')->unsigned();
-            $table->foreign('restaurent_id')->references('id')->on('restaurent_details')->onDelete('cascade')->onUpdate('cascade');
             //rest attributes
             $table->string('name');
             $table->text('about')->nullable();

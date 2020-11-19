@@ -25,11 +25,25 @@ class UpdateLoginRequest extends FormRequest
     {
         $validator = [
             'name' => 'string|max:150',
-            'email' => 'string|email|max:255|unique:users|nullable',
             'mobile' => 'numeric|unique:users|digits:10',
-            'dob' => 'string|nullable',
-            'profile_picture' => 'mimes:png,jpg,jpeg|max:3072|nullable',
-            'gender' => 'numeric|nullable',
+            'country_code' => 'string|nullable',	
+            'email' => 'email|unique:users|nullable',
+            'vehicle_number' => 'string',
+            'model_name' => 'string',
+            'vehicle_image' => 'mimes:png,jpg,jpeg|max:3072|nullable',
+            'color' => 'string',
+            'id_proof' => 'mimes:pdf|max:3072',
+            'address' => 'string',
+            'pincode' => 'digits:6',
+            'driving_license' => 'mimes:png,jpg,jpeg|max:3072',
+            'dl_start_date' => 'string',
+            'dl_end_date' => 'string',
+            'registraion_start_date' => 'string',
+            'registraion_end_date' => 'string',
+            'account_number' => 'string',
+            'holder_name' => 'string|max:150',
+            'branch_name' => 'string|max:150',
+            'ifsc_code' => 'string',
         
         ];
         return $validator;

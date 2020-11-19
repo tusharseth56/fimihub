@@ -83,9 +83,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('total_amount', 8, 2)->nullable();
             $table->decimal('delivery_fee', 8, 2)->nullable();
             $table->decimal('tax', 8, 2)->nullable();
-<<<<<<< Updated upstream
-            $table->string('payment_status')->nullable();
-=======
+
             $table->tinyInteger('order_status')->comment('1-failed,
                                                     2-user_cancel,
                                                     3-pending,
@@ -98,7 +96,6 @@ class CreateOrdersTable extends Migration
                                                     10-refunded')->nullable();
             $table->tinyInteger('payment_status')->comment('1-pending,2-success,3-failed')->nullable();
             $table->tinyInteger('payment_type')->comment('1-stripe,2-paypal,3-COD');
->>>>>>> Stashed changes
             $table->tinyInteger('visibility')->default('0');
             $table->timestamp('deleted_at', 0)->nullable();
             $table->timestamps();
