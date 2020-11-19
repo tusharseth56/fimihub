@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Log;
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
 
-  
+
     //Rider Registration
     Route::post('/register' , 'Api\LoginRegisterController@register');
     //Rider Login
@@ -33,9 +33,11 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/VerifyOtp', 'Api\OtpManagerController@OtpVerification');
     //Forget password
     Route::post('/forgetPassword', 'Api\LoginRegisterController@forgetPassword');
-    
+    //CMS About us, Term And Condition, FAQ
+    Route::get('/getcms/{type?}', 'Api\CmsController@getCms');
+
     //========================================== Bearer Api's===================================================
-    
+
     Route::group(['middleware' => 'auth:api'], function(){
         //Rider Details
         Route::get('/details', 'Api\LoginRegisterController@details');
@@ -47,7 +49,24 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::post('/changePassword', 'Api\LoginRegisterController@changePassword');
         //Rider Login details updation
         Route::post('/profileUpdate', 'Api\LoginRegisterController@updateLogin');
-        
+
+        // Notifications
+        //Get all Read and Unread notification
+        Route::get('/getallnotification', 'Api\NotificationController@getAllNotifications');
+        //Get all Unread notification
+        Route::get('/getallunreadnotification', 'Api\NotificationController@getAllUnReadNotification');
+        //Get all Readed notification
+        Route::get('/getallreadnotification', 'Api\NotificationController@getAllReadNotification');
+        //Get singale notification
+        Route::get('/getnotificationbyid/{id}', 'Api\NotificationController@getNotificationById');
+
+    });
+
+    Route::group(['middleware' => 'auth:api', 'prefix'=>'rider'], function() {
+        //Rider Details
+        Route::get('/testingnotification', 'Api\Rider\OrderController@TestingNotification');
+        // Route::get('/getnotification', 'Api\Rider\OrderController@TestingNotification');
+
     });
     // ...
 });
