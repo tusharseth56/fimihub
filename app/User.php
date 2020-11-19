@@ -93,6 +93,7 @@ class User extends Authenticatable
 
     public function UpdateLogin($data)
     {
+       
         $value=DB::table('users')->where('id', $data['id'])->get();
         
         if($value->count() == 0)
@@ -102,6 +103,7 @@ class User extends Authenticatable
         }
         else
         {
+            
             $data['updated_at'] = now();
             
             $query_data = DB::table('users')
