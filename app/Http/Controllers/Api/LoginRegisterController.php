@@ -345,7 +345,7 @@ class LoginRegisterController extends Controller
             $id = $user->id;
             $data = $request->toarray();
             $data['id']= $id;
-            $email = $mobile = "";
+            
             $user_update_data=array();
             $user_update_data['id']=$id;
             if($request->has('password'))
@@ -353,30 +353,44 @@ class LoginRegisterController extends Controller
                 unset($data['password']);
             }
             if($request->has('email')){
-                $user_update_data['email']=$data['email'];
-                $user_update_data['email_verified_at']=NULL;
+                if($data['email'] != $user->email){
+                    $user_update_data['email']=$data['email'];
+                    $user_update_data['email_verified_at']=NULL;
+                }
+
             }
 
             if($request->has('mobile')){
-                $user_update_data['mobile']=$data['mobile'];
-                $user_update_data['mobile_verified_at']=NULL;
+                if($data['mobile'] != $user->email){
+                    if($request->has('country_code')){
+                        $user_update_data['country_code']=$data['country_code'];
+                    }
+                    $user_update_data['mobile']=$data['mobile'];
+                    $user_update_data['mobile_verified_at']=NULL;
+                }
             }
             if($request->has('name')){
                 $user_update_data['name']=$data['name'];
             }
-            $user = auth()->user()->UpdateLogin($user_update_data);
-            $user_data = auth()->user()->userByIdData($id);
+            
+            $user_inst = new user;
+            $user_up = $user_inst->UpdateLogin($user_update_data);
+            $user_data = auth()->user()->userByIdData($user->id);
             unset($user_data->password);
-
-            $profile_data=array();
-            $profile_data['user_id']=$id;
-            if($request->has('dob')){
-                $profile_data['dob']=$data['dob'];
+            
+            $vehicle_update_data=array();
+            $vehicle_update_data['user_id']=$id;
+            if($request->has('vehicle_number')){
+                $vehicle_update_data['vehicle_number']=$data['vehicle_number'];
             }
-            if($request->hasfile('profile_picture'))
+            if($request->has('model_name')){
+                $vehicle_update_data['model_name']=$data['model_name'];
+            }
+
+            if($request->hasfile('vehicle_image'))
             {
-                $profile_pic = $request->file('profile_picture');
-                $input['imagename'] = 'ProfilePicture'.time().'.'.$profile_pic->getClientOriginalExtension();
+                $profile_pic = $request->file('vehicle_image');
+                $input['imagename'] = 'VehiclePicture'.time().'.'.$profile_pic->getClientOriginalExtension();
 
                 $path = public_path('uploads/'.$id.'/images');
                 File::makeDirectory($path, $mode = 0777, true, true);
@@ -385,23 +399,104 @@ class LoginRegisterController extends Controller
                 if($profile_pic->move($destinationPath, $input['imagename']))
                 {
                     $file_url=url($destinationPath.$input['imagename']);
-                    $profile_data['profile_picture']=$file_url;
+                    $vehicle_update_data['vehicle_image']=$file_url;
                 
                 }else{
-                    $error_file_not_required[]="Profile Picture Have Some Issue";
-                    $profile_data['profile_picture']="";
+                    $error_file_not_required[]="Vehicle Picture Have Some Issue";
+                    $vehicle_update_data['vehicle_image']="";
                 }
                 
             }
-            if($request->has('gender')){
-                $profile_data['gender']=$data['gender'];
+            if($request->has('color')){
+                $vehicle_update_data['color']=$data['color'];
             }
-            $user_profile = new user_profile();
-            $profile_data_update = $user_profile->insertUpdateProfileData($profile_data);
-            $profile_data = $user_profile->profileData($profile_data);
+
+            if($request->hasfile('id_proof'))
+            {
+                $profile_pic = $request->file('id_proof');
+                $input['imagename'] = 'IDProof'.time().'.'.$profile_pic->getClientOriginalExtension();
+
+                $path = public_path('uploads/'.$id.'/documents');
+                File::makeDirectory($path, $mode = 0777, true, true);
+                                
+                $destinationPath = 'uploads/'.$id.'/documents'.'/';
+                if($profile_pic->move($destinationPath, $input['imagename']))
+                {
+                    $file_url=url($destinationPath.$input['imagename']);
+                    $vehicle_update_data['id_proof']=$file_url;
+                
+                }else{
+                    $error_file_not_required[]="ID Proof Have Some Issue";
+                    $vehicle_update_data['id_proof']="";
+                }
+                
+            }
+            if($request->has('address')){
+                $vehicle_update_data['address']=$data['address'];
+            }
+            if($request->has('pincode')){
+                $vehicle_update_data['pincode']=$data['pincode'];
+            }
+
+            if($request->hasfile('driving_license'))
+            {
+                $profile_pic = $request->file('driving_license');
+                $input['imagename'] = 'DL'.time().'.'.$profile_pic->getClientOriginalExtension();
+
+                $path = public_path('uploads/'.$id.'/images');
+                File::makeDirectory($path, $mode = 0777, true, true);
+                                
+                $destinationPath = 'uploads/'.$id.'/images'.'/';
+                if($profile_pic->move($destinationPath, $input['imagename']))
+                {
+                    $file_url=url($destinationPath.$input['imagename']);
+                    $vehicle_update_data['driving_license']=$file_url;
+                
+                }else{
+                    $error_file_not_required[]="DL Have Some Issue";
+                    $vehicle_update_data['driving_license']="";
+                }
+                
+            }
+            if($request->has('dl_start_date')){
+                $vehicle_update_data['dl_start_date']=$data['dl_start_date'];
+            }
+            if($request->has('dl_end_date')){
+                $vehicle_update_data['dl_end_date']=$data['dl_end_date'];
+            }
+            if($request->has('registraion_start_date')){
+                $vehicle_update_data['registraion_start_date']=$data['registraion_start_date'];
+            }
+            if($request->has('registraion_end_date')){
+                $vehicle_update_data['registraion_end_date']=$data['registraion_end_date'];
+            }
+            
+            $vehicle_detail = new vehicle_detail;
+            $vehicle_datas = $vehicle_detail->insertUpdateVehicleData($vehicle_update_data);
+            
+            $vehicle_datas = $vehicle_detail->getVehicleData($user->id);
+            
+            $bank_details = array();
+            $bank_details['user_id'] = $user->id;
+            if($request->has('account_number')){
+                $bank_details['account_number']=$data['account_number'];
+            }
+            if($request->has('holder_name')){
+                $bank_details['holder_name']=$data['holder_name'];
+            }
+            if($request->has('branch_name')){
+                $bank_details['branch_name']=$data['branch_name'];
+            }
+            if($request->has('ifsc_code')){
+                $bank_details['ifsc_code']=$data['ifsc_code'];
+            }
+            $rider_bank_detail = new rider_bank_detail;
+            $bank_data = $rider_bank_detail->insertUpdateBankData($bank_details);
+            $bank_data = $rider_bank_detail->getBankData($user->id);
 
             return response()->json(['data' =>$user_data,
-                                    'profile_data'=>$profile_data,
+                                    'bank_data'=>$bank_data,
+                                    'vehicle_data'=>$vehicle_datas,
                                     'message' =>'Profile Updated !',
                                     'status'=>true], $this->successStatusCreated);
         } catch (\Throwable $th) {
