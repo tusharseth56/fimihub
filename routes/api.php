@@ -52,13 +52,11 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
         // Notifications
         //Get all Read and Unread notification
-        Route::get('/getallnotification', 'Api\NotificationController@getAllNotifications');
-        //Get all Unread notification
-        Route::get('/getallunreadnotification', 'Api\NotificationController@getAllUnReadNotification');
-        //Get all Readed notification
-        Route::get('/getallreadnotification', 'Api\NotificationController@getAllReadNotification');
+        Route::get('/getnotifications/{type?}', 'Api\NotificationController@getAllNotifications');
         //Get singale notification
         Route::get('/getnotificationbyid/{id}', 'Api\NotificationController@getNotificationById');
+        //Mark as read notification
+        Route::get('/markasread/{id?}', 'Api\NotificationController@markAsRead');
 
     });
 
