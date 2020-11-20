@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Traits\NotificationTrait;
 use App\Model\Notification;
-use App\Model\Order;
+use App\Model\order;
 use App\User;
 use Auth;
 
@@ -14,7 +14,7 @@ class OrderController extends Controller
 {
     use NotificationTrait;
 
-    public function __construct(Order $order) {
+    public function __construct(order $order) {
         $this->order = $order;
     }
 
