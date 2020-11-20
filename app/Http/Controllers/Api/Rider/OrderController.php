@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Traits\NotificationTrait;
 use App\Model\Notification;
+use App\Model\Order;
 use App\User;
 use Auth;
 
@@ -13,12 +14,13 @@ class OrderController extends Controller
 {
     use NotificationTrait;
 
-    public function TestingNotification()
+    public function __construct(Order $order) {
+        $this->order = $order;
+    }
+
+    public function testingNotification()
     {
         $sender_data = Auth::user();
-        // dd($sender_data);
-        // $reciever_data = $user->userByIdData($pay_data['reciever_id']);
-
         $push_notification_sender=array();
         $push_notification_sender['device_token'] = $sender_data->device_token;
         $push_notification_sender['title'] = 'Testing notification';
@@ -33,6 +35,26 @@ class OrderController extends Controller
         $notification_id = $notification->makeNotifiaction($notification_sender);
 
         $push_notification_sender_result=$this->pushNotification($push_notification_sender);
-        return response()->json(['message'=> 'Testing notification','status' =>true ], $this->failureStatus);
+        return response()->json(['message'=> 'Testing notification','status' =>true ], $this->successStatus);
+    }
+
+    public function getOrders(Request $request, int $orderId = 0)
+    {
+        if ($orderId) {
+            $order = $this->order->getOrder($orderId)
+            ->with('restroAddress','userAddress.userDetails','cart','restaurentDetails','cart.cartItems', 'cart.cartItems.menuItems')
+            ->first();
+        } else {
+
+            $order = $this->order->getOrder($orderId)
+            ->with('restroAddress','userAddress.userDetails')
+            // to do
+            // ->with(array('restroAddress' => function($query){
+            //     $query->select('id', 'address', 'flat_no', 'landmark', 'longitude', 'longitude');
+            // }))
+            ->paginate(10);
+        }
+       
+        return response()->json(['data' => $order, 'message' => 'Success', 'status' => true], $this->successStatus);
     }
 }
