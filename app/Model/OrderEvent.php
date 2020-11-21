@@ -26,9 +26,10 @@ class OrderEvent extends Model
         'order_id',
         'user_id',
         'order_status',
-        'order_commment',
+        'order_comment',
         'order_feedback',
         'feedback_comment',
+        'resion_id',
         'user_type',
         'visibility',
         'deleted_at',
@@ -43,6 +44,8 @@ class OrderEvent extends Model
         if(empty($orderEvent)) {
             $orderEvent = $this->create($data);
         } else {
+            unset($data['order_id']);
+            unset($data['user_id']);
             $orderEvent = $orderEvent->update($data);
         }
 
