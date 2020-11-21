@@ -37,7 +37,7 @@ class order extends Model
             })
             ->whereNull('oe.order_id');
         }
-        return $query->orderBy('created_at', 'ASC')->groupBy('orders.id');
+        return $query->orderBy('orders.order_id', 'DESC')->groupBy('orders.id');
     }
 
     public function cart()
