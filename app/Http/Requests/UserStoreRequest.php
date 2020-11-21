@@ -38,7 +38,7 @@ class UserStoreRequest extends FormRequest
             'model_name' => 'required|string',
             'vehicle_image' => 'mimes:png,jpg,jpeg|max:3072|nullable',
             'color' => 'required|string',
-            'id_proof' => 'required|mimes:pdf|max:3072|nullable',
+            'id_proof' => 'required|mimes:png,jpg,jpeg|max:3072|nullable',
             'address' => 'required|string',
             'pincode' => 'required|digits:6',
             'driving_license' => 'required|mimes:png,jpg,jpeg|max:3072|nullable',

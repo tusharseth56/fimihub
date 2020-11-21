@@ -7,15 +7,17 @@ use Illuminate\Http\Request;
 use App\Http\Traits\NotificationTrait;
 use App\Model\Notification;
 use App\Model\order;
+use App\Model\OrderEvent;
 use App\User;
-use Auth;
+use Auth, Validator;
 
 class OrderController extends Controller
 {
     use NotificationTrait;
 
-    public function __construct(order $order) {
+    public function __construct(order $order, OrderEvent $orderEvent) {
         $this->order = $order;
+        $this->orderEvent = $orderEvent;
     }
 
     public function testingNotification()
@@ -58,7 +60,31 @@ class OrderController extends Controller
         return response()->json(['data' => $order, 'message' => 'Success', 'status' => true], $this->successStatus);
     }
 
-    // public function updateOrderStatus(Request $request) {
-    //     $request->all();
-    // }
+    public function updateEventOrderStatus(Request $request, $orderStatus) {
+        $validator = $this->validateUpdateStatus();
+        if($validator->fails()) {
+            $message = collect($validator->messages())->values()->first();
+            return response()->json(['data' => $message[0], 'message' => 'Validation failed', 'status' => false], $this->successStatus);
+        }
+        $id = Auth::id();
+        $data = array(
+            'user_id' => $id,
+            'order_status' => $orderStatus,
+            'order_id' => $request->input('order_id'),
+            'order_id' => $request->input('order_id'),
+        );
+
+        if($orderStatus == 1) {
+
+            $this->orderEvent->updateStatus($data);
+        }
+    }
+
+    public function validateUpdateStatus() {
+        return Validator::make(request()->all(), array(
+            'status' => 'required|integer',
+            'resion' => 'nullable|required_if:status,4|nullable',
+            'comment' => 'nullable|string',
+        ));
+    }
 }
