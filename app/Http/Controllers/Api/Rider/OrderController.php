@@ -42,7 +42,7 @@ class OrderController extends Controller
     {
         if ($orderId) {
             $order = $this->order->getOrder($orderId)
-            ->with('restroAddress','userAddress.userDetails','cart','restaurentDetails','cart.cartItems', 'cart.cartItems.menuItems')
+            ->with('restroAddress','userAddress.userDetails','restaurentDetails','cart.cartItems.menuItems')
             ->first();
         } else {
 
@@ -54,7 +54,11 @@ class OrderController extends Controller
             // }))
             ->paginate(10);
         }
-       
+
         return response()->json(['data' => $order, 'message' => 'Success', 'status' => true], $this->successStatus);
     }
+
+    // public function updateOrderStatus(Request $request) {
+    //     $request->all();
+    // }
 }
