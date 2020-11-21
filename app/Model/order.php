@@ -13,6 +13,21 @@ use App\User;
 
 class order extends Model
 {
+    /**
+     * ============ order status ==============
+     * 1-failed
+     * 2-user_cancel
+     * 3-pending
+     * 4-resto_cancel
+     * 5-placed
+     * 6-packed
+     * 7-picked
+     * 8-rider_cancel
+     * 9-received
+     * 10-refunded
+     * 11-assigned to rider
+     * 12-rider on the way
+     */
     public function makeOrder($data)
     {
         $count=DB::table('orders')->max('id');
@@ -25,19 +40,22 @@ class order extends Model
 
     public function getOrder($orderId = false)
     {
-        $query = $this->where(function($query) {
-            $query->orWhere('orders.order_status', 6)->orWhere('orders.order_status', 5);
-        })->select('orders.*');
+        $query = $this;
         if($orderId) {
-            $query = $query->where('orders.id', $orderId);
+            $query = $this->where('orders.id', $orderId)
+            ->select('orders.*');
         } else {
-            $query = $query->leftjoin('order_events as oe',function($query){
+            $query = $this->where(function($query) {
+                $query->orWhere('orders.order_status', 6)->orWhere('orders.order_status', 5);
+            })
+            ->leftjoin('order_events as oe',function($query){
                 $query->on('orders.id', '=', 'oe.order_id')
                 ->where('oe.user_type', 1);
             })
-            ->whereNull('oe.order_id');
+            ->whereNull('oe.order_id')->orderBy('orders.order_id', 'DESC')->groupBy('orders.id');
         }
-        return $query->orderBy('orders.order_id', 'DESC')->groupBy('orders.id');
+        // dd($query->toSql());
+        return $query;
     }
 
     public function cart()
@@ -58,5 +76,9 @@ class order extends Model
     public function restroAddress()
     {
         return $this->belongsTo(user_address::class, 'restaurent_id');
+    }
+
+    public function updateStatus($orderId, $status) {
+        return $this->where('id', $orderId)->update(['order_status'=> $status]);
     }
 }

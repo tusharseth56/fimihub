@@ -92,7 +92,9 @@ class CreateOrdersTable extends Migration
                                                     7-picked,
                                                     8-rider_cancel,
                                                     9-received,
-                                                    10-refunded')->nullable();
+                                                    10-refunded
+                                                    11-assigned to rider
+                                                    12-rider on the way')->nullable();
             $table->tinyInteger('payment_status')->comment('1-pending,2-success,3-failed')->nullable();
             $table->tinyInteger('payment_type')->comment('1-stripe,2-paypal,3-COD');
             $table->tinyInteger('visibility')->default('0');
