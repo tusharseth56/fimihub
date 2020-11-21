@@ -31,12 +31,13 @@ class order extends Model
         if($orderId) {
             $query = $query->where('orders.id', $orderId);
         } else {
-            $query = $query->leftjoin('order_events', function($query) {
-                $query->on('orders.id', '!=', 'order_events.order_id')->where('order_events.user_type', 1);
-            });
+            $query = $query->leftjoin('order_events as oe',function($query){
+                $query->on('orders.id', '=', 'oe.order_id')
+                ->where('oe.user_type', 1);
+            })
+            ->whereNull('oe.order_id');
         }
-        // dd($query->toSql());
-        return $query->orderBy('created_at', 'DESC')->groupBy('orders.id');
+        return $query->orderBy('orders.order_id', 'DESC')->groupBy('orders.id');
     }
 
     public function cart()
