@@ -231,6 +231,7 @@ class LoginRegisterController extends Controller
                                             'data'=>$user_data ,
                                             'bank_data'=>$bank_data,
                                             'vehicle_data'=>$vehicle_datas,
+                                            'message' => 'success',
                                             'status'=>true], $this->successStatus);
                 }
             }
