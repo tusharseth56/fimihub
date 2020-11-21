@@ -81,27 +81,35 @@ class OrderController extends Controller
         if($orderStatus == 6) { // // Order rejected by rider
             $data['resion_id'] = $request->input('resion_id');
             $data['order_comment'] = $request->input('order_comment');
-            $response = $this->orderEvent->updateStatus($orderId, $data);
-
+            $this->orderEvent->updateStatus($orderId, $data);
+            $this->order->updateStatus($orderId, 8); // 8-rider_cancel
         } else if($orderStatus == 5) { // Order delivered
-            $data['resion_id'] = $request->input('resion_id');
-            $data['order_comment'] = $request->input('order_comment');
-
+            $this->order->updateStatus($orderId, 9); // 9-received
             $orderDetails = $this->order->getOrder($orderId)->first();
-            if(!empty($orderId)) {
                 // To do
-                if($request->input('payment_type') == 3) {
-                    $price = $orderDetails->price;
-                    $collectedPrice = $request->input('price');
-                    if($price >= $collectedPrice) {
-                        // update rider earning
-                    }
+            if($request->input('payment_type') == 3) {
+                $price = $orderDetails->total_amount;
+                $collectedPrice = $request->input('price');
+                if($price >= $collectedPrice) {
+                    // update rider earning
                 }
             }
 
-            $response = $this->orderEvent->updateStatus($orderId, $data);
+            $this->orderEvent->updateStatus($orderId, $data);
+        } else if($orderStatus == 4) { //  On the way
+            $this->orderEvent->updateStatus($orderId, $data);
+            $this->order->updateStatus($orderId, 12); // 12-rider on the way
+
+        } else if($orderStatus == 3) { // Order Picked Up
+            $this->orderEvent->updateStatus($orderId, $data);
+            $this->order->updateStatus($orderId, 7); // 11-assigned to rider
+
+        } else if($orderStatus == 1) { // Arriving to store
+            $this->orderEvent->updateStatus($orderId, $data);
+            $this->order->updateStatus($orderId, 11); // 11-assigned to rider
+
         } else {
-            $response = $this->orderEvent->updateStatus($orderId, $data);
+            $this->orderEvent->updateStatus($orderId, $data);
         }
 
         return response()->json(['data' => $data, 'message' => 'Status updated successfully.', 'status' => true], $this->successStatus);
