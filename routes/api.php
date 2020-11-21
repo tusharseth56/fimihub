@@ -57,6 +57,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::get('/getnotificationbyid/{id}', 'Api\NotificationController@getNotificationById');
         //Mark as read notification
         Route::get('/markasread/{id?}', 'Api\NotificationController@markAsRead');
+        // get resions
+        Route::get('/getresions/{id}', 'Api\CmsController@getResions');
 
     });
 
@@ -64,6 +66,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         //Rider Details
         Route::get('/testingnotification', 'Api\Rider\OrderController@testingNotification');
         Route::get('/getorders/{id?}', 'Api\Rider\OrderController@getOrders');
+        Route::post('/updatestatus', 'Api\Rider\OrderController@updateEventOrderStatus');
 
     });
     // ...

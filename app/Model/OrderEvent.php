@@ -12,8 +12,9 @@ class OrderEvent extends Model
      * 1. Arriving to store
      * 2. Arrived at store
      * 3. Order Picked Up
-     * 3. On the way
-     * 4. Rejected
+     * 4. On the way
+     * 5. Delivered
+     * 6. Rejected
      */
 
     /**

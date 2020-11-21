@@ -25,14 +25,18 @@ class order extends Model
 
     public function getOrder($orderId = false)
     {
-        $query = $this->where( function($query) {
-            $query->orWhere('order_status', 6)->orWhere('order_status', 5);
-        });
-        // ->leftjoin('order_events as oe', 'order.id', '=', 'oe.order_id');
+        $query = $this->where(function($query) {
+            $query->orWhere('orders.order_status', 6)->orWhere('orders.order_status', 5);
+        })->select('orders.*');
         if($orderId) {
-            $query = $query->where('id', $orderId);
+            $query = $query->where('orders.id', $orderId);
+        } else {
+            $query = $query->leftjoin('order_events', function($query) {
+                $query->on('orders.id', '!=', 'order_events.order_id')->where('order_events.user_type', 1);
+            });
         }
-        return $query;
+        // dd($query->toSql());
+        return $query->orderBy('created_at', 'DESC')->groupBy('orders.id');
     }
 
     public function cart()
