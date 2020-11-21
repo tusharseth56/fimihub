@@ -28,30 +28,30 @@ class order extends Model
         $query = $this->where( function($query) {
             $query->orWhere('order_status', 6)->orWhere('order_status', 5);
         });
+        // ->leftjoin('order_events as oe', 'order.id', '=', 'oe.order_id');
         if($orderId) {
             $query = $query->where('id', $orderId);
         }
         return $query;
     }
 
-   public function cart()
-   {
-       return $this->belongsTo(cart::class, 'cart_id');
-   }
+    public function cart()
+    {
+        return $this->belongsTo(cart::class, 'cart_id');
+    }
 
-   public function restaurentDetails()
-   {
-       return $this->belongsTo(restaurent_detail::class, 'restaurent_id');
-   }
+    public function restaurentDetails()
+    {
+        return $this->belongsTo(restaurent_detail::class, 'restaurent_id');
+    }
 
-  
-   public function userAddress()
-   {
-       return $this->belongsTo(user_address::class, 'address_id');
-   }
+    public function userAddress()
+    {
+        return $this->belongsTo(user_address::class, 'address_id');
+    }
 
-   public function restroAddress()
-   {
-       return $this->belongsTo(user_address::class, 'restaurent_id');
-   }
+    public function restroAddress()
+    {
+        return $this->belongsTo(user_address::class, 'restaurent_id');
+    }
 }
