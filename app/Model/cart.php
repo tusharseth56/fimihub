@@ -34,6 +34,20 @@ class cart extends Model
         }
     }
 
+    public function getCartData($data)
+    {
+        try {
+            $carts=DB::table('carts')
+                ->where('id', $data)
+                ->first();
+            
+            return $carts;
+        }
+        catch (Exception $e) {
+            dd($e);
+        }
+    }
+
     public function updateCart($data)
     {
         try {
@@ -52,7 +66,7 @@ class cart extends Model
     public function deleteCart($data)
     {
         $cart_delete = array();
-        $cart_delete ['updated_at'] = now();
+        $cart_delete ['deleted_at'] = now();
         $cart_delete ['user_id'] = $data;
 
         $query_data = DB::table('carts')
