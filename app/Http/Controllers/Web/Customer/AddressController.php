@@ -20,7 +20,7 @@ class AddressController extends Controller
     public function insertAddress(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'address' => 'required|string',
+            'address_address' => 'required|string',
             'flat_no' => 'required|string',
             'landmark' => 'required|string',
             
@@ -29,13 +29,26 @@ class AddressController extends Controller
         if(!$validator->fails()){
             $user = Auth::user();
             $data = $request->toarray();
-            $data['user_id']=$user->id;
-            $user_address = new user_address;
-            $subscribe = $user_address->makeAddress($data);
-            Session::flash('modal_message', 'Address Saved !');
+            $add_data =array();
+            if($data['address_latitude'] == 0 || $data['address_longitude'] == 0){
+                Session::flash('address_error', 'Invalid Address !');
+                return redirect()->back();
+            }
+            else{
+                $add_data['user_id']=$user->id;
+                $add_data['address']=$data['address_address'];
+                $add_data['flat_no']=$data['flat_no'];
+                $add_data['landmark']=$data['landmark'];
+                $add_data['latitude']=$data['address_latitude'];
+                $add_data['longitude']=$data['address_longitude'];
+                $user_address = new user_address;
+                $subscribe = $user_address->makeAddress($add_data);
 
-            Session::flash('modal_check_subscribe', 'open');
-            return redirect()->back();
+                Session::flash('modal_message', 'Address Saved !');
+                Session::flash('modal_check_subscribe', 'open');
+                return redirect()->back();
+            }
+           
         }else{
         	return redirect()->back()->withInput()->withErrors($validator);  
         }
