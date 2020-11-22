@@ -31,13 +31,10 @@ class RestaurentController extends Controller
         $quant_details['restaurent_id']=$resto_id;
 
         $menu_data = $menu_list->menuListByQuantity($quant_details);
-        // dd($menu_data);
+        
         $total_amount=0;
         $item=0;
         foreach($menu_data as $m_data){
-            if(!isset($m_data->quantity)){
-                $m_data->quantity=NULL;
-            }
             if($m_data->quantity != NULL){
                 $item = $item + $m_data->quantity;
                 $total_amount = $total_amount + ($m_data->quantity * $m_data->price);
