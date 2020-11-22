@@ -144,16 +144,15 @@ class OrderController extends Controller
                 $add_order['total_amount'] = $total_amount;
                 $add_order['delivery_fee'] = $cart_avail->delivery_fee;
                 $add_order['tax'] = $cart_avail->tax;
-                $add_order['order_status'] = 3;
+                $add_order['order_status'] = 1;
                 $add_order['payment_status'] = 1;
                 $add_order['payment_type'] = request('payment');
-                $make_order_id = $orders->makeOrder($add_order);
-                $order_id = base64_encode($make_order_id);
+                $make_order = $orders->makeOrder($add_order);
                 $cart_delete = $cart->deleteCart($user->id);
 
                 Session::flash('modal_check_order', 'open');
-                Session::flash('order_id',$order_id);
-                return redirect('/myOrder');
+
+                return redirect('/home');
             }
             else{
 
@@ -164,44 +163,5 @@ class OrderController extends Controller
 
         	return redirect()->back()->withInput()->withErrors($validator);  
         }
-    }
-
-    public function trackOrder(Request $request)
-    {
-        $user = Auth::user();
-        $order_id = base64_decode(request('odr_id'));
-        $orders = new order;
-        $order_data = $orders->getOrderData($order_id);
-        $menu_order = json_decode($order_data->ordered_menu);
-
-        $menu_data = array();
-        $item= 0;
-        foreach($menu_order as $m_data){
-            $menu_list = new menu_list;
-            $menu_data_list = $menu_list->orderMenuListById($m_data->id);
-            $item = $item + $m_data->quantity;
-            $menu_data_list->quantity = $m_data->quantity;
-            $menu_data[] = $menu_data_list;
-        }
-        $restaurent_detail = new restaurent_detail;
-        $resto_data = $restaurent_detail->getRestoDataOnId($order_data->restaurent_id);
-        $resto_data->delivery_fee = $order_data->delivery_fee;
-        $cart = new cart;
-        $cart_data = $cart->getCartData($order_data->id);
-
-        if($order_data != NULL){
-            return view('customer.trackOrder')->with(['user_data'=>$user,
-                                                    'order_data' => $order_data,
-                                                    'menu_data' => $menu_data,
-                                                    'resto_data' => $resto_data,
-                                                    'total_amount'=>$order_data->total_amount,
-                                                    'item'=>$item
-            ]);
-        }
-        else{
-            Session::flash('message', 'Order Details Found !');
-            return redirect()->back();
-        }
-        
     }
 }

@@ -74,28 +74,16 @@
             </div>
             <h4>Save delivery address</h4>
         </div>
-        <div id="address-map-container" style="width:105%;height:360px; margin-bottom: -115px;">
-                <div style="width: 100%; height: 60%;" id="address-map"></div>
-            </div>
+        <div class="map">
+            <img src="{{url('asset/customer/assets/images/map.png')}}" alt="map">
+        </div>
         <form role="form" method="POST" action="{{ url('/saveAddress') }}" class="form">
             @csrf
-            <!-- <div class="form-group">
-                <label for="address_address">Address</label>
-                <input type="text" id="address-input" name="address_address" class="form-control map-input">
-               
-            </div> -->
-           
-
             <div class="field-wrap">
-                <label for="address_address">Address</label>
-                <input type="text" id="address-input"  name="address_address" placeholder="Address" class="map-input">
-                <input type="hidden" name="address_latitude" id="address-latitude" value="0" />
-                <input type="hidden" name="address_longitude" id="address-longitude" value="0" />
-                @if($errors->has('address_address'))
+                <label>Address</label>
+                <input type="text" name="address" placeholder="Address">
+                @if($errors->has('address'))
                 <div class="error">{{ $errors->first('address') }}</div>
-                @endif
-                @if(Session::has('address_error'))
-                <div class="error">{{ Session::get('address_error') }}</div>
                 @endif
             </div>
             <div class="field-wrap">
@@ -161,11 +149,9 @@
                 <h3 class="mt-3 mb-3">THANK YOU!</h3>
                 <p>Your order was successfully placed <br>and being prepared for delivery.</p>
                 <div class="d-flex align-items-center justify-content-center">
-                    <a href="{{url('/trackOrder')}}@if(Session::has('order_id')){{'?odr_id='}}{{Session::get('order_id')}}@endif
-                ">
-                        <button type="button" class="btn_purple auth_btn hover_effect1 track_order_btn">TRACK YOUR
-                            ORDER</button></a>
-                    <a href="{{url('/home')}}" class="btn_purple auth_btn hover_effect1 backhome_btn">BACK TO HOME</a>
+                    <button type="button" class="btn_purple auth_btn hover_effect1 track_order_btn">TRACK YOUR
+                        ORDER</button>
+                    <a href="#" class="btn_purple auth_btn hover_effect1 backhome_btn">BACK TO HOME</a>
                 </div>
             </div>
         </div>
@@ -230,11 +216,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script type="text/javascript" src="{{url('asset/customer/assets/scripts/mapInput.js')}}"></script>
-<script
-    src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize"
-    async defer></script>
 @if(Session::has('modal_check_subscribe'))
 <script>
 $(window).on('load', function() {

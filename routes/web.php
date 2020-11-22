@@ -102,8 +102,6 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('checkoutPage', 'Web\Customer\OrderController@getPaymentPage');
          //Add Payment Method
          Route::post('addPaymentMethod', 'Web\Customer\OrderController@addPaymentType');
-         //Track Order
-         Route::get('trackOrder', 'Web\Customer\OrderController@trackOrder');
 
       });
 

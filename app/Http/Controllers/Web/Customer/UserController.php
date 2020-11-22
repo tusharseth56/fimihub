@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Model\user_address;
 use App\Model\contactUs;
-use App\Model\order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -191,20 +190,8 @@ class UserController extends Controller
     public function getMyOrderPage(Request $request){
         $user=Auth::user();
         $user_data = auth()->user()->userByIdData($user->id);
-
-        $orders = new order;
-        $order_data = $orders->allUserOrderPastData($user->id);
-        foreach($order_data as $order){
-            $order->ordered_menu = json_decode($order->ordered_menu);
-        }
-        $current_order_data = $orders->allUserCurrentPastData($user->id);
-        foreach($current_order_data as $c_order){
-            $c_order->ordered_menu = json_decode($c_order->ordered_menu);
-        }
-        $user_data->currency=$this->currency;
-        return view('customer.myOrder')->with(['user_data'=>$user_data,
-                                            'order_data'=>$order_data,
-                                            'current_order_data'=>$current_order_data]);
+        
+        return view('customer.myOrder')->with(['user_data'=>$user_data]);
     }
 
     public function getTermsConditionPage(Request $request){
