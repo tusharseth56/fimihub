@@ -33,6 +33,8 @@ class order extends Model
         $count=DB::table('orders')->max('id');
         $unique_id=10000000001+$count;
         $data['order_id']='FF'.$unique_id;
+        $data['updated_at'] = now();
+        $data['created_at'] = now();
         unset($data['_token']);
         $query_data = DB::table('orders')->insertGetId($data);
         return $query_data;
