@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class menu_list extends Model
 {
+    protected $table = 'menu_list';
 
     public function makeMenu($data)
     {
@@ -130,4 +131,6 @@ class menu_list extends Model
         return $menu_list;
     
     }
+
+    
 }
