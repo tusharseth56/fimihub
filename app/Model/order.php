@@ -79,9 +79,9 @@ class order extends Model
         return $this->belongsTo(user_address::class, 'restaurent_id');
     }
 
-    public function updateStatus($orderId, $status) {
+    public function updateStatus($orderId, $status){
         return $this->where('id', $orderId)->update(['order_status'=> $status]);
-
+    }
     public function getOrderData($order_id)
     {
         try {
