@@ -125,7 +125,7 @@
                         <p>{{$resto_data->name ?? ''}}</p>
                     </div>
                     <div class="col-right">
-                        <h4><a href="#">View Cart <img src="{{url('asset/customer/assets/images/cart_white.svg')}}"
+                        <h4><a href="{{url('/cart')}}">View Cart <img src="{{url('asset/customer/assets/images/cart_white.svg')}}"
                                     alt="cart white"></a></h4>
                     </div>
                 </div>
