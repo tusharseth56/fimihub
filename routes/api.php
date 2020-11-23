@@ -67,7 +67,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::get('/testingnotification', 'Api\Rider\OrderController@testingNotification');
         Route::get('/getorders/{id?}', 'Api\Rider\OrderController@getOrders');
         Route::post('/updatestatus', 'Api\Rider\OrderController@updateEventOrderStatus');
-        Route::get('/getmyearning', 'Api\Rider\MyEarningController@getMyEarning');
+        Route::get('/getmyearning/{id?}', 'Api\Rider\MyEarningController@getMyEarning');
 
     });
     // ...

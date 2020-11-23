@@ -33,11 +33,11 @@ class MyEarning extends Model
         return $earning;
     }
 
-    public function getMyEarning($userId, $orderId = false) {
-        $earning = $this->where('user_id', $userId);
-        if($orderId) {
-            $earning = $this->where('order_id', $orderId);
+    public function getMyEarning($userId, $earningId = false) {
+        $query = $this->where('user_id', $userId)->where('is_active', 1);
+        if($earningId) {
+            $query = $query->where('id', $earningId);
         }
-        return $earning;
+        return $query;
     }
 }
