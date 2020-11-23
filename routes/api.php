@@ -65,8 +65,10 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::group(['middleware' => 'auth:api', 'prefix'=>'rider'], function() {
         //Rider Details
         Route::get('/testingnotification', 'Api\Rider\OrderController@testingNotification');
-        Route::get('/getorders/{id?}', 'Api\Rider\OrderController@getOrders');
+        Route::get('/getorders/{id?}/{type?}', 'Api\Rider\OrderController@getOrders');
+        Route::get('/getmypreviusorder/{id?}', 'Api\Rider\OrderController@getMyPreviusOrders');
         Route::post('/updatestatus', 'Api\Rider\OrderController@updateEventOrderStatus');
+        Route::get('/getmyearning/{id?}', 'Api\Rider\MyEarningController@getMyEarning');
 
     });
     // ...
