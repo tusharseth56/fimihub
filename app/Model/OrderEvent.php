@@ -52,4 +52,9 @@ class OrderEvent extends Model
         return $orderEvent;
     }
 
+    public function orderAlreadyAssigned($orderId) {
+        $userId = Auth::id();
+        return $this->where('order_id', $orderId)->where('user_id', '!=', $userId);
+    }
+
 }
