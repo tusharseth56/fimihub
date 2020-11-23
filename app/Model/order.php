@@ -59,6 +59,27 @@ class order extends Model
         return $query;
     }
 
+    public function getMyPreviusOrders($orderId = false)
+    {
+        $query = $this;
+        if($orderId) {
+            $query = $this->where('orders.id', $orderId)
+            ->select('orders.*');
+        } else {
+            $query = $this->where(function($query) {
+                $query->orWhere('orders.order_status', 8)
+                ->orWhere('orders.order_status', 9)
+                ->orWhere('orders.order_status', 9);
+            })
+            ->rightjoin('order_events as oe',function($query) {
+                $query->on('orders.id', '=', 'oe.order_id')
+                ->where('oe.user_type', 1);
+            })->select('orders.*')
+            ->orderBy('orders.order_id', 'DESC')->groupBy('orders.id');
+        }
+        return $query;
+    }
+
     public function cart()
     {
         return $this->belongsTo(cart::class, 'cart_id');

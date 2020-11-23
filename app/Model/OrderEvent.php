@@ -26,9 +26,10 @@ class OrderEvent extends Model
         'order_id',
         'user_id',
         'order_status',
-        'order_commment',
+        'order_comment',
         'order_feedback',
         'feedback_comment',
+        'resion_id',
         'user_type',
         'visibility',
         'deleted_at',
@@ -43,10 +44,17 @@ class OrderEvent extends Model
         if(empty($orderEvent)) {
             $orderEvent = $this->create($data);
         } else {
+            unset($data['order_id']);
+            unset($data['user_id']);
             $orderEvent = $orderEvent->update($data);
         }
 
         return $orderEvent;
+    }
+
+    public function orderAlreadyAssigned($orderId) {
+        $userId = Auth::id();
+        return $this->where('order_id', $orderId)->where('user_id', '!=', $userId);
     }
 
 }
