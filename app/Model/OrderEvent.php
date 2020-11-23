@@ -29,7 +29,7 @@ class OrderEvent extends Model
         'order_comment',
         'order_feedback',
         'feedback_comment',
-        'resion_id',
+        'reason_id',
         'user_type',
         'visibility',
         'deleted_at',
