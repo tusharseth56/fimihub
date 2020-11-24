@@ -69,6 +69,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::get('/getmypreviusorder/{id?}', 'Api\Rider\OrderController@getMyPreviusOrders');
         Route::post('/updatestatus', 'Api\Rider\OrderController@updateEventOrderStatus');
         Route::get('/getmyearning/{id?}', 'Api\Rider\MyEarningController@getMyEarning');
+        Route::post('/getmyearningbyweekmonthyear', 'Api\Rider\MyEarningController@getMyEarningByWeekMonthYear');
 
     });
     // ...
