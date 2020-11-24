@@ -44,6 +44,14 @@ class MyEarning extends Model
         return $query;
     }
 
+    /**
+     * 1. Week
+     * 2. Month
+     * 3. Year
+     * 4. Between two dates
+     * 5. all
+     */
+
     public function getMyEarningByWeekMonthYear($userId, $type = false, $startDate = false, $endDate = false) {
         $query = $this->where('is_active', 1);
         if($userId) {
