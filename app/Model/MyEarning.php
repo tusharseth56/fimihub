@@ -4,6 +4,9 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Auth;
+use Carbon\Carbon;
+
+
 class MyEarning extends Model
 {
     /**
@@ -39,5 +42,27 @@ class MyEarning extends Model
             $query = $query->where('id', $earningId);
         }
         return $query;
+    }
+
+    public function getMyEarningByWeekMonthYear($userId, $type = false, $startDate = false, $endDate = false) {
+        $query = $this->where('is_active', 1);
+        if($userId) {
+            $query = $query->where('user_id', $userId);
+        }
+
+        if($type == 1) {
+            return $query->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+        } else if ($type == 2) {
+            return $query->whereMonth('created_at', date('m'))
+            ->whereYear('created_at', date('Y'));
+        } else if($type == 3) {
+            return $query->whereYear('created_at', date('Y'));
+        } else if($type == 4){
+            if ($startDate && $endDate) {
+                return $query->whereBetween('created_at', [$startDate,  $endDate]);
+            }
+        } else {
+            return $query;
+        }
     }
 }

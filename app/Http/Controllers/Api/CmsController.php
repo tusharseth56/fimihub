@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Model\Cms;
 use Illuminate\Http\Request;
-use App\Model\Resion;
+use App\Model\Reason;
 
 class CmsController extends Controller
 {
@@ -18,11 +18,11 @@ class CmsController extends Controller
         'status'=>true], $this->successStatus);
     }
 
-    public function getResions($userType) {
-        $objResion = new Resion;
-        $resions = $objResion->getResions($userType)->get();
-        if(count($resions)) {
-        $response =  ['status'=> true, 'message' => 'Success', 'data' => $resions];
+    public function getReasons($userType) {
+        $objReason = new Reason;
+        $Reasons = $objReason->getReasons($userType)->get();
+        if(count($Reasons)) {
+        $response =  ['status'=> true, 'message' => 'Success', 'data' => $Reasons];
         } else {
             $response =  ['status'=> false, 'message' => 'No data found!'];
         }
