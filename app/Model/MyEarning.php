@@ -69,6 +69,8 @@ class MyEarning extends Model
             if ($startDate && $endDate) {
                 return $query->whereBetween('created_at', [$startDate,  $endDate]);
             }
+        } else if($type == 6){
+            return $query->whereDate('created_at', Carbon::today());
         } else {
             return $query;
         }
