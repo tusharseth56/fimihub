@@ -5,10 +5,10 @@ namespace App\Model;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 
-class Resion extends Model
+class Reason extends Model
 {
     /**
-     * ========== Resion ============
+     * ========== Reason ============
      * 1-Admin
      * 2-Rider
      * 3-User
@@ -21,12 +21,12 @@ class Resion extends Model
      * @var array
      */
     protected $fillable = [
-        'resion',
+        'reason',
         'is_active',
         'user_type'
     ];
 
-    public function getResions($userType = 0, $isActive = 1) {
+    public function getReasons($userType = 0, $isActive = 1) {
         try {
             return $this->where('user_type', $userType)->where('is_active', $isActive);
         } catch (Exception $e) {

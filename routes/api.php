@@ -49,6 +49,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::post('/changePassword', 'Api\LoginRegisterController@changePassword');
         //Rider Login details updation
         Route::post('/profileUpdate', 'Api\LoginRegisterController@updateLogin');
+        //Rider Profile picture updation
+        Route::post('/updateprofilepicture', 'Api\LoginRegisterController@updateProfilePicture');
 
         // Notifications
         //Get all Read and Unread notification
@@ -57,8 +59,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::get('/getnotificationbyid/{id}', 'Api\NotificationController@getNotificationById');
         //Mark as read notification
         Route::get('/markasread/{id?}', 'Api\NotificationController@markAsRead');
-        // get resions
-        Route::get('/getresions/{id}', 'Api\CmsController@getResions');
+        // get reasons
+        Route::get('/getreasons/{id}', 'Api\CmsController@getReasons');
 
     });
 
@@ -69,6 +71,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::get('/getmypreviusorder/{id?}', 'Api\Rider\OrderController@getMyPreviusOrders');
         Route::post('/updatestatus', 'Api\Rider\OrderController@updateEventOrderStatus');
         Route::get('/getmyearning/{id?}', 'Api\Rider\MyEarningController@getMyEarning');
+        Route::post('/getmyearningbyweekmonthyear', 'Api\Rider\MyEarningController@getMyEarningByWeekMonthYear');
 
     });
     // ...

@@ -86,7 +86,7 @@ class OrderController extends Controller
         }
 
         if($orderStatus == 6) { // // Order rejected by rider
-            $data['resion_id'] = $request->input('resion_id');
+            $data['reason_id'] = $request->input('reason_id');
             $data['order_comment'] = $request->input('order_comment');
             $this->orderEvent->updateStatus($orderId, $data);
             $this->order->updateStatus($orderId, 8); // 8-rider_cancel
@@ -149,7 +149,7 @@ class OrderController extends Controller
         return Validator::make(request()->all(), array(
             'order_status' => 'required|integer|in:1,2,3,4,5,6',
             'order_id' => 'required|integer',
-            'resion_id' => 'nullable|required_if:order_status,6|nullable',
+            'reason_id' => 'nullable|required_if:order_status,6|nullable',
             'order_comment' => 'nullable|required_if:order_status,6|string',
             'payment_type' => 'nullable|required_if:order_status,5|numeric',
             'price' => 'nullable|required_if:payment_type,3|numeric',
