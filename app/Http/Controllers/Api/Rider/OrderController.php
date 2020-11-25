@@ -62,6 +62,20 @@ class OrderController extends Controller
         return response()->json(['data' => $order, 'message' => 'Success', 'status' => true], $this->successStatus);
     }
 
+    public function getActiveOrder(Request $request, int $orderId = 0) {
+        if ($orderId) {
+            $order = $this->order->getActiveOrders($orderId)
+            ->with('restroAddress','userAddress.userDetails','restaurentDetails','cart.cartItems.menuItems','orderEvent.reason')
+            ->first();
+        } else {
+
+            $order = $this->order->getActiveOrders($orderId)
+            ->with('restroAddress','userAddress.userDetails', 'orderEvent.reason')
+            ->paginate(10);
+        }
+        return response()->json(['data' => $order, 'message' => 'Success', 'status' => true], $this->successStatus);
+    }
+
     public function updateEventOrderStatus(Request $request) {
         $validator = $this->validateUpdateStatus();
 
@@ -132,12 +146,12 @@ class OrderController extends Controller
     {
         if ($orderId) {
             $order = $this->order->getMyPreviusOrders($orderId)
-            ->with('restroAddress','userAddress.userDetails','restaurentDetails','cart.cartItems.menuItems')
+            ->with('restroAddress','userAddress.userDetails','restaurentDetails','cart.cartItems.menuItems', 'orderEvent.reason')
             ->first();
         } else {
 
             $order = $this->order->getMyPreviusOrders($orderId)
-            ->with('restroAddress','userAddress.userDetails')
+            ->with('restroAddress','userAddress.userDetails', 'orderEvent.reason')
             ->paginate(10);
         }
 
