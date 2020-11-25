@@ -564,13 +564,55 @@ class LoginRegisterController extends Controller
 
 
         } catch (\Throwable $th) {
-             report($th);
+            report($th);
 
-             return response()->json(['custom_error'=> $th->getMessage(),'status'=>false], $this->invalidStatus);
+            return response()->json(['custom_error'=> $th->getMessage(),'status'=>false], $this->invalidStatus);
 
         }
+    }
 
+    public function updateProfilePicture(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'picture' => 'nullable|mimes:png,jpg,jpeg|max:3072',
+        ]);
 
+        $user = Auth::user();
+        $id = $user->id;
+        if(!$validator->fails()){
+            if($request->hasfile('picture'))
+            {
+                $profile_pic = $request->file('picture');
+                $input['imagename'] = 'DL'.time().'.'.$profile_pic->getClientOriginalExtension();
+
+                $path = public_path('uploads/'.$id.'/images');
+                File::makeDirectory($path, $mode = 0777, true, true);
+
+                $destinationPath = 'uploads/'.$id.'/images'.'/';
+                if($profile_pic->move($destinationPath, $input['imagename']))
+                {
+                    $file_url=url($destinationPath.$input['imagename']);
+                    $user->picture = $file_url;
+
+                }
+                else{
+                    // $user->picture = url('asset/customer/assets/icons/user.png');
+                    $user->picture = null;
+                    $user->save();
+                    // return response()->json(['message'=>'Update default picture','status'=>true], $this->successStatusCreated);
+                }
+                $user->save();
+                // return response()->json(['message'=>'Profile picture updated.','status'=>true], $this->successStatusCreated);
+            }
+            else {
+                // $user->picture = url('asset/customer/assets/icons/user.png');
+                $user->picture = null;
+                $user->save();
+            }
+            return response()->json(['message'=>'Updated successfully','status'=>true], $this->successStatusCreated);
+        }else{
+            $message = collect($validator->messages())->values()->first();
+            return response()->json(['message' =>  $message[0], 'status' => false], $this->successStatus);
+        }
     }
 
 
