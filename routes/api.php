@@ -49,6 +49,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::post('/changePassword', 'Api\LoginRegisterController@changePassword');
         //Rider Login details updation
         Route::post('/profileUpdate', 'Api\LoginRegisterController@updateLogin');
+        //Rider Profile picture updation
+        Route::post('/updateprofilepicture', 'Api\LoginRegisterController@updateProfilePicture');
 
         // Notifications
         //Get all Read and Unread notification

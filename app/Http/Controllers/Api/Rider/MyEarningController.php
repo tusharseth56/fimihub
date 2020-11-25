@@ -38,7 +38,7 @@ class MyEarningController extends Controller
 
         if($validator->fails()) {
             $message = collect($validator->messages())->values()->first();
-            return response()->json(['data' => $message[0], 'message' => 'Validation failed', 'status' => false], $this->successStatus);
+            return response()->json(['message' =>  $message[0], 'status' => false], $this->successStatus);
         }
         $userId = Auth::id();
         $type = $request->input('type');
