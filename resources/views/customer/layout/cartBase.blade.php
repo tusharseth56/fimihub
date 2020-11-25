@@ -4,12 +4,16 @@
         <div class="cart_login_inr">
             <div class="progress_box">
                 <ul class="steps">
+                    @if(request()->is('trackOrder'))
+                    <h3>Order Tracking</h3>
+                    @else
                     <li class="step2 active"><span></span>
                         <p>Address</p>
                     </li>
                     <li class="step3 {{ request()->is('checkoutPage') ? 'active' : ''}}"><span></span>
                         <p>Payment</p>
                     </li>
+                    @endif
                 </ul>
             </div>
             <div class="row">
@@ -44,19 +48,24 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="food_strip_rht">
+                                        @if(request()->is('trackOrder'))
+                                        QTY - {{$m_data->quantity ?? '0'}}
+                                        @else
                                         <button type="button" class="minus_btn"
                                             onClick="decrement_quantity('{{base64_encode($m_data->id)}}')">-</button>
                                         <input type="text" value="{{$m_data->quantity ?? '0'}}"
                                             id="input-quantity-{{$m_data->id}}" readonly>
                                         <button type="button" class="pluse_btn"
                                             onClick="increment_quantity('{{base64_encode($m_data->id)}}')">+</button>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                         @endforeach
 
-
+                        @if(request()->is('cart'))
                         <div class="aply_cupon ">
                             <a href="#" class="d-flex">
                                 <span><img src="{{url('asset/customer/assets/images/cuppon_icon.svg')}}" alt="icon">
@@ -64,6 +73,8 @@
                                 <img src="{{url('asset/customer/assets/images/arrow_right.svg')}}" alt="arrow">
                             </a>
                         </div>
+                        @endif
+
 
                         <div class="bill_details">
                             <h4>Bill Details</h4>
@@ -96,7 +107,7 @@
                         </div>
                         <input type="hidden" class="input-quantity" id="input-quantity"
                             value="{{base64_encode($resto_data->id)}}">
-
+                        @if(request()->is('cart'))
                         <a href="{{url('checkoutPage')}}">
                             <div class="to_pay_box d-flex align-items-center">
                                 <span>To pay</span>
@@ -104,6 +115,14 @@
                                         id="total_amount">{{$total_amount ?? '0'}}</span></span>
                             </div>
                         </a>
+                        @else
+                        <div class="to_pay_box d-flex align-items-center">
+                            <span>Total</span>
+                            <span>{{$user_data->currency ?? ''}} <span
+                                    id="total_amount">{{$total_amount ?? '0'}}</span></span>
+                        </div>
+                        @endif
+
                     </div>
                 </div>
             </div>

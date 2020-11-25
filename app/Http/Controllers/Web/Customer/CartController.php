@@ -35,7 +35,7 @@ class CartController extends Controller
         if($cart_avail == NULL){
             return view('customer.cart')->with(['user_data'=>$user,
                                             'user_address'=>$user_add
-                                            ]);;
+                                            ]);
         }
         else
         {
@@ -72,7 +72,7 @@ class CartController extends Controller
             else{
                 return view('customer.cart')->with(['user_data'=>$user,
                 'user_address'=>$user_add
-                ]);;
+                ]);
             }
             
         }

@@ -3,6 +3,8 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+//custom import
+use Illuminate\Support\Facades\DB;
 use Auth;
 
 class OrderEvent extends Model
@@ -36,7 +38,6 @@ class OrderEvent extends Model
         'created_at',
         'updated_at',
     ];
-
 
     public function updateStatus($orderId, $data) {
         $id = Auth::id();
