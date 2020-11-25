@@ -53,7 +53,7 @@ class MyEarningController extends Controller
 
     public function validateMyEarning() {
         return Validator::make(request()->all(), array(
-            'type' => 'required|integer|in:1,2,3,4,5',
+            'type' => 'required|integer|in:1,2,3,4,5,6',
             'start_date' => 'nullable|required_if:type,4|date',
             'end_date' => 'nullable|required_if:type,4|date',
         ));
