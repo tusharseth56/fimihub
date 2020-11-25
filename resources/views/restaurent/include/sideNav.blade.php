@@ -53,6 +53,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{url('Restaurent/customerOrder')}}" class="waves-effect">
+                        <i class="icon-list"></i> <span>Orders</span>
+
+                    </a>
+                </li>
+                <li>
                     <a href="#" class="waves-effect">
                         <i class="fa fa-cutlery"></i> <span>Restaurent </span> <i
                             class="fa fa-angle-right pull-right"></i>
