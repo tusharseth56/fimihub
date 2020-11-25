@@ -61,6 +61,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::get('/markasread/{id?}', 'Api\NotificationController@markAsRead');
         // get reasons
         Route::get('/getreasons/{id}', 'Api\CmsController@getReasons');
+        // get Service Category
+        Route::get('/getservicecategory/{id?}', 'Api\ServiceCategoryController@getServiceCategory');
 
     });
 
