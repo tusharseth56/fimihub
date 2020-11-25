@@ -54,9 +54,9 @@ class order extends Model
             })
             ->leftjoin('order_events as oe',function($query){
                 $query->on('orders.id', '=', 'oe.order_id')
-                ->where('oe.user_type', 1);
+                ->where('oe.user_type', 1)
+                ->where('oe.user_id', Auth::id());
             })->select('orders.*')
-            ->where('oe.user_id', Auth::id())
             ->whereNull('oe.order_id')->orderBy('orders.order_id', 'DESC')->groupBy('orders.id');
         }
         return $query;
