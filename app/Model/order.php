@@ -156,4 +156,18 @@ class order extends Model
         }
 
     }
+
+    public function customerOrderPaginationData($data)
+    {
+        $menu_list=DB::table('orders')
+                ->where('orders.visibility', 0)
+                ->where('orders.payment_status',2)
+                ->where('orders.order_status','>',2)
+                ->where('orders.restaurent_id', $data)
+                ->select('orders.*')
+                ->orderBy('orders.created_at','DESC');
+
+        return $menu_list;
+    
+    }
 }

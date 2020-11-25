@@ -44,12 +44,27 @@ class CreateRestaurentManagementTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('service_catagories', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf16';
+            $table->collation = 'utf16_general_ci';
+            $table->increments('id');
+            //rest attributes
+            $table->string('name');
+            $table->tinyInteger('listing_order')->nullable();
+            $table->tinyInteger('visibility')->default('0');
+            $table->timestamp('deleted_at', 0)->nullable();
+            $table->timestamps();
+        });
 
         Schema::create('menu_categories', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->charset = 'utf16';
             $table->collation = 'utf16_general_ci';
             $table->increments('id');
+            // foreign key of service_catagories table
+            $table->integer('service_catagory_id')->nullable()->unsigned();
+            $table->foreign('service_catagory_id')->references('id')->on('service_catagories')->onDelete('cascade')->onUpdate('cascade');
             //rest attributes
             $table->string('name');
             $table->text('about')->nullable();
@@ -93,6 +108,7 @@ class CreateRestaurentManagementTable extends Migration
     public function down()
     {
         Schema::dropIfExists('menu_list');
+        Schema::dropIfExists('service_catagories');
         Schema::dropIfExists('menu_categories');
         Schema::dropIfExists('restaurent_details');
     }
