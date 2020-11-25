@@ -57,4 +57,8 @@ class OrderEvent extends Model
         return $this->where('order_id', $orderId)->where('user_id', '!=', $userId);
     }
 
+    public function reason()
+    {
+        return $this->belongsTo(Reason::class);
+    }
 }
