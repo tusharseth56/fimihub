@@ -10,6 +10,7 @@
         <li id="ongoing">On Going</li>
     </ul>
     <div class="tab-content" data-tab-id="past-order">
+        @if($order_data != NULL)
         @foreach($order_data as $order)
         <div class="card-wrap">
 
@@ -61,6 +62,7 @@
         <div class="container" style="display:inline;">
             <center> {{$order_data->links()}}</center>
         </div>
+        @endif
     </div>
 
     <div class="tab-content" data-tab-id="ongoing">
