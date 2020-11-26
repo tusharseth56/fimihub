@@ -143,6 +143,12 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::post('addMenu', 'Web\Restaurent\RestaurentController@menuListProcess');
          // Customer Order List
          Route::get('customerOrder', 'Web\Restaurent\OrderController@getCustomerOrderList');
+         //Accept Customer Order
+         Route::get('acceptOrder', 'Web\Restaurent\OrderController@acceptOrder');
+         //Reject Customer Order
+         Route::get('rejectOrder', 'Web\Restaurent\OrderController@rejectOrder');
+         //Packed Customer Order
+         Route::get('packedOrder', 'Web\Restaurent\OrderController@packedOrder');
          
       });
 
