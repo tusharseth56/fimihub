@@ -112,6 +112,7 @@ class menu_list extends Model
         {
             $cart_exist = $cart_exist->first();
             $data['cart_exist_id'] = $cart_exist->id;
+            // dd($data['cart_exist_id']);
             $menu_list = DB::table('menu_list')
                     ->leftJoin('cart_submenus', function($join) use ($data)
                          {

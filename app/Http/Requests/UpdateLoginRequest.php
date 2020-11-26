@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Auth;
 
 class UpdateLoginRequest extends FormRequest
 {
@@ -25,17 +27,17 @@ class UpdateLoginRequest extends FormRequest
     {
         $validator = [
             'name' => 'string|max:150',
-            'mobile' => 'numeric|unique:users|digits:10',
-            'country_code' => 'string|nullable',	
-            'email' => 'email|unique:users|nullable',
+            'mobile' => 'numeric|digits:10|unique:users,mobile,'. Auth::id(),
+            'country_code' => 'string|nullable',
+            'email' => 'nullable|email|unique:users,email,'. Auth::id(),
             'vehicle_number' => 'string',
             'model_name' => 'string',
-            'vehicle_image' => 'mimes:png,jpg,jpeg|max:3072|nullable',
+            'vehicle_image' => 'nullable|mimes:png,jpg,jpeg|max:3072',
             'color' => 'string',
-            'id_proof' => 'mimes:pdf|max:3072',
+            'id_proof' => 'nullable|mimes:png,jpg,jpeg|max:3072',
             'address' => 'string',
             'pincode' => 'digits:6',
-            'driving_license' => 'mimes:png,jpg,jpeg|max:3072',
+            'driving_license' => 'nullable|mimes:png,jpg,jpeg|max:3072',
             'dl_start_date' => 'string',
             'dl_end_date' => 'string',
             'registraion_start_date' => 'string',
@@ -44,7 +46,7 @@ class UpdateLoginRequest extends FormRequest
             'holder_name' => 'string|max:150',
             'branch_name' => 'string|max:150',
             'ifsc_code' => 'string',
-        
+
         ];
         return $validator;
     }

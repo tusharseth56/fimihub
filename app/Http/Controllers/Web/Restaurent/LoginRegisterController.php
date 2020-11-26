@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use App\Model\qbeez_wallet;
 use App\Http\Traits\OtpGenerationTrait;
 use Response;
 use Session;

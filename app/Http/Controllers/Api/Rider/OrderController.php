@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Rider;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Traits\NotificationTrait;
+use App\Model\MyEarning;
 use App\Model\Notification;
 use App\Model\order;
 use App\Model\OrderEvent;
@@ -15,9 +16,10 @@ class OrderController extends Controller
 {
     use NotificationTrait;
 
-    public function __construct(order $order, OrderEvent $orderEvent) {
+    public function __construct(order $order, OrderEvent $orderEvent, MyEarning $myEarning) {
         $this->order = $order;
         $this->orderEvent = $orderEvent;
+        $this->myEarning = $myEarning;
     }
 
     public function testingNotification()
@@ -60,6 +62,20 @@ class OrderController extends Controller
         return response()->json(['data' => $order, 'message' => 'Success', 'status' => true], $this->successStatus);
     }
 
+    public function getActiveOrder(Request $request, int $orderId = 0) {
+        if ($orderId) {
+            $order = $this->order->getActiveOrders($orderId)
+            ->with('restroAddress','userAddress.userDetails','restaurentDetails','cart.cartItems.menuItems','orderEvent.reason')
+            ->first();
+        } else {
+
+            $order = $this->order->getActiveOrders($orderId)
+            ->with('restroAddress','userAddress.userDetails', 'orderEvent.reason')
+            ->paginate(10);
+        }
+        return response()->json(['data' => $order, 'message' => 'Success', 'status' => true], $this->successStatus);
+    }
+
     public function updateEventOrderStatus(Request $request) {
         $validator = $this->validateUpdateStatus();
 
@@ -78,8 +94,13 @@ class OrderController extends Controller
             'order_id' => $orderId
         );
 
+        $alreadyAssigned = $this->orderEvent->orderAlreadyAssigned($orderId)->first();
+        if(!empty($alreadyAssigned)) {
+            return response()->json(['message' => 'Already assigned to other rider. Please refresh', 'status' => false], $this->successStatus);
+        }
+
         if($orderStatus == 6) { // // Order rejected by rider
-            $data['resion_id'] = $request->input('resion_id');
+            $data['reason_id'] = $request->input('reason_id');
             $data['order_comment'] = $request->input('order_comment');
             $this->orderEvent->updateStatus($orderId, $data);
             $this->order->updateStatus($orderId, 8); // 8-rider_cancel
@@ -90,8 +111,14 @@ class OrderController extends Controller
             if($request->input('payment_type') == 3) {
                 $price = $orderDetails->total_amount;
                 $collectedPrice = $request->input('price');
-                if($price >= $collectedPrice) {
-                    // update rider earning
+                if($price <= $collectedPrice) {
+                    $earning = array(
+                        'user_id' => $id,
+                        'order_id' => $orderId,
+                        'ride_price' => $orderDetails->delivery_fee,
+                        'cash_price' => $collectedPrice,
+                    );
+                    $this->myEarning->updateEarning($earning, $orderId);
                 }
             }
 
@@ -115,13 +142,28 @@ class OrderController extends Controller
         return response()->json(['data' => $data, 'message' => 'Status updated successfully.', 'status' => true], $this->successStatus);
     }
 
+    public function getMyPreviusOrders(Request $request, int $orderId = 0)
+    {
+        if ($orderId) {
+            $order = $this->order->getMyPreviusOrders($orderId)
+            ->with('restroAddress','userAddress.userDetails','restaurentDetails','cart.cartItems.menuItems', 'orderEvent.reason')
+            ->first();
+        } else {
+
+            $order = $this->order->getMyPreviusOrders($orderId)
+            ->with('restroAddress','userAddress.userDetails', 'orderEvent.reason')
+            ->paginate(10);
+        }
+
+        return response()->json(['data' => $order, 'message' => 'Success', 'status' => true], $this->successStatus);
+    }
 
 
     public function validateUpdateStatus() {
         return Validator::make(request()->all(), array(
             'order_status' => 'required|integer|in:1,2,3,4,5,6',
             'order_id' => 'required|integer',
-            'resion_id' => 'nullable|required_if:order_status,6|nullable',
+            'reason_id' => 'nullable|required_if:order_status,6|nullable',
             'order_comment' => 'nullable|required_if:order_status,6|string',
             'payment_type' => 'nullable|required_if:order_status,5|numeric',
             'price' => 'nullable|required_if:payment_type,3|numeric',
