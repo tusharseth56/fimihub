@@ -136,6 +136,11 @@ class order extends Model
     public function updateStatus($orderId, $status){
         return $this->where('id', $orderId)->update(['order_status'=> $status]);
     }
+
+    public function updateOrderStatus($orderId, $status){
+        return $this->where('id', $orderId)->update(['order_status'=> $status]);
+    }
+
     public function getOrderData($order_id)
     {
         try {
@@ -195,7 +200,6 @@ class order extends Model
         $menu_list=DB::table('orders')
                 ->where('orders.visibility', 0)
                 ->where('orders.payment_status',2)
-                ->where('orders.order_status','>',2)
                 ->where('orders.restaurent_id', $data)
                 ->select('orders.*')
                 ->orderBy('orders.created_at','DESC');
