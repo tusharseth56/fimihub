@@ -66,6 +66,7 @@
     </div>
 
     <div class="tab-content" data-tab-id="ongoing">
+        @if($order_data != NULL)
         @foreach($current_order_data as $c_order)
         <div class="card-wrap">
             <div class="col-left">
@@ -105,7 +106,7 @@
             </div>
         </div>
         @endforeach
-
+        @endif
     </div>
 </div>
 <div class="side-panel right" data-panel-id="orderPanel">
