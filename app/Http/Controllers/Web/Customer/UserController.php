@@ -194,7 +194,6 @@ class UserController extends Controller
 
         $orders = new order;
         $order_data = $orders->allUserOrderPastData($user->id);
-        dd($order_data);
         foreach($order_data as $order){
             $order->ordered_menu = json_decode($order->ordered_menu);
         }
