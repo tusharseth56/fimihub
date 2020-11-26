@@ -161,8 +161,8 @@ class OrderController extends Controller
 
     public function validateUpdateStatus() {
         return Validator::make(request()->all(), array(
-            'order_status' => 'required|integer|in:1,2,3,4,5,6',
-            'order_id' => 'required|integer',
+            'order_status' => 'required|numeric|in:1,2,3,4,5,6',
+            'order_id' => 'required|numeric',
             'reason_id' => 'nullable|required_if:order_status,6|nullable',
             'order_comment' => 'nullable|required_if:order_status,6|string',
             'payment_type' => 'nullable|required_if:order_status,5|numeric',

@@ -148,7 +148,7 @@ class order extends Model
                 ->where('visibility', 0)
                 ->where('id', $order_id)
                 ->first();
-            
+
             return $order_data;
         }
         catch (Exception $e) {
@@ -205,6 +205,6 @@ class order extends Model
                 ->orderBy('orders.created_at','DESC');
 
         return $menu_list;
-    
+
     }
 }
