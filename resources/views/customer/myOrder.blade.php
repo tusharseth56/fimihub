@@ -93,7 +93,7 @@
                 <div class="btn-grp">
                     <a href="#" class="btn btn-purple">Reorder</a>
                     <a href="#" class="btn btn-purple">Help</a>
-                    <a href="{{url('/trackOrder')}}{{'?odr_id='}}{{base64_encode($order->id)}}"
+                    <a href="{{url('/trackOrder')}}{{'?odr_id='}}{{base64_encode($c_order->id)}}"
                         class="btn btn-purple">Track</a>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 <span class="status on-way">ETA: 10 Mins <img
                         src="{{url('asset/customer/assets/images/delivered.svg')}}" alt="delivered"></span>
                 <!-- <a href="#" class="show-sidepanel" id="orderPanel">View Details</a> -->
-                <span class="amt">Total Paid: {{$user_data->currency ?? '$'}} {{$order->total_amount ?? ''}}</span>
+                <span class="amt">Total Paid: {{$user_data->currency ?? '$'}} {{$c_order->total_amount ?? ''}}</span>
             </div>
         </div>
         @endforeach
