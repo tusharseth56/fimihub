@@ -37,6 +37,7 @@ class LoginRegisterController extends Controller
             $user_insert_data['name'] = $data['name'];
             $user_insert_data['password'] = $data['password'];
             $user_insert_data['country_code'] = $data['country_code'];
+            $user_insert_data['email'] = $data['email'];
             $user_insert_data['user_type']=2;
 
             $user = User::create($user_insert_data);

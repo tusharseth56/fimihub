@@ -98,4 +98,10 @@ class OrderEvent extends Model
 
         return $query_data;
     }
+    
+    public function reason()
+    {
+        return $this->belongsTo(Reason::class);
+
+    }
 }

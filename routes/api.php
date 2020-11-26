@@ -61,6 +61,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::get('/markasread/{id?}', 'Api\NotificationController@markAsRead');
         // get reasons
         Route::get('/getreasons/{id}', 'Api\CmsController@getReasons');
+        // get Service Category
+        Route::get('/getservicecategory/{id?}', 'Api\ServiceCategoryController@getServiceCategory');
 
     });
 
@@ -69,6 +71,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::get('/testingnotification', 'Api\Rider\OrderController@testingNotification');
         Route::get('/getorders/{id?}/{type?}', 'Api\Rider\OrderController@getOrders');
         Route::get('/getmypreviusorder/{id?}', 'Api\Rider\OrderController@getMyPreviusOrders');
+        Route::get('/getactiveorder/{id?}', 'Api\Rider\OrderController@getActiveOrder');
         Route::post('/updatestatus', 'Api\Rider\OrderController@updateEventOrderStatus');
         Route::get('/getmyearning/{id?}', 'Api\Rider\MyEarningController@getMyEarning');
         Route::post('/getmyearningbyweekmonthyear', 'Api\Rider\MyEarningController@getMyEarningByWeekMonthYear');
