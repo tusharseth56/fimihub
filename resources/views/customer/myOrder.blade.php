@@ -81,6 +81,8 @@
                         <span class="order-id">ORDER ID - {{$c_order->order_id ?? '--'}} |
                             {{date('D, M d, Y, h:i A', strtotime($c_order->created_at))}} </span>
                         <span class="qty">
+                            @if($c_order->ordered_menu != NULL)
+
                             @foreach($c_order->ordered_menu as $ordered_menu)
                             @if($loop->iteration == 1)
                             {{$ordered_menu->name}} x {{$ordered_menu->quantity}}
@@ -88,6 +90,7 @@
                             /{{$ordered_menu->name}} x {{$ordered_menu->quantity}}
                             @endif
                             @endforeach
+                            @endif
                         </span>
                     </div>
                 </div>
