@@ -80,7 +80,7 @@
                             <h4>Bill Details</h4>
                             <div class="total_item pb-1">
                                 <span>Item Total</span>
-                                <span>{{$user_data->currency ?? ''}} <span
+                                <span><span
                                         id="item_count">{{$item ?? '0'}}</span></span>
                             </div>
                             @if($resto_data->discount != 0 || $resto_data->discount != Null)

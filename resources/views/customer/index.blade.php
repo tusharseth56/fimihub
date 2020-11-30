@@ -121,7 +121,7 @@
                 </a>
             </div>
             <div class="col-wrap">
-                <a href="./food-order.html">
+                <a href="{{url('/home')}}">
                     <div class="inner-wrap">
                         <div class="icon">
                             <img src="{{url('asset/customer/assets/images/food.svg')}}" alt="food">

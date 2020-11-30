@@ -21,7 +21,7 @@
                             @csrf
                             <h4 class="form-header text-uppercase">
                                 <i class="fa fa-cutlery"></i>
-                                Add Dish
+                                Add Category
                             </h4>
                             @if(Session::has('message'))
                             <div class="error" style="text-align:center;">
@@ -88,7 +88,7 @@
                                         <th>About</th>
                                         <th>Discount (%)</th>
                                         <th>Create At</th>
-                                        <th>Action</th>
+                                        <!-- <th>Action</th> -->
 
                                     </tr>
                                 </thead>
@@ -165,12 +165,6 @@ $(document).ready(function() {
                 name: 'created_at'
             },
 
-            {
-                data: 'action',
-                name: 'action',
-                orderable: true,
-                searchable: false
-            },
 
 
         ]

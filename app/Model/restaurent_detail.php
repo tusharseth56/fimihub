@@ -79,4 +79,17 @@ class restaurent_detail extends Model
             dd($e);
         }
     }
+
+    public function getallRestaurant()
+    {
+        try {
+            $restaurent_details=DB::table('restaurent_details')
+                ->where('visibility', 0);
+            
+            return $restaurent_details;
+        }
+        catch (Exception $e) {
+            dd($e);
+        }
+    }
 }

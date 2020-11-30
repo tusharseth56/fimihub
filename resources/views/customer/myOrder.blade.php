@@ -26,6 +26,7 @@
                         <span class="order-id">ORDER ID - {{$order->order_id ?? '--'}} |
                             {{date('D, M d, Y, h:i A', strtotime($order->created_at))}} </span>
                         <span class="qty">
+                            @if($order->ordered_menu != NULL)
                             @foreach($order->ordered_menu as $ordered_menu)
                             @if($loop->iteration == 1)
                             {{$ordered_menu->name}} x {{$ordered_menu->quantity}}
@@ -33,6 +34,8 @@
                             /{{$ordered_menu->name}} x {{$ordered_menu->quantity}}
                             @endif
                             @endforeach
+                            @endif
+
                         </span>
                     </div>
                 </div>
@@ -45,6 +48,7 @@
             </div>
             <div class="col-right">
                 <span class="status">
+
                     @if(in_array($order->order_status , array(1,2,4,8)))
                     Failed
                     @elseif($order->order_status == 9)
@@ -82,7 +86,6 @@
                             {{date('D, M d, Y, h:i A', strtotime($c_order->created_at))}} </span>
                         <span class="qty">
                             @if($c_order->ordered_menu != NULL)
-
                             @foreach($c_order->ordered_menu as $ordered_menu)
                             @if($loop->iteration == 1)
                             {{$ordered_menu->name}} x {{$ordered_menu->quantity}}

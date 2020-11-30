@@ -63,7 +63,7 @@
                     <h3>Our Most Popular Restaurant</h3>
                     <h5>Fresh Food Gurantee</h5>
                 </div>
-                <span class="filter-btn show-sidepanel" id="filterPanel">Filter</span>
+                <!-- <span class="filter-btn show-sidepanel" id="filterPanel">Filter</span> -->
             </div>
             <div class="row-wrap">
                 @foreach($resto_data as $r_data)
