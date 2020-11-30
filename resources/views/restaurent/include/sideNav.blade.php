@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Fimihub - Restaurent</title>
+    <title>Fimihub - Restaurant</title>
     <!--favicon-->
     <link rel="icon" href="{{url('asset/customer/assets/images/logo.png')}}">
 
@@ -60,7 +60,7 @@
                 </li>
                 <li>
                     <a href="#" class="waves-effect">
-                        <i class="fa fa-cutlery"></i> <span>Restaurent </span> <i
+                        <i class="fa fa-cutlery"></i> <span>Restaurant </span> <i
                             class="fa fa-angle-right pull-right"></i>
                     </a>
                     <ul class="sidebar-submenu">

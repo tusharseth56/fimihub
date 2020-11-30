@@ -145,8 +145,14 @@ class OrderController extends Controller
                 $add_order['delivery_fee'] = $cart_avail->delivery_fee;
                 $add_order['tax'] = $cart_avail->tax;
                 $add_order['order_status'] = 3;
-                $add_order['payment_status'] = 1;
                 $add_order['payment_type'] = request('payment');
+                if($add_order['payment_type'] == 3){
+                    $add_order['payment_status'] = 2;
+
+                }else{
+                    $add_order['payment_status'] = 1;
+
+                }
                 $make_order_id = $orders->makeOrder($add_order);
                 $order_id = base64_encode($make_order_id);
                 $cart_delete = $cart->deleteCart($user->id);

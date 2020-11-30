@@ -66,6 +66,18 @@ class user_address extends Model
         return $query_data;
     }
 
+    public function deleteAddress($data)
+    {
+        $data['deleted_at'] = now();
+        unset($data['_token']);
+
+        $query_data = DB::table('user_address')
+            ->where('id', $data['id'])
+            ->update(['visibility'=> 2]);
+
+        return $query_data;
+    }
+
     public function userDetails()
     {
         return $this->belongsTo('App\User', 'user_id',);

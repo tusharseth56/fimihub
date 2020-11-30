@@ -79,7 +79,7 @@
                         <a href="#" class="btn btn-purple"><img src="{{url('asset/customer/assets/images/check.svg')}}"
                                 alt=""> NonVeg Only</a>
                     </div>
-                    <span class="filter-btn show-sidepanel" id="filterPanel">Filter</span>
+                    <span class="filter-btn show-sidepanel" id="filterPanel">Apply Filter</span>
                 </div>
 
                 @foreach($menu_cat as $m_cat)

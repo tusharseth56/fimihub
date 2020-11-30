@@ -98,6 +98,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('subtractMenuItem', 'Web\Customer\CartController@removeFromCart');
          //Add default address
          Route::get('addDefaultAddress', 'Web\Customer\AddressController@addToDefault');
+         //Delete address
+         Route::get('deleteAddress', 'Web\Customer\AddressController@deleteAddress');
          //Checkout Page -- Payment Page 
          Route::get('checkoutPage', 'Web\Customer\OrderController@getPaymentPage');
          //Add Payment Method
@@ -149,6 +151,12 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('rejectOrder', 'Web\Restaurent\OrderController@rejectOrder');
          //Packed Customer Order
          Route::get('packedOrder', 'Web\Restaurent\OrderController@packedOrder');
+         //Delete Dish
+         Route::get('deleteDish', 'Web\Restaurent\RestaurentController@deleteMenuList');
+         //Edit Dish
+         Route::get('editDish', 'Web\Restaurent\RestaurentController@editMenu');
+         //Edit Dish Prcoess
+         Route::post('editDishProcess', 'Web\Restaurent\RestaurentController@editMenuProcess');
          
       });
 
@@ -181,17 +189,19 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          // Admin Dasboard
          Route::get('dashboard', 'Web\Admin\DashboardController@dashboardDetails');
 
-         // Admin User List
-         Route::get('restaurentList', 'Web\Admin\RestaurentController@RestaurentListDetails');
+         // Admin Restaurant List
+         Route::get('retaurantList', 'Web\Admin\RestaurentController@RestaurentListDetails');
+         // User List
+         Route::get('userList', 'Web\Admin\UserController@userListDetails');
          // Add Restaurent page
-         Route::get('addRestaurent', 'Web\Admin\RestaurentController@RestaurentListDetails');
+         Route::get('addRestaurent', 'Web\Admin\RestaurentController@addRestaurent');
          // Add Restaurent page Process
          Route::post('addRestaurent', 'Web\Admin\RestaurentController@addRestaurentProcess');
          // Menu Category
          Route::get('menuCategory', 'Web\Admin\RestaurentController@categoryDetails');
          // Menu Category update or insert
          Route::post('addCategory', 'Web\Admin\RestaurentController@addCategoryProcess');
-         
+        
       });
 
 });

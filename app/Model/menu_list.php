@@ -70,7 +70,7 @@ class menu_list extends Model
         ->join('menu_categories as mc', 'mc.id', '=', 'menu_list.menu_category_id')
         ->where('menu_list.visibility', 0)
         ->where('menu_list.id', $data)
-        ->select('menu_list.*','mc.name as cat_name','mc.discount as cat_discount')
+        ->select('menu_list.*','mc.name as cat_name','mc.discount as cat_discount','mc.id as cat_id')
         ->orderBy('cat_name')
         ->first();
         
@@ -133,5 +133,28 @@ class menu_list extends Model
     
     }
 
+    public function deleteMenu($data)
+    {
+        $data['deleted_at'] = now();
+        unset($data['_token']);
+
+        $query_data = DB::table('menu_list')
+            ->where('id', $data['id'])
+            ->update(['visibility'=> 2]);
+
+        return $query_data;
+    }
+
+    public function editMenu($data)
+    {
+        $data['updated_at'] = now();
+        unset($data['_token']);
+
+        $query_data = DB::table('menu_list')
+            ->where('id', $data['id'])
+            ->update($data);
+
+        return $query_data;
+    }
     
 }
