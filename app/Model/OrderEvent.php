@@ -76,7 +76,7 @@ class OrderEvent extends Model
     {
         $value=DB::table('order_events')->where('user_id', $data['user_id'])
                                     ->where('order_id', $data['order_id'])
-                                    ->where('user_type', 1)
+                                    ->where('user_type', 2)
                                     ->get();
         if($value->count() == 0)
         {
@@ -94,7 +94,7 @@ class OrderEvent extends Model
             $query_data = DB::table('order_events')
                         ->where('user_id', $data['user_id'])
                         ->where('order_id', $data['order_id'])
-                        ->where('user_type', 1)
+                        ->where('user_type', 2)
                         ->update($data);
         }
 
