@@ -46,7 +46,7 @@ class OrderEvent extends Model
 
     public function updateStatus($orderId, $data) {
         $id = Auth::id();
-        $orderEvent = $this->where('order_id', $orderId)->where('user_id', $id)->first();
+        $orderEvent = $this->where('order_id', $orderId)->where('user_type', 1)->where('user_id', $id)->first();
         if(empty($orderEvent)) {
             $orderEvent = $this->create($data);
         } else {
@@ -60,7 +60,7 @@ class OrderEvent extends Model
 
     public function orderAlreadyAssigned($orderId) {
         $userId = Auth::id();
-        return $this->where('order_id', $orderId)->where('user_id', '!=', $userId);
+        return $this->where('order_id', $orderId)->where('user_type', 1)->where('user_id', '!=', $userId);
     }
 
     public function makeOrderEvent($data)
@@ -76,6 +76,7 @@ class OrderEvent extends Model
     {
         $value=DB::table('order_events')->where('user_id', $data['user_id'])
                                     ->where('order_id', $data['order_id'])
+                                    ->where('user_type', 1)
                                     ->get();
         if($value->count() == 0)
         {
@@ -93,12 +94,13 @@ class OrderEvent extends Model
             $query_data = DB::table('order_events')
                         ->where('user_id', $data['user_id'])
                         ->where('order_id', $data['order_id'])
+                        ->where('user_type', 1)
                         ->update($data);
         }
 
         return $query_data;
     }
-    
+
     public function reason()
     {
         return $this->belongsTo(Reason::class);
