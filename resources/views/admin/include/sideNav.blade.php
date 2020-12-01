@@ -75,11 +75,17 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="{{url('adminfimihub/serviceList')}}" class="waves-effect">
+                        <i class="icon-home"></i> <span>Services</span>
+
+                    </a>
+                </li>
+                <!-- <li>
                     <a href="{{url('adminfimihub/userList')}}" class="waves-effect">
                         <i class="icon-home"></i> <span>User List</span>
 
                     </a>
-                </li>
+                </li> -->
                 <!-- <li>
                     <a href="#" class="waves-effect">
                         <i class="icon-notebook"></i> <span>Voucher </span> <i class="fa fa-angle-right pull-right"></i>

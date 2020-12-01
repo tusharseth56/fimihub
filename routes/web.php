@@ -201,6 +201,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('menuCategory', 'Web\Admin\RestaurentController@categoryDetails');
          // Menu Category update or insert
          Route::post('addCategory', 'Web\Admin\RestaurentController@addCategoryProcess');
+         // Service List
+         Route::get('serviceList', 'Web\Admin\ServiceController@serviceListDetails');
         
       });
 
