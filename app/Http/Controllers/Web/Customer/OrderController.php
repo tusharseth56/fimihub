@@ -12,6 +12,7 @@ use App\Model\user_address;
 use App\Model\cart_submenu;
 use App\Model\menu_list;
 use App\Model\order;
+use App\Model\ServiceCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -61,7 +62,13 @@ class OrderController extends Controller
                 if($cart_menu_data != NULL){
                     $total_amount=0;
                     $item=0;
+                   
                     foreach($cart_menu_data as $m_data){
+                        $ServiceCategories = new ServiceCategory;
+                        $service_data = $ServiceCategories->getServiceById(1);
+                        $percentage = $service_data->commission;
+                        $m_data->price = $m_data->price + round(($percentage / 100) * $m_data->price);
+
                         if($m_data->quantity != NULL){
                             $item = $item + $m_data->quantity;
                             $total_amount = $total_amount + ($m_data->quantity * $m_data->price);
@@ -123,6 +130,10 @@ class OrderController extends Controller
                 $resto_data = $restaurent_detail->getRestoDataOnId($cart_avail->restaurent_id);
 
                 foreach($cart_menu_data as $m_data){
+                    $ServiceCategories = new ServiceCategory;
+                    $service_data = $ServiceCategories->getServiceById(1);
+                    $percentage = $service_data->commission;
+                    $m_data->price = $m_data->price + round(($percentage / 100) * $m_data->price);
                     if($m_data->quantity != NULL){
                         $item = $item + $m_data->quantity;
                         $total_amount = $total_amount + ($m_data->quantity * $m_data->price);
@@ -183,6 +194,7 @@ class OrderController extends Controller
         $menu_data = array();
         $item= 0;
         foreach($menu_order as $m_data){
+            
             $menu_list = new menu_list;
             $menu_data_list = $menu_list->orderMenuListById($m_data->id);
             $item = $item + $m_data->quantity;
@@ -194,7 +206,7 @@ class OrderController extends Controller
         $resto_data->delivery_fee = $order_data->delivery_fee;
         $cart = new cart;
         $cart_data = $cart->getCartData($order_data->id);
-
+// if($menu_data->order_status )
         if($order_data != NULL){
             return view('customer.trackOrder')->with(['user_data'=>$user,
                                                     'order_data' => $order_data,

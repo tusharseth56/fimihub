@@ -191,8 +191,6 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
          // Admin Restaurant List
          Route::get('retaurantList', 'Web\Admin\RestaurentController@RestaurentListDetails');
-         // User List
-         Route::get('userList', 'Web\Admin\UserController@userListDetails');
          // Add Restaurent page
          Route::get('addRestaurent', 'Web\Admin\RestaurentController@addRestaurent');
          // Add Restaurent page Process
@@ -203,6 +201,10 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::post('addCategory', 'Web\Admin\RestaurentController@addCategoryProcess');
          // Service List
          Route::get('serviceList', 'Web\Admin\ServiceController@serviceListDetails');
+         // Edit Service
+         Route::get('editService', 'Web\Admin\ServiceController@editService');
+         // Edit Service Process
+         Route::post('editServiceProcess', 'Web\Admin\ServiceController@editServiceProcess');
         
       });
 

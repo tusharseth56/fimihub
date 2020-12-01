@@ -11,6 +11,7 @@ use App\Model\restaurent_detail;
 use App\Model\user_address;
 use App\Model\cart_submenu;
 use App\Model\menu_list;
+use App\Model\ServiceCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -53,6 +54,11 @@ class CartController extends Controller
                 $total_amount=0;
             $item=0;
             foreach($cart_menu_data as $m_data){
+                $ServiceCategories = new ServiceCategory;
+                $service_data = $ServiceCategories->getServiceById(1);
+                $percentage = $service_data->commission;
+                $m_data->price = $m_data->price + round(($percentage / 100) * $m_data->price);
+
                 if($m_data->quantity != NULL){
                     $item = $item + $m_data->quantity;
                     $total_amount = $total_amount + ($m_data->quantity * $m_data->price);
@@ -143,6 +149,10 @@ class CartController extends Controller
                 $total_amount=0;
                 $item=0;
                 foreach($menu_data as $m_data){
+                    $ServiceCategories = new ServiceCategory;
+                    $service_data = $ServiceCategories->getServiceById(1);
+                    $percentage = $service_data->commission;
+                    $m_data->price = $m_data->price + round(($percentage / 100) * $m_data->price);
                     if($m_data->quantity != NULL){
                         $item = $item + $m_data->quantity;
                         $total_amount = $total_amount + ($m_data->quantity * $m_data->price);
@@ -222,6 +232,11 @@ class CartController extends Controller
                     $total_amount=0;
                     $item=0;
                     foreach($menu_data as $m_data){
+                        $ServiceCategories = new ServiceCategory;
+                        $service_data = $ServiceCategories->getServiceById(1);
+                        $percentage = $service_data->commission;
+                        $m_data->price = $m_data->price + round(($percentage / 100) * $m_data->price);
+                        
                         if($m_data->quantity != NULL){
                             $item = $item + $m_data->quantity;
                             $total_amount = $total_amount + ($m_data->quantity * $m_data->price);
@@ -245,6 +260,11 @@ class CartController extends Controller
                     $total_amount=0;
                     $item=0;
                     foreach($menu_data as $m_data){
+                        $ServiceCategories = new ServiceCategory;
+                        $service_data = $ServiceCategories->getServiceById(1);
+                        $percentage = $service_data->commission;
+                        $m_data->price = $m_data->price + round(($percentage / 100) * $m_data->price);
+
                         if($m_data->quantity != NULL){
                             $item = $item + $m_data->quantity;
                             $total_amount = $total_amount + ($m_data->quantity * $m_data->price);
