@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Model\restaurent_detail;
 use App\Model\menu_categories;
+use App\Model\ServiceCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -98,6 +99,17 @@ class RestaurentController extends Controller
                 //         <a href="?id='.base64_encode($row->id).'" class="btn btn-outline-danger btn-sm btn-round waves-effect waves-light m-0">Delete</a>';
                 //     return $btn;
                 // })
+                ->addColumn('service_catagory_id', function($row){
+                    if($row->service_catagory_id == 1){
+                        return "Food";
+                    }
+                    elseif($row->service_catagory_id == 2){
+                        return "Grocery";
+                    }
+                    elseif($row->service_catagory_id == 3){
+                        return "Electronics";
+                    }
+                })
                 ->addColumn('created_at', function($row){
                     
                     return date('d F Y', strtotime($row->created_at));
@@ -107,16 +119,19 @@ class RestaurentController extends Controller
                 
         }
         $user['currency']=$this->currency;
+        $ServiceCategories = new ServiceCategory;
+        $service_list = $ServiceCategories->getAllServices()->get();
         $cat_data = $cat_data->get();
-        return view('admin.menuCategory')->with(['data'=>$user,'cat_data'=>$cat_data]);
+        return view('admin.menuCategory')->with(['data'=>$user,'cat_data'=>$cat_data,'service_list'=>$service_list]);
         
     }
 
     public function addCategoryProcess(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|nullable|unique:menu_categories,name',
+            'name' => 'required|string',
             'about' => 'string|nullable',
+            'service_catagory_id' => 'required|in:1,2,3',
             'discount' => 'numeric|nullable',       
             
         ]);
@@ -125,7 +140,6 @@ class RestaurentController extends Controller
             
             $data = $request->toarray();
             $menu_categories = new menu_categories;
-        
             $cate_id = $menu_categories->makeMenuCategory($data);
             Session::flash('message', 'Category Added Successfully!');
 
