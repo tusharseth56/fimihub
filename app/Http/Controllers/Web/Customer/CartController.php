@@ -70,7 +70,7 @@ class CartController extends Controller
             $service_data = $ServiceCategories->getServiceById(1);
             $service_tax = round(($service_data->tax / 100) * $total_amount) ;
             $service_data->service_tax = $service_tax;
-
+            $sub_total = $total_amount;
             $total_amount = ($total_amount - $resto_data->discount) + $resto_data->delivery_charge + $resto_data->tax + $service_tax;
             $user['currency']=$this->currency;
             return view('customer.cartAddress')->with(['user_data'=>$user,
@@ -78,6 +78,7 @@ class CartController extends Controller
                                                 'total_amount'=>$total_amount,
                                                 'item'=>$item,
                                                 'service_data'=>$service_data,
+                                                'sub_total'=>$sub_total,
                                                 'resto_data'=>$resto_data,
                                                 'user_address'=>$user_add
                                                 ]);
@@ -169,10 +170,13 @@ class CartController extends Controller
                 $service_data = $ServiceCategories->getServiceById(1);
                 $service_tax = round(($service_data->tax / 100) * $total_amount) ;
                 $service_data->service_tax = $service_tax;
-
+                $sub_total = $total_amount;
+                $total_amount = ($total_amount - $resto_data->discount) + $resto_data->delivery_charge + $resto_data->tax;
+            
                 $response = ['quantity'=>$cart_sub_menu->quantity,
                             'items'=>$item,
                             'service_data'=>$service_data,
+                            'sub_total'=>$sub_total,
                             'total_amount' => $total_amount];
 
                 return ($response);
@@ -258,10 +262,14 @@ class CartController extends Controller
                     $service_data = $ServiceCategories->getServiceById(1);
                     $service_tax = round(($service_data->tax / 100) * $total_amount) ;
                     $service_data->service_tax = $service_tax;
-
+                    $sub_total = $total_amount;
+                    $total_amount = ($total_amount - $resto_data->discount) + $resto_data->delivery_charge + $resto_data->tax ;
+            
+                    
                     $response = ['quantity'=>0,
                                 'items'=>$item,
                                 'service_data'=>$service_data,
+                                'sub_total'=>$sub_total,
                                 'total_amount' => $total_amount];
 
                     return $response;
@@ -292,10 +300,13 @@ class CartController extends Controller
                     $service_data = $ServiceCategories->getServiceById(1);
                     $service_tax = round(($service_data->tax / 100) * $total_amount) ;
                     $service_data->service_tax = $service_tax;
-
+                    $sub_total = $total_amount;
+                    $total_amount = ($total_amount - $resto_data->discount) + $resto_data->delivery_charge + $resto_data->tax;
+                    
                     $response = ['quantity'=>$cart_sub_menu->quantity,
                                 'items'=>$item,
                                 'service_data'=>$service_data,
+                                'sub_total'=>$sub_total,
                                 'total_amount' => $total_amount];
 
                     return ($response);
