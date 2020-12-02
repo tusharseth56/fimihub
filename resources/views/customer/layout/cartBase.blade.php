@@ -101,7 +101,7 @@
                             @endif
                             @if($service_data->service_tax != 0 || $service_data->service_tax != Null)
                             <div class="partner_fee" >
-                                <span>Service Tax ({{$service_data->tax}} %)&nbsp;&nbsp;<img
+                                <span> Tax ({{$service_data->tax}} %)&nbsp;&nbsp;<img
                                         src="{{url('asset/customer/assets/images/info_icon.svg')}}" alt="info"></span>
                                 <span >{{$user_data->currency ?? ''}} <span id="service_tax">{{$service_data->service_tax ?? '0'}}</span></span>
                             </div>

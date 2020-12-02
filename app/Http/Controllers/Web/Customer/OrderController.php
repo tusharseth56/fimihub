@@ -229,7 +229,7 @@ class OrderController extends Controller
         $service_data = json_decode($service_data);
         $service_tax = $order_data->total_amount -$total_cart_value ;
         $service_data->service_tax = $service_tax;
-
+        $user['currency']=$this->currency;
         if($order_data != NULL){
             return view('customer.trackOrder')->with(['user_data'=>$user,
                                                     'order_data' => $order_data,
