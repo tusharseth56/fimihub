@@ -94,15 +94,22 @@
 
                             @if($resto_data->tax != 0 || $resto_data->tax != Null)
                             <div class="partner_fee">
-                                <span>Taxes and Charges &nbsp;&nbsp;<img
+                                <span>Restaurant Tax &nbsp;&nbsp;<img
                                         src="{{url('asset/customer/assets/images/info_icon.svg')}}" alt="info"></span>
                                 <span>{{$user_data->currency ?? ''}} {{$resto_data->tax ?? '0'}}</span>
+                            </div>
+                            @endif
+                            @if($service_data->service_tax != 0 || $service_data->service_tax != Null)
+                            <div class="partner_fee" >
+                                <span>Service Tax ({{$service_data->tax}} %)&nbsp;&nbsp;<img
+                                        src="{{url('asset/customer/assets/images/info_icon.svg')}}" alt="info"></span>
+                                <span >{{$user_data->currency ?? ''}} <span id="service_tax">{{$service_data->service_tax ?? '0'}}</span></span>
                             </div>
                             @endif
                             <div class="charges_tax">
                                 <span>Delivery partner fee <img
                                         src="{{url('asset/customer/assets/images/info_icon.svg')}}" alt="info"></span>
-                                <span>{{$user_data->currency ?? ''}} {{$resto_data->delivery_charge ?? '0'}}</span>
+                                <span>{{$user_data->currency ?? ''}} <span>{{$resto_data->delivery_charge ?? '0'}}</span></span>
                             </div>
                         </div>
                         <input type="hidden" class="input-quantity" id="input-quantity"
@@ -139,6 +146,8 @@ function increment_quantity(menu_id) {
     var inputQuantityElement = $("#input-quantity-" + menu_decode_id);
     var item_count = $("#item_count");
     var total_amount = $("#total_amount");
+    var service_tax = $("#service_tax");
+
 
     $.ajax({
         url: "addMenuItem",
@@ -148,9 +157,11 @@ function increment_quantity(menu_id) {
             $("#loading-overlay").show();
         },
         success: function(response) {
+            $total_amnt = response.total_amount + response.service_data.service_tax;
             $(inputQuantityElement).val(response.quantity);
             $(item_count).html(response.items);
-            $(total_amount).html(response.total_amount);
+            $(total_amount).html($total_amnt);
+            $(service_tax).html(response.service_data.service_tax);
             $("#loading-overlay").hide();
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -166,6 +177,7 @@ function decrement_quantity(menu_id) {
     var inputQuantityElement = $("#input-quantity-" + menu_decode_id);
     var item_count = $("#item_count");
     var total_amount = $("#total_amount");
+    var service_tax = $("#service_tax");
 
     $.ajax({
         url: "subtractMenuItem",
@@ -175,9 +187,11 @@ function decrement_quantity(menu_id) {
             $("#loading-overlay").show();
         },
         success: function(response) {
+            $total_amnt = response.total_amount + response.service_data.service_tax;
             $(inputQuantityElement).val(response.quantity);
             $(item_count).html(response.items);
-            $(total_amount).html(response.total_amount);
+            $(total_amount).html($total_amnt);
+            $(service_tax).html(response.service_data.service_tax);
             $("#loading-overlay").hide();
         },
         error: function(jqXHR, textStatus, errorThrown) {

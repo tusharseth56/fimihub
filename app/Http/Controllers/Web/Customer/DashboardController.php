@@ -46,4 +46,33 @@ class DashboardController extends Controller
         	return redirect()->back()->withInput()->withErrors($validator);  
         }
     }
+
+    public function partnerRegister(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:150',
+            'password' => 'required|confirmed|string|min:6',
+            'mobile' => 'required|numeric|unique:users|digits:10',
+            'email' => 'email|unique:users|nullable',
+        ]);
+        if(!$validator->fails()){
+            $data=$request->toArray();
+            $data['user_type']=4;
+            $data['visibility']=1;
+            $user = User::create($data);
+                if($user != NULL){
+                
+                    Session::flash('message', 'Request Sent Succesfully !'); 
+                    return redirect()->back();
+                    
+                }else{
+                    Session::flash('message', 'Request Not Sent , Please try again!'); 
+                    return redirect()->back();
+                }
+            
+        }
+        else{
+        	return redirect()->back()->withInput()->withErrors($validator);  
+        }
+    }
 }

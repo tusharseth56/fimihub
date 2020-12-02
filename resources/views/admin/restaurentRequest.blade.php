@@ -15,16 +15,17 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header"><i class="fa fa-table"></i> Service List</div>
+                    <div class="card-header"><i class="fa fa-table"></i> New Request List</div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="example" class="table table-bordered">
                                 <thead>
                                     <tr>
+                                        <!-- <th>S.no</th> -->
                                         <th>S.No.</th>
-                                        <th>Service Name</th>
-                                        <th>Commission (in %)</th>
-                                        <th>Tax (in %)</th>
+                                        <th>Properietor Name</th>
+                                        <th>Email</th>
+                                        <th>Contact Number</th>
                                         <th>Create At</th>
                                         <th>Action</th>
 
@@ -73,7 +74,7 @@
             paging: true,
             dom: 'lBfrtip',
             buttons: ['copy', 'excel', 'pdf', 'print'],
-            ajax: "{{url('adminfimihub/serviceList')}}",
+            ajax: "{{url('adminfimihub/pendingRetaurant')}}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'id'
@@ -83,13 +84,14 @@
                     name: 'name'
                 },
                 {
-                    data: 'commission',
-                    name: 'commission'
+                    data: 'email',
+                    name: 'email'
                 },
                 {
-                    data: 'tax',
-                    name: 'tax'
+                    data: 'mobile',
+                    name: 'mobile'
                 },
+
                 {
                     data: 'created_at',
                     name: 'created_at'
@@ -100,7 +102,6 @@
                     orderable: true,
                     searchable: false
                 },
-                
 
 
             ]

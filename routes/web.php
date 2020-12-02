@@ -34,6 +34,12 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
       Route::get('/register', function () {
          return view('customer.auth.register');
       });
+      // Partner with us page
+      Route::get('/partnerWithUs', function () {
+         return view('customer.auth.partnerRegister');
+      });
+      // Partner with us Process
+      Route::post('/partnerRegisterProcess', 'Web\Customer\DashboardController@partnerRegister');
       // Customer Login Process
       Route::post('/loginProcess', 'Web\Customer\LoginRegisterController@login');
       // Customer Register Process
@@ -205,6 +211,10 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('editService', 'Web\Admin\ServiceController@editService');
          // Edit Service Process
          Route::post('editServiceProcess', 'Web\Admin\ServiceController@editServiceProcess');
+         // Pending Restaurent Partner Requests
+         Route::get('pendingRetaurant', 'Web\Admin\RestaurentController@pendingRetaurant');
+         // Approve Pending Restaurent Partner Requests
+         Route::get('approveResto', 'Web\Admin\RestaurentController@approveRetaurant');
         
       });
 

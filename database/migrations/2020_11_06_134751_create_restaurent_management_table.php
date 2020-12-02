@@ -52,6 +52,7 @@ class CreateRestaurentManagementTable extends Migration
             //rest attributes
             $table->string('name');
             $table->decimal('commission', 8, 2)->nullable();
+            $table->decimal('tax', 8, 2)->nullable();
             $table->tinyInteger('listing_order')->nullable();
             $table->tinyInteger('visibility')->default('0');
             $table->timestamp('deleted_at', 0)->nullable();

@@ -81,6 +81,8 @@ class CreateOrdersTable extends Migration
             $table->json('ordered_menu')->nullable();
             $table->string('mobile')->nullable();
             $table->decimal('total_amount', 8, 2)->nullable();
+            $table->decimal('service_tax', 8, 2)->nullable();
+            $table->decimal('service_commission', 8, 2)->nullable();
             $table->decimal('delivery_fee', 8, 2)->nullable();
             $table->decimal('tax', 8, 2)->nullable();
 
