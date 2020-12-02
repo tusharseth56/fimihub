@@ -48,6 +48,17 @@
                                 </div>
 
                             </div>
+                            <div class="form-group row">
+                                <label for="input-1" class="col-sm-3 col-form-label">Tax (in %)</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="input-1" name="tax"
+                                        value="{{$service_data->tax ?? ''}}">
+                                    @if($errors->has('tax'))
+                                    <div class="error">{{ $errors->first('tax') }}</div>
+                                    @endif
+                                </div>
+
+                            </div>
                             
                             <div class="form-footer">
                                 <input type="submit" class="btn btn-primary" value="Update"></input>

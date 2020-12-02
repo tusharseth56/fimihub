@@ -15,8 +15,7 @@ class RestaurentAuth
      */
     public function handle($request, Closure $next)
     {
-        if(!$request->session()->exists('restaurent')){
-            
+        if(!$request->session()->exists('restaurent')){         
             // user value cannot be found in session
             Session::flash('message', 'Please Login First!'); 
             return redirect('Restaurent/login');
@@ -24,6 +23,11 @@ class RestaurentAuth
         elseif(session('restaurent')->user_type !=4){
             
             Session::flash('message', 'User Type Invalid !'); 
+            return redirect('Restaurent/login');
+        }
+        elseif(session('restaurent')->visibility ==1){
+            
+            Session::flash('message', 'Account Not Activated , Admin Approval Needed !'); 
             return redirect('Restaurent/login');
         }
         elseif(session('restaurent')->mobile_verified_at ==NULL){

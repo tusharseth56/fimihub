@@ -74,13 +74,18 @@ class OrderController extends Controller
                             $total_amount = $total_amount + ($m_data->quantity * $m_data->price);
                         }
                     }
+                    $ServiceCategories = new ServiceCategory;
+                    $service_data = $ServiceCategories->getServiceById(1);
+                    $service_tax = round(($service_data->tax / 100) * $total_amount) ;
+                    $service_data->service_tax = $service_tax;
                     //add delivery charge and tax in total amount
-                    $total_amount = ($total_amount - $resto_data->discount) + $resto_data->delivery_charge + $resto_data->tax;
+                    $total_amount = ($total_amount - $resto_data->discount) + $resto_data->delivery_charge + $resto_data->tax + $service_tax;
                     $user['currency']=$this->currency;
                     return view('customer.cartPayment')->with(['user_data'=>$user,
                                                     'menu_data'=>$cart_menu_data,
                                                     'total_amount'=>$total_amount,
                                                     'item'=>$item,
+                                                    'service_data'=>$service_data,
                                                     'resto_data'=>$resto_data,
                                                     'user_address'=>$user_add
                                                     ]);
@@ -140,7 +145,12 @@ class OrderController extends Controller
                     }
                 }
                 //add delivery charge and tax in total amount
-                $total_amount = ($total_amount - $resto_data->discount) + $resto_data->delivery_charge + $resto_data->tax;
+                $ServiceCategories = new ServiceCategory;
+                $service_data = $ServiceCategories->getServiceById(1);
+                $service_tax = round(($service_data->tax / 100) * $total_amount) ;
+                $service_data->service_tax = $service_tax;
+
+                $total_amount = ($total_amount - $resto_data->discount) + $resto_data->delivery_charge + $resto_data->tax + $service_tax;
                 $user['currency']=$this->currency;
 
                 $orders = new order;
@@ -154,6 +164,8 @@ class OrderController extends Controller
                 $add_order['mobile'] =  $user->mobile;
                 $add_order['total_amount'] = $total_amount;
                 $add_order['delivery_fee'] = $cart_avail->delivery_fee;
+                $add_order['service_tax'] = $service_data->tax;
+                $add_order['service_commission'] = $service_data->commission;
                 $add_order['tax'] = $cart_avail->tax;
                 $add_order['order_status'] = 3;
                 $add_order['payment_type'] = request('payment');
@@ -193,12 +205,15 @@ class OrderController extends Controller
 
         $menu_data = array();
         $item= 0;
+        $total_cart_value=0;
         foreach($menu_order as $m_data){
-            
+                    
             $menu_list = new menu_list;
             $menu_data_list = $menu_list->orderMenuListById($m_data->id);
             $item = $item + $m_data->quantity;
             $menu_data_list->quantity = $m_data->quantity;
+            $menu_data_list->price = $m_data->price;
+            $total_cart_value = $total_cart_value + $m_data->price * $m_data->quantity;
             $menu_data[] = $menu_data_list;
         }
         $restaurent_detail = new restaurent_detail;
@@ -206,12 +221,21 @@ class OrderController extends Controller
         $resto_data->delivery_fee = $order_data->delivery_fee;
         $cart = new cart;
         $cart_data = $cart->getCartData($order_data->id);
-// if($menu_data->order_status )
+
+        $service_data =array();             
+        $service_data['tax'] = $order_data->service_tax;
+        $service_data['commission'] = $order_data->service_commission;
+        $service_data = json_encode($service_data);
+        $service_data = json_decode($service_data);
+        $service_tax = $order_data->total_amount -$total_cart_value ;
+        $service_data->service_tax = $service_tax;
+
         if($order_data != NULL){
             return view('customer.trackOrder')->with(['user_data'=>$user,
                                                     'order_data' => $order_data,
                                                     'menu_data' => $menu_data,
                                                     'resto_data' => $resto_data,
+                                                    'service_data' => $service_data,
                                                     'total_amount'=>$order_data->total_amount,
                                                     'item'=>$item
             ]);

@@ -61,6 +61,7 @@ class ServiceController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:150',
             'commission' => 'numeric|max:100.00',
+            'tax' => 'numeric|max:100.00',
             
         ]);
         if(!$validator->fails()){

@@ -92,11 +92,11 @@
                         <li></li>
                         @else
                         <li>
-                            <a href="#">Partner with us</a>
+                            <a href="{{url('partnerWithUs')}}">Partner with us</a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="#">Ride with us</a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="{{url('cart')}}" class="icon-link">
                                 <img src="{{url('asset/customer/assets/images/cart.svg')}}" alt="cart">
