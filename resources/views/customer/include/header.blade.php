@@ -92,7 +92,7 @@
                         <li></li>
                         @else
                         <li>
-                            <a href="{{url('partnerWithUs')}}">Partner with us</a>
+                            <a href="{{url('partnerWithUs')}}">Sell with us</a>
                         </li>
                         <!-- <li>
                             <a href="#">Ride with us</a>
