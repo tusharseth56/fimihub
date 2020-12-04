@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Fimihub - Restaurent</title>
+    <title>Fimihub - Restaurant</title>
     <!--favicon-->
     <link rel="icon" href="{{url('asset/customer/assets/images/logo.png')}}">
     <!-- Bootstrap core CSS-->

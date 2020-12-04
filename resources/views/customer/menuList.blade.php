@@ -79,7 +79,7 @@
                         <a href="#" class="btn btn-purple"><img src="{{url('asset/customer/assets/images/check.svg')}}"
                                 alt=""> NonVeg Only</a>
                     </div>
-                    <span class="filter-btn show-sidepanel" id="filterPanel">Filter</span>
+                    <span class="filter-btn show-sidepanel" id="filterPanel">Apply Filter</span>
                 </div>
 
                 @foreach($menu_cat as $m_cat)
@@ -115,7 +115,7 @@
                     value="{{base64_encode($resto_data->id)}}">
 
 
-                <div class="cart-block" @if($total_amount !=0) style="display:flex;" @endif>
+                <div class="cart-block" id="cart_flex" @if($total_amount !=0) style="display:flex;" @endif>
                     <div class="col-left">
                         <h4>
                             <span class="totalItems" id="item_count">{{$item ?? '0'}}</span> Items
@@ -140,6 +140,7 @@ function increment_quantity(menu_id) {
     var inputQuantityElement = $("#input-quantity-" + menu_decode_id);
     var item_count = $("#item_count");
     var total_amount = $("#total_amount");
+    var cart_flex = document.getElementById('cart_flex');
 
     $.ajax({
         url: "addMenuItem",
@@ -149,9 +150,16 @@ function increment_quantity(menu_id) {
             $("#loading-overlay").show();
         },
         success: function(response) {
+
+            if(response.items >0){
+                cart_flex.style.display = 'flex';
+            }else{
+                cart_flex.style.display = 'none';
+
+            }
             $(inputQuantityElement).html(response.quantity);
             $(item_count).html(response.items);
-            $(total_amount).html(response.total_amount);
+            $(total_amount).html(response.sub_total);
             $("#loading-overlay").hide();
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -167,6 +175,7 @@ function decrement_quantity(menu_id) {
     var inputQuantityElement = $("#input-quantity-" + menu_decode_id);
     var item_count = $("#item_count");
     var total_amount = $("#total_amount");
+    var cart_flex = document.getElementById('cart_flex');
 
     $.ajax({
         url: "subtractMenuItem",
@@ -176,9 +185,15 @@ function decrement_quantity(menu_id) {
             $("#loading-overlay").show();
         },
         success: function(response) {
+
+            if(response.items >0){
+                cart_flex.style.display = 'flex';
+            }else{
+                cart_flex.style.display = 'none';
+            }
             $(inputQuantityElement).html(response.quantity);
             $(item_count).html(response.items);
-            $(total_amount).html(response.total_amount);
+            $(total_amount).html(response.sub_total);
             $("#loading-overlay").hide();
         },
         error: function(jqXHR, textStatus, errorThrown) {

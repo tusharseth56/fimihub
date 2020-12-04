@@ -18,7 +18,12 @@ class OrderEvent extends Model
      * 5. Delivered
      * 6. Rejected
      */
-
+    /**
+     * ============ Restaurent status ================
+     * 1. Accept
+     * 2. Reject
+     * 3. Packed
+     */
     /**
      * The attributes that are mass assignable.
      *
@@ -41,7 +46,7 @@ class OrderEvent extends Model
 
     public function updateStatus($orderId, $data) {
         $id = Auth::id();
-        $orderEvent = $this->where('order_id', $orderId)->where('user_id', $id)->first();
+        $orderEvent = $this->where('order_id', $orderId)->where('user_type', 1)->where('user_id', $id)->first();
         if(empty($orderEvent)) {
             $orderEvent = $this->create($data);
         } else {
@@ -55,11 +60,50 @@ class OrderEvent extends Model
 
     public function orderAlreadyAssigned($orderId) {
         $userId = Auth::id();
-        return $this->where('order_id', $orderId)->where('user_id', '!=', $userId);
+        return $this->where('order_id', $orderId)->where('user_type', 1)->where('user_id', '!=', $userId);
+    }
+
+    public function makeOrderEvent($data)
+    {
+        $data['updated_at'] = now();
+        $data['created_at'] = now();
+        unset($data['_token']);
+        $query_data = DB::table('order_events')->insertGetId($data);
+        return $query_data;
+    }
+
+    public function makeUpdateOrderEvent($data)
+    {
+        $value=DB::table('order_events')->where('user_id', $data['user_id'])
+                                    ->where('order_id', $data['order_id'])
+                                    ->where('user_type', 2)
+                                    ->get();
+        if($value->count() == 0)
+        {
+            $data['updated_at'] = now();
+            $data['created_at'] = now();
+            unset($data['_token']);
+            $query_data = DB::table('order_events')->insert($data);
+            $query_type="insert";
+
+        }
+        else
+        {
+            $data['updated_at'] = now();
+            unset($data['_token']);
+            $query_data = DB::table('order_events')
+                        ->where('user_id', $data['user_id'])
+                        ->where('order_id', $data['order_id'])
+                        ->where('user_type', 2)
+                        ->update($data);
+        }
+
+        return $query_data;
     }
 
     public function reason()
     {
         return $this->belongsTo(Reason::class);
+
     }
 }

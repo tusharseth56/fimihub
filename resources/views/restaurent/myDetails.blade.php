@@ -15,7 +15,7 @@
                             @csrf
                             <h4 class="form-header text-uppercase">
                                 <i class="fa fa-info-circle"></i>
-                                Restaurent Details
+                                Restaurant Details
                             </h4>
                             @if(Session::has('message'))
                             <div class="error" style="text-align:center;">
@@ -24,7 +24,7 @@
 
                             @endif
                             <div class="form-group row">
-                                <label for="input-1" class="col-sm-2 col-form-label">Restaurent Picture</label>
+                                <label for="input-1" class="col-sm-2 col-form-label">Restaurant Picture</label>
                                 <div class="col-sm-10">
                                     <input type="file" class="form-control" id="input-1" name="picture">
                                     @if($errors->has('picture'))
@@ -34,7 +34,7 @@
 
                             </div>
                             <div class="form-group row">
-                                <label for="input-1" class="col-sm-2 col-form-label">Restaurent Name</label>
+                                <label for="input-1" class="col-sm-2 col-form-label">Restaurant Name</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="input-1" name="name"
                                         value="{{$resto_data->name ?? ''}}">
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="input-4" class="col-sm-2 col-form-label">Restaurent Type</label>
+                                <label for="input-4" class="col-sm-2 col-form-label">Restaurant Type</label>
                                 <div class="demo-checkbox ml-4">
                                     <input type="radio" id="user-checkbox" class="filled-in chk-col-primary" value="2"
                                         name="resto_type" @if(isset($resto_data->resto_type))

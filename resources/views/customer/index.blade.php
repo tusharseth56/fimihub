@@ -121,7 +121,7 @@
                 </a>
             </div>
             <div class="col-wrap">
-                <a href="./food-order.html">
+                <a href="{{url('/home')}}">
                     <div class="inner-wrap">
                         <div class="icon">
                             <img src="{{url('asset/customer/assets/images/food.svg')}}" alt="food">
@@ -189,7 +189,7 @@
                     <div class="content-wrap">
                         <h4>Become a Fimihub Partner</h4>
                         <p>List your business on the fastest growing hyperlocal delivery service</p>
-                        <a href="#" class="btn btn-white">Know More</a>
+                        <a href="{{url('partnerWithUs')}}" class="btn btn-white">Know More</a>
                     </div>
                 </div>
             </div>
@@ -203,7 +203,7 @@
                     <div class="content-wrap">
                         <h4>Sell on Fimihub</h4>
                         <p>List your business on the fastest growing hyperlocal delivery service</p>
-                        <a href="#" class="btn btn-white">Know More</a>
+                        <a href="{{url('partnerWithUs')}}" class="btn btn-white">Know More</a>
                     </div>
                 </div>
             </div>

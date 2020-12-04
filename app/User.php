@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'mobile','status','user_type','role','permission','verification_code','country_code','device_token'
+        'name', 'email', 'password', 'mobile','status','user_type','role','permission','verification_code','country_code','device_token','visibility'
     ];
 
     /**
@@ -28,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','permission','status','visibility','created_at','deleted_at','updated_at'
+        'password', 'remember_token','permission','status','created_at','deleted_at','updated_at'
     ];
 
     /**
@@ -161,4 +161,31 @@ class User extends Authenticatable
         }
     }
 
+    public function pendingUserPaginateList($user_type)
+    {
+        try {
+            $user_data=DB::table('users')
+                ->where('visibility', 1)
+                ->where('user_type', $user_type)
+                ->orderBy('created_at','DESC');
+            
+            
+            return $user_data;
+        }
+        catch (Exception $e) {
+            dd($e);
+        }
+    }
+
+    public function requestApprove($id)
+    {
+        $data['updated_at'] = now();
+        unset($data['_token']);
+
+        $query_data = DB::table('users')
+            ->where('id', $id)
+            ->update(['visibility'=>0]);
+
+        return $query_data;
+    }
 }

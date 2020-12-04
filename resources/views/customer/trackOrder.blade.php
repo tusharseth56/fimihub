@@ -19,10 +19,10 @@
             <div class="row">
                 <div class="col-md-9">
                     <ul class="order_track_step">
-                        <li class="{{ $order_data->order_status >=5 ? 'active' : ''}}"><span></span> Order placed</li>
-                        <li class="{{ $order_data->order_status >=6 ? 'active' : ''}}"><span></span> Order packed</li>
-                        <li class="{{ $order_data->order_status >=7 ? 'active' : ''}}"><span></span> Order has been picked by Brushe soe</li>
-                        <li class="{{ $order_data->order_status >=9 ? 'active' : ''}} m-0"><span></span> Order recieved</li>
+                        <li class="{{ in_array($order_data->order_status,array(5,6,7,8,9,10,11,12)) ? 'active' : ''}}"><span></span> Order placed</li>
+                        <li class="{{ in_array($order_data->order_status,array(6,7,8,9,10,11,12)) ? 'active' : ''}}"><span></span> Order packed</li>
+                        <li class="{{ in_array($order_data->order_status,array(7,8,9,10,11,12)) ? 'active' : ''}}"><span></span> Order has been picked by Brushe soe</li>
+                        <li class="{{ in_array($order_data->order_status,array(9,10)) ? 'active' : ''}} m-0"><span></span> Order delivered</li>
                     </ul>
                 </div>
                 <div class="col-md-3">

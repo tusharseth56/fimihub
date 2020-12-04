@@ -34,6 +34,12 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
       Route::get('/register', function () {
          return view('customer.auth.register');
       });
+      // Partner with us page
+      Route::get('/partnerWithUs', function () {
+         return view('customer.auth.partnerRegister');
+      });
+      // Partner with us Process
+      Route::post('/partnerRegisterProcess', 'Web\Customer\DashboardController@partnerRegister');
       // Customer Login Process
       Route::post('/loginProcess', 'Web\Customer\LoginRegisterController@login');
       // Customer Register Process
@@ -98,6 +104,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::get('subtractMenuItem', 'Web\Customer\CartController@removeFromCart');
          //Add default address
          Route::get('addDefaultAddress', 'Web\Customer\AddressController@addToDefault');
+         //Delete address
+         Route::get('deleteAddress', 'Web\Customer\AddressController@deleteAddress');
          //Checkout Page -- Payment Page 
          Route::get('checkoutPage', 'Web\Customer\OrderController@getPaymentPage');
          //Add Payment Method
@@ -143,6 +151,18 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          Route::post('addMenu', 'Web\Restaurent\RestaurentController@menuListProcess');
          // Customer Order List
          Route::get('customerOrder', 'Web\Restaurent\OrderController@getCustomerOrderList');
+         //Accept Customer Order
+         Route::get('acceptOrder', 'Web\Restaurent\OrderController@acceptOrder');
+         //Reject Customer Order
+         Route::get('rejectOrder', 'Web\Restaurent\OrderController@rejectOrder');
+         //Packed Customer Order
+         Route::get('packedOrder', 'Web\Restaurent\OrderController@packedOrder');
+         //Delete Dish
+         Route::get('deleteDish', 'Web\Restaurent\RestaurentController@deleteMenuList');
+         //Edit Dish
+         Route::get('editDish', 'Web\Restaurent\RestaurentController@editMenu');
+         //Edit Dish Prcoess
+         Route::post('editDishProcess', 'Web\Restaurent\RestaurentController@editMenuProcess');
          
       });
 
@@ -175,17 +195,27 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
          // Admin Dasboard
          Route::get('dashboard', 'Web\Admin\DashboardController@dashboardDetails');
 
-         // Admin User List
-         Route::get('restaurentList', 'Web\Admin\RestaurentController@RestaurentListDetails');
+         // Admin Restaurant List
+         Route::get('retaurantList', 'Web\Admin\RestaurentController@RestaurentListDetails');
          // Add Restaurent page
-         Route::get('addRestaurent', 'Web\Admin\RestaurentController@RestaurentListDetails');
+         Route::get('addRestaurent', 'Web\Admin\RestaurentController@addRestaurent');
          // Add Restaurent page Process
          Route::post('addRestaurent', 'Web\Admin\RestaurentController@addRestaurentProcess');
          // Menu Category
          Route::get('menuCategory', 'Web\Admin\RestaurentController@categoryDetails');
          // Menu Category update or insert
          Route::post('addCategory', 'Web\Admin\RestaurentController@addCategoryProcess');
-         
+         // Service List
+         Route::get('serviceList', 'Web\Admin\ServiceController@serviceListDetails');
+         // Edit Service
+         Route::get('editService', 'Web\Admin\ServiceController@editService');
+         // Edit Service Process
+         Route::post('editServiceProcess', 'Web\Admin\ServiceController@editServiceProcess');
+         // Pending Restaurent Partner Requests
+         Route::get('pendingRetaurant', 'Web\Admin\RestaurentController@pendingRetaurant');
+         // Approve Pending Restaurent Partner Requests
+         Route::get('approveResto', 'Web\Admin\RestaurentController@approveRetaurant');
+        
       });
 
 });

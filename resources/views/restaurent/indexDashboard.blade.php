@@ -14,7 +14,7 @@
                         <div class="media">
                             <div class="media-body text-left">
                                 <h4 class="text-white">{{$data->user_count}}</h4>
-                                <span class="text-white">Total Users</span>
+                                <span class="text-white">Total Order's</span>
                             </div>
                             <div class="align-self-center w-circle-icon rounded-circle bg-contrast">
                                 <i class="icon-people text-white"></i>
@@ -29,7 +29,7 @@
                         <div class="media">
                             <div class="media-body text-left">
                                 <h4 class="text-white">{{$data->merchant_count}}</h4>
-                                <span class="text-white">Total Merchants</span>
+                                <span class="text-white">Pending Order's</span>
                             </div>
                             <div class="align-self-center w-circle-icon rounded-circle bg-contrast">
                                 <i class="icon-user-following text-white"></i>
@@ -58,8 +58,8 @@
                     <div class="card-body">
                         <div class="media">
                             <div class="media-body text-left">
-                                <h4 class="text-white">8400</h4>
-                                <span class="text-white">Total categories</span>
+                                <h4 class="text-white">11</h4>
+                                <span class="text-white">Total Dish</span>
                             </div>
                             <div class="align-self-center w-circle-icon rounded-circle bg-contrast">
                                 <i class="icon-user text-white"></i>
@@ -73,7 +73,7 @@
 
 
         <div class="row">
-            <div class="col-12 col-lg-4 col-xl-4">
+            <!-- <div class="col-12 col-lg-4 col-xl-4">
                 <div class="card bg-pattern-dark">
                     <div class="card-header bg-transparent text-white border-light">
                         Last Week Revenue
@@ -98,7 +98,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-4 col-xl-4">
+            <div class="col-12 col-lg-8 col-xl-8">
                 <div class="card bg-pattern-dark">
                     <div class="card-header bg-transparent text-white border-light">
                         Orders Summary
@@ -122,8 +122,8 @@
                         <canvas id="dashboard-chart-4" height="240"></canvas>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-lg-4 col-xl-4">
+            </div> -->
+            <!-- <div class="col-12 col-lg-4 col-xl-4">
                 <div class="card bg-pattern-dark">
                     <div class="card-header bg-transparent text-white border-light">
                         Top Selling Categories
@@ -147,7 +147,7 @@
                         <canvas id="dashboard-chart-5" height="240"></canvas>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!--End Row-->
 

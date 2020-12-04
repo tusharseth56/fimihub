@@ -58,7 +58,10 @@ class OrderController extends Controller
             // }))
             ->paginate(10);
         }
+        if(isset($order->ordered_menu)){
+            $order->ordered_menu = json_decode($order->ordered_menu);
 
+        }
         return response()->json(['data' => $order, 'message' => 'Success', 'status' => true], $this->successStatus);
     }
 

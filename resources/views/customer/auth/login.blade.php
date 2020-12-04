@@ -118,7 +118,7 @@
 
                 </div>
                 <div class="modal_body_content text-center otp_verification">
-                    <p>Please enter the One Time Password received on your registered mobile number or email to verify
+                    <p>Please enter the One Time Password received on your registered mobile number to verify
                         your account.</p>
 
                     <h3>VERIFY YOUR ACCOUNT</h3>
@@ -210,7 +210,7 @@
 
                 </div>
                 <div class="modal_body_content text-center otp_verification">
-                    <p>Please enter the One Time Password received on your registered mobile number or email to verify
+                    <p>Please enter the One Time Password received on your registered mobile number to verify
                         your account.</p>
 
                     <h3>VERIFY YOUR ACCOUNT</h3>

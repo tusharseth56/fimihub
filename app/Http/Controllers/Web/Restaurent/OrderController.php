@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Model\restaurent_detail;
 use App\Model\order;
+use App\Model\OrderEvent;
 use Response;
 use Session;
 use DataTables;
@@ -33,8 +34,17 @@ class OrderController extends Controller
             return Datatables::of($order_data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<a href="userDetails?id='.base64_encode($row->id).'" class="btn btn-outline-dark btn-sm btn-round waves-effect waves-light m-0">Details</a> 
-                        <a href="?id='.base64_encode($row->id).'" class="btn btn-outline-danger btn-sm btn-round waves-effect waves-light m-0">Block</a>';
+                    if($row->order_status == 5){
+                        $btn = '<a href="packedOrder?odr_id='.base64_encode($row->id).'" class="btn btn-outline-danger btn-sm btn-round waves-effect waves-light m-0">Paceked</a>';
+                    }
+                    elseif($row->order_status == 3){
+                        $btn = '<a href="acceptOrder?odr_id='.base64_encode($row->id).'" class="btn btn-outline-dark btn-sm btn-round waves-effect waves-light m-0">Accept</a> 
+                        <a href="rejectOrder?odr_id='.base64_encode($row->id).'" class="btn btn-outline-danger btn-sm btn-round waves-effect waves-light m-0">Reject</a>';
+                    
+                    }
+                    else{
+                        $btn = "N.A";
+                    }
                     return $btn;
                 })
                 ->addColumn('created_at', function($row){         
@@ -93,7 +103,6 @@ class OrderController extends Controller
                         }
                         else{
                             $order_menu .= "/(".$ordered_menu->name." x ".$ordered_menu->quantity.")";
-
                         }
                         $loop_count += 1; 
                     }      
@@ -106,5 +115,65 @@ class OrderController extends Controller
         $order_data = $order_data->get();
         // dd($order_data);
         return view('restaurent.customerOrder')->with(['data'=>$user,'order_data'=>$order_data]);
+    }
+
+    public function acceptOrder(Request $request)
+    {
+        $user = Auth::user();
+
+        $order_id = base64_decode(request('odr_id'));
+        $order_status = 5;
+        $orders = new order;
+        $order_status_update = $orders->updateOrderStatus($order_id,$order_status);
+
+        $order_event = array();
+        $order_event['order_id']=$order_id;
+        $order_event['user_id']=$user->id;
+        $order_event['order_status']=1;
+        $order_event['user_type']=2;
+        $OrderEvents = new OrderEvent;
+        $make_event = $OrderEvents->makeUpdateOrderEvent($order_event);
+
+        return redirect()->back();
+    }
+
+    public function rejectOrder(Request $request)
+    {
+        $user = Auth::user();
+
+        $order_id = base64_decode(request('odr_id'));
+        $order_status = 4;
+        $orders = new order;
+        $order_status_update = $orders->updateOrderStatus($order_id,$order_status);
+
+        $order_event = array();
+        $order_event['order_id']=$order_id;
+        $order_event['user_id']=$user->id;
+        $order_event['order_status']=2;
+        $order_event['user_type']=2;
+        $OrderEvents = new OrderEvent;
+        $make_event = $OrderEvents->makeUpdateOrderEvent($order_event);
+
+        return redirect()->back();
+    }
+
+    public function packedOrder(Request $request)
+    {
+        $user = Auth::user();
+
+        $order_id = base64_decode(request('odr_id'));
+        $order_status = 6;
+        $orders = new order;
+        $order_status_update = $orders->updateOrderStatus($order_id,$order_status);
+
+        $order_event = array();
+        $order_event['order_id']=$order_id;
+        $order_event['user_id']=$user->id;
+        $order_event['order_status']=3;
+        $order_event['user_type']=2;
+        $OrderEvents = new OrderEvent;
+        $make_event = $OrderEvents->makeUpdateOrderEvent($order_event);
+
+        return redirect()->back();
     }
 }
