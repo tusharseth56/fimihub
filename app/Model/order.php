@@ -68,6 +68,7 @@ class order extends Model
             $query = $this->where('orders.id', $orderId)
             ->leftjoin('order_events as oe', 'orders.id', '=', 'oe.order_id')
             ->where('oe.user_id', Auth::id())
+
             ->select('orders.*');
         } else {
             $query = $this->leftjoin('order_events as oe',function($query){
@@ -95,15 +96,16 @@ class order extends Model
             ->where('oe.user_id', Auth::id())
             ->select('orders.*');
         } else {
-            $query = $this->where(function($query) {
-                $query->orWhere('orders.order_status', 8)
-                ->orWhere('orders.order_status', 9);
-            })
+            $query = $this
             ->rightjoin('order_events as oe',function($query) {
                 $query->on('orders.id', '=', 'oe.order_id')
                 ->where('oe.user_type', 1);
             })->select('orders.*')
             ->where('oe.user_id', Auth::id())
+            ->where(function($query) {
+                $query->orWhere('orders.order_status', 8)
+                ->orWhere('orders.order_status', 9);
+            })
             ->orderBy('orders.order_id', 'DESC')->groupBy('orders.id');
         }
         return $query;
@@ -130,7 +132,7 @@ class order extends Model
     }
     public function orderEvent()
     {
-        return $this->hasOne(OrderEvent::class, 'order_id');
+        return $this->hasOne(OrderEvent::class, 'order_id')->where('user_type', 1);
     }
 
     public function updateStatus($orderId, $status){
