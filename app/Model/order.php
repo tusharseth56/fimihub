@@ -26,8 +26,6 @@ class order extends Model
      * 8-rider_cancel
      * 9-received
      * 10-refunded
-     * 11-assigned to rider
-     * 12-rider on the way
      */
     public function makeOrder($data)
     {
