@@ -128,15 +128,15 @@ class OrderController extends Controller
             $this->orderEvent->updateStatus($orderId, $data);
         } else if($orderStatus == 4) { //  On the way
             $this->orderEvent->updateStatus($orderId, $data);
-            $this->order->updateStatus($orderId, 12); // 12-rider on the way
+            //$this->order->updateStatus($orderId, 12); // 12-rider on the way
 
         } else if($orderStatus == 3) { // Order Picked Up
             $this->orderEvent->updateStatus($orderId, $data);
-            $this->order->updateStatus($orderId, 7); // 11-assigned to rider
+            $this->order->updateStatus($orderId, 7); // 7-rider picked product
 
         } else if($orderStatus == 1) { // Arriving to store
             $this->orderEvent->updateStatus($orderId, $data);
-            $this->order->updateStatus($orderId, 11); // 11-assigned to rider
+            //$this->order->updateStatus($orderId, 11); // 11-assigned to rider
 
         } else {
             $this->orderEvent->updateStatus($orderId, $data);
@@ -164,8 +164,8 @@ class OrderController extends Controller
 
     public function validateUpdateStatus() {
         return Validator::make(request()->all(), array(
-            'order_status' => 'required|integer|in:1,2,3,4,5,6',
-            'order_id' => 'required|integer',
+            'order_status' => 'required|numeric|in:1,2,3,4,5,6',
+            'order_id' => 'required|numeric',
             'reason_id' => 'nullable|required_if:order_status,6|nullable',
             'order_comment' => 'nullable|required_if:order_status,6|string',
             'payment_type' => 'nullable|required_if:order_status,5|numeric',
