@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 use Response;
 use Mail;
 use Session;
-
+use Twilio\Rest\Client;
 
 trait OtpGenerationTrait {
 
@@ -54,6 +54,8 @@ trait OtpGenerationTrait {
                 return 2;
             }
 
+            
+            
 
         } catch (Exception $e) {
             return response()->json(['custom_error'=> $e->getMessage()], $this->invalidStatus);

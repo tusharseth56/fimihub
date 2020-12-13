@@ -38,7 +38,7 @@
         <!--Start sidebar-wrapper-->
         <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
             <div class="brand-logo">
-                <a href="adminfimihub/dashboard">
+                <a href="{{url('adminfimihub/dashboard')}}">
                     <img src="{{url('asset/customer/assets/images/logo.png')}}" class="logo-icon" alt="logo icon" height="35px"
                         width="25px">
                     <h5 class="logo-text">Fimihub Admin</h5>
@@ -64,16 +64,29 @@
                 </li> -->
                 <li>
                     <a href="#" class="waves-effect">
-                        <i class="icon-user-following"></i> <span>Restaurent </span> <i
+                        <i class="icon-user-following"></i> <span>Restaurant </span> <i
                             class="fa fa-angle-right pull-right"></i>
                     </a>
                     <ul class="sidebar-submenu">
-                        <li><a href="{{url('adminfimihub/addRestaurent')}}"><i class="fa fa-circle-o"></i> Add Restaurent</a></li>
-                        <li><a href="{{url('adminfimihub/restaurentList')}}"><i class="fa fa-circle-o"></i> Restaurent List</a></li>                        
-                        <li><a href="{{url('adminfimihub/menuCategory')}}"><i class="fa fa-circle-o"></i> Category</a></li>
+                        <li><a href="{{url('adminfimihub/addRestaurent')}}"><i class="fa fa-circle-o"></i>Add Restaurant</a></li>
+                        <li><a href="{{url('adminfimihub/retaurantList')}}"><i class="fa fa-circle-o"></i>Restaurant List</a></li>            
+                        <li><a href="{{url('adminfimihub/pendingRetaurant')}}"><i class="fa fa-circle-o"></i>New Request</a></li>
+                        <li><a href="{{url('adminfimihub/menuCategory')}}"><i class="fa fa-circle-o"></i>Category</a></li>
 
                     </ul>
                 </li>
+                <li>
+                    <a href="{{url('adminfimihub/serviceList')}}" class="waves-effect">
+                        <i class="icon-home"></i> <span>Services</span>
+
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="{{url('adminfimihub/userList')}}" class="waves-effect">
+                        <i class="icon-home"></i> <span>User List</span>
+
+                    </a>
+                </li> -->
                 <!-- <li>
                     <a href="#" class="waves-effect">
                         <i class="icon-notebook"></i> <span>Voucher </span> <i class="fa fa-angle-right pull-right"></i>

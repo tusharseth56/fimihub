@@ -21,7 +21,7 @@
                             @csrf
                             <h4 class="form-header text-uppercase">
                                 <i class="fa fa-cutlery"></i>
-                                Add Dish
+                                Add Category
                             </h4>
                             @if(Session::has('message'))
                             <div class="error" style="text-align:center;">
@@ -29,6 +29,22 @@
                             </div>
 
                             @endif
+                            <div class="form-group row">
+                                <label for="input-1" class="col-sm-2 col-form-label">Service</label>
+                                <div class="col-sm-10">
+                                    <select name="service_catagory_id" id="" class="form-control">
+                                        <option value="">-- Select Service --</option>
+                                        @foreach($service_list as $s_data)
+                                        <option value="{{$s_data->id}}">
+                                            {{$s_data->name}}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @if($errors->has('service_catagory_id'))
+                                    <div class="error">{{ $errors->first('service_catagory_id') }}</div>
+                                    @endif
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label for="input-1" class="col-sm-2 col-form-label">Category Name</label>
                                 <div class="col-sm-10">
@@ -86,9 +102,10 @@
                                         <th>S.No.</th>
                                         <th>Category Name</th>
                                         <th>About</th>
+                                        <th>Service</th>
                                         <th>Discount (%)</th>
                                         <th>Create At</th>
-                                        <th>Action</th>
+                                        <!-- <th>Action</th> -->
 
                                     </tr>
                                 </thead>
@@ -156,6 +173,10 @@ $(document).ready(function() {
                 name: 'about'
             },
             {
+                data: 'service_catagory_id',
+                name: 'service_catagory_id'
+            },
+            {
                 data: 'discount',
                 name: 'discount'
             },
@@ -165,12 +186,6 @@ $(document).ready(function() {
                 name: 'created_at'
             },
 
-            {
-                data: 'action',
-                name: 'action',
-                orderable: true,
-                searchable: false
-            },
 
 
         ]

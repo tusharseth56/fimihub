@@ -41,7 +41,9 @@
                         <br>
                         <!-- <span><img src="{{url('asset/customer/assets/images/watch.svg')}}" alt="watch">20 Min</span> -->
                         <div class="addrs_action_btns">
-                            <button type="button" class="btn_purple edit_btn mr-2 hover_effect1">Delete</button>
+                            <a href="{{url('deleteAddress')}}{{'?add_id='}}{{base64_encode($user_add->id)}}" class="f">
+                                <button type="button" class="btn_purple edit_btn mr-2 hover_effect1">Delete</button>
+                            </a>
 
                         </div>
                     </div>
@@ -55,11 +57,14 @@
                         <br>
                         <!-- <span><img src="{{url('asset/customer/assets/images/watch.svg')}}" alt="watch">20 Min</span> -->
                         <div class="addrs_action_btns">
-                            <button type="button" class="btn_purple edit_btn mr-2 hover_effect1">Delete</button>
+                            <a href="{{url('deleteAddress')}}{{'?add_id='}}{{base64_encode($user_add->id)}}" class="f">
+                                <button type="button" class="btn_purple edit_btn mr-2 hover_effect1">Delete</button>
+                            </a>
                             <a href="{{url('addDefaultAddress')}}{{'?add_id='}}{{base64_encode($user_add->id)}}"
                                 class="f">
-                                <button type="button" class="btn_purple deliver_btn hover_effect1">Deliver
-                                    Here</button></a>
+                                <button type="button" class="btn_purple deliver_btn hover_effect1">Set
+                                    Default</button>
+                            </a>
                         </div>
                     </div>
                 </div>

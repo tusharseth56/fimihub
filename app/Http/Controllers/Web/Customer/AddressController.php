@@ -69,4 +69,20 @@ class AddressController extends Controller
             Session::flash('modal_check_subscribe', 'open');
             return redirect()->back();
     }
+
+    public function deleteAddress(Request $request){  
+        $user = Auth::user();
+        $add_id = base64_decode(request('add_id'));
+        
+        $user_address = new user_address;
+        $delete_add = array();
+        $delete_add['user_id'] = $user->id;
+        $delete_add['id'] = $add_id;
+
+        $delete_address = $user_address->deleteAddress($delete_add);
+        Session::flash('modal_message', 'Address Deleted Successfully !');
+
+        Session::flash('modal_check_subscribe', 'open');
+        return redirect()->back();
+    }
 }

@@ -103,7 +103,6 @@ class OrderController extends Controller
                         }
                         else{
                             $order_menu .= "/(".$ordered_menu->name." x ".$ordered_menu->quantity.")";
-
                         }
                         $loop_count += 1; 
                     }      

@@ -222,7 +222,7 @@
             </div>
             <div class="btn-grp">
                 <button type="button" class="btn btn-purple close-sidepanel">Cancel</button>
-                <button type="submit" class="btn btn-purple">Save Address</button>
+                <button type="submit" class="btn btn-purple">Apply Filter</button>
             </div>
         </form>
     </div>

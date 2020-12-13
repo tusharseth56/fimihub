@@ -21,7 +21,8 @@
                             @csrf
                             <h4 class="form-header text-uppercase">
                                 <i class="fa fa-cutlery"></i>
-                                Add Dish
+                                Add Category
+
                             </h4>
                             @if(Session::has('message'))
                             <div class="error" style="text-align:center;">
@@ -29,30 +30,47 @@
                             </div>
 
                             @endif
+                            <script type="text/javascript">
+                            function show(aval) {
+                                if (aval == "-1") { //if -1 then show it
+                                    option_other.style.display = '';
+                                } 
+                                else { //for everything else hide it
+                                    option_other.style.display = 'none';
+                                }
+                            }
+                            </script>
+
                             <div class="form-group row">
+                                <label for="input-1" class="col-sm-2 col-form-label">Category List</label>
+                                <div class="col-sm-10">
+                                    <select name="menu_category_id" id="" class="form-control"
+                                        onchange="java_script_:show(this.options[this.selectedIndex].value)">
+                                        <option value="">-- Select Food Category --</option>
+                                        @foreach($cat_data as $c_data)
+                                        <option value="{{$c_data->id}}">{{$c_data->name}}</option>
+                                        @endforeach
+                                        <option value="-1">Other</option>
+                                    </select>
+
+                                    @if($errors->has('menu_category_id'))
+                                    <div class="error">{{ $errors->first('menu_category_id') }}</div>
+                                    @endif
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row" style="display:none" id="option_other">
                                 <label for="input-1" class="col-sm-2 col-form-label">Category Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="input-1" name="name"
-                                        value="{{old('name')}}">
-                                    @if($errors->has('name'))
-                                    <div class="error">{{ $errors->first('name') }}</div>
+                                    <input type="text" class="form-control" id="input-1" name="cat_name">
+                                    @if($errors->has('cat_name'))
+                                    <div class="error">{{ $errors->first('cat_name') }}</div>
                                     @endif
                                 </div>
 
                             </div>
-
-                            <div class="form-group row">
-                                <label for="input-1" class="col-sm-2 col-form-label">About Category</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="input-1" name="about"
-                                        value="{{old('about')}}">
-                                    @if($errors->has('about'))
-                                    <div class="error">{{ $errors->first('about') }}</div>
-                                    @endif
-                                </div>
-
-                            </div>
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
                                 <label for="input-1" class="col-sm-2 col-form-label">Discount (%)</label>
                                 <div class="col-sm-10">
                                     <input type="number" class="form-control" id="input-1" name="discount"
@@ -62,7 +80,7 @@
                                     @endif
                                 </div>
 
-                            </div>
+                            </div> -->
 
                             <div class="form-footer">
                                 <input type="submit" class="btn btn-primary" value="Save category"></input>
@@ -87,9 +105,8 @@
                                         <th>S.No.</th>
                                         <th>Category Name</th>
                                         <th>About</th>
-                                        <th>Discount (%)</th>
+                                        <!-- <th>Discount (%)</th> -->
                                         <th>Create At</th>
-                                        <th>Action</th>
 
                                     </tr>
                                 </thead>
@@ -156,22 +173,18 @@ $(document).ready(function() {
                 data: 'about',
                 name: 'about'
             },
-            {
-                data: 'discount',
-                name: 'discount'
-            },
 
             {
                 data: 'created_at',
                 name: 'created_at'
             },
 
-            {
-                data: 'action',
-                name: 'action',
-                orderable: true,
-                searchable: false
-            },
+            // {
+            //     data: 'action',
+            //     name: 'action',
+            //     orderable: true,
+            //     searchable: false
+            // },
 
 
         ]

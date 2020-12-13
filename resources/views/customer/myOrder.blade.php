@@ -10,6 +10,7 @@
         <li id="ongoing">On Going</li>
     </ul>
     <div class="tab-content" data-tab-id="past-order">
+        @if($order_data != NULL)
         @foreach($order_data as $order)
         <div class="card-wrap">
 
@@ -25,6 +26,7 @@
                         <span class="order-id">ORDER ID - {{$order->order_id ?? '--'}} |
                             {{date('D, M d, Y, h:i A', strtotime($order->created_at))}} </span>
                         <span class="qty">
+                            @if($order->ordered_menu != NULL)
                             @foreach($order->ordered_menu as $ordered_menu)
                             @if($loop->iteration == 1)
                             {{$ordered_menu->name}} x {{$ordered_menu->quantity}}
@@ -32,6 +34,8 @@
                             /{{$ordered_menu->name}} x {{$ordered_menu->quantity}}
                             @endif
                             @endforeach
+                            @endif
+
                         </span>
                     </div>
                 </div>
@@ -44,6 +48,7 @@
             </div>
             <div class="col-right">
                 <span class="status">
+
                     @if(in_array($order->order_status , array(1,2,4,8)))
                     Failed
                     @elseif($order->order_status == 9)
@@ -61,9 +66,11 @@
         <div class="container" style="display:inline;">
             <center> {{$order_data->links()}}</center>
         </div>
+        @endif
     </div>
 
     <div class="tab-content" data-tab-id="ongoing">
+        @if($current_order_data != NULL)
         @foreach($current_order_data as $c_order)
         <div class="card-wrap">
             <div class="col-left">
@@ -78,6 +85,7 @@
                         <span class="order-id">ORDER ID - {{$c_order->order_id ?? '--'}} |
                             {{date('D, M d, Y, h:i A', strtotime($c_order->created_at))}} </span>
                         <span class="qty">
+                            @if($c_order->ordered_menu != NULL)
                             @foreach($c_order->ordered_menu as $ordered_menu)
                             @if($loop->iteration == 1)
                             {{$ordered_menu->name}} x {{$ordered_menu->quantity}}
@@ -85,13 +93,14 @@
                             /{{$ordered_menu->name}} x {{$ordered_menu->quantity}}
                             @endif
                             @endforeach
+                            @endif
                         </span>
                     </div>
                 </div>
                 <div class="btn-grp">
                     <a href="#" class="btn btn-purple">Reorder</a>
                     <a href="#" class="btn btn-purple">Help</a>
-                    <a href="{{url('/trackOrder')}}{{'?odr_id='}}{{base64_encode($order->id)}}"
+                    <a href="{{url('/trackOrder')}}{{'?odr_id='}}{{base64_encode($c_order->id)}}"
                         class="btn btn-purple">Track</a>
                 </div>
             </div>
@@ -99,11 +108,11 @@
                 <span class="status on-way">ETA: 10 Mins <img
                         src="{{url('asset/customer/assets/images/delivered.svg')}}" alt="delivered"></span>
                 <!-- <a href="#" class="show-sidepanel" id="orderPanel">View Details</a> -->
-                <span class="amt">Total Paid: {{$user_data->currency ?? '$'}} {{$order->total_amount ?? ''}}</span>
+                <span class="amt">Total Paid: {{$user_data->currency ?? '$'}} {{$c_order->total_amount ?? ''}}</span>
             </div>
         </div>
         @endforeach
-
+        @endif
     </div>
 </div>
 <div class="side-panel right" data-panel-id="orderPanel">

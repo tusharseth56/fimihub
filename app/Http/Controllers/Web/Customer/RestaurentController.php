@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Model\restaurent_detail;
 use App\Model\menu_list;
+use App\Model\ServiceCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -31,10 +32,15 @@ class RestaurentController extends Controller
         $quant_details['restaurent_id']=$resto_id;
 
         $menu_data = $menu_list->menuListByQuantity($quant_details);
-        // dd($menu_data);
         $total_amount=0;
         $item=0;
+
         foreach($menu_data as $m_data){
+            $ServiceCategories = new ServiceCategory;
+            $service_data = $ServiceCategories->getServiceById(1);
+            $percentage = $service_data->commission;
+
+            $m_data->price = $m_data->price + (($percentage / 100) * $m_data->price);
             if(!isset($m_data->quantity)){
                 $m_data->quantity=NULL;
             }
@@ -43,6 +49,7 @@ class RestaurentController extends Controller
                 $total_amount = $total_amount + ($m_data->quantity * $m_data->price);
             }
         }
+        // dd($menu_data);
         $menu_cat = $menu_list->menuCategory($resto_id);
         $user['currency']=$this->currency;
         return view('customer.menuList')->with(['user_data'=>$user,

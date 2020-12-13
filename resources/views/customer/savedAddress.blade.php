@@ -23,9 +23,25 @@
                         </div>
                     </div>
                 </div>
-                
+
                 @foreach($user_address as $user_add)
-                <div class="col-md-6">
+                @if($user_add->default_status == 1)
+                <div class="col-md-6 address_pad">
+                    <div class="addrs_box saved_addrs address_border">
+                        <h4>{{$user_data->name}}</h4>
+                        <p>{{$user_add->flat_no ?? ''}} {{$user_add->address ?? ''}}</p>
+                        <p>{{$user_add->landmark ?? ''}}</p>
+                        <br>
+                        <!-- <span><img src="{{url('asset/customer/assets/images/watch.svg')}}" alt="watch">20 Min</span> -->
+                        <div class="addrs_action_btns">
+                            <a href="{{url('deleteAddress')}}{{'?add_id='}}{{base64_encode($user_add->id)}}" class="f">
+                                <button type="button" class="btn_purple edit_btn mr-2 hover_effect1">Delete</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @else
+                <div class="col-md-6 address_pad">
                     <div class="addrs_box saved_addrs">
                         <h4>{{$user_data->name}}</h4>
                         <p>{{$user_add->flat_no ?? ''}} {{$user_add->address ?? ''}}</p>
@@ -33,11 +49,17 @@
                         <br>
                         <!-- <span><img src="{{url('asset/customer/assets/images/watch.svg')}}" alt="watch">20 Min</span> -->
                         <div class="addrs_action_btns">
-                            <button type="button" class="btn_purple edit_btn mr-2 hover_effect1">delete</button>
-                            <button type="button" class="btn_purple deliver_btn hover_effect1">Set Default</button>
+                            <a href="{{url('deleteAddress')}}{{'?add_id='}}{{base64_encode($user_add->id)}}" class="f">
+                                <button type="button" class="btn_purple edit_btn mr-2 hover_effect1">Delete</button>
+                            </a>
+                            <a href="{{url('addDefaultAddress')}}{{'?add_id='}}{{base64_encode($user_add->id)}}"
+                                class="f">
+                                <button type="button" class="btn_purple deliver_btn hover_effect1">Deliver
+                                    Here</button></a>
                         </div>
                     </div>
                 </div>
+                @endif
                 @endforeach
 
             </div>
