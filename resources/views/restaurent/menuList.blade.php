@@ -22,6 +22,11 @@
                             <h4 class="form-header text-uppercase">
                                 <i class="fa fa-cutlery"></i>
                                 Add Dish
+                                <a href="{{url('Restaurent/menuCategory')}}" class="" target="_blank">
+                                <span class="btn btn-danger" style="float: right;">+ Add Food Category</span>
+
+                                </a>
+
                             </h4>
                             @if(Session::has('message'))
                             <div class="error" style="text-align:center;">
